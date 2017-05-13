@@ -1,0 +1,24 @@
+{
+  "name": "npm-demo-pkg",
+  "version": "1.0.0",
+  "description": "A demo package.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bonicim/cs5610-summer-2017.git"
+  },
+  "author": "Mark Bonicillo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bonicim/cs5610-summer-2017/issues"
+  },
+  "homepage": "https://github.com/bonicim/cs5610-summer-2017#readme"
+}
