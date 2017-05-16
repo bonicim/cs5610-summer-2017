@@ -5,7 +5,7 @@ var express = require('express');
 var app = express();
 
 //Server variables
-var ipaddress = '127.0.0.1';
+var ipaddress = '127.0.0.1'; // this is localhost
 var port      = 3000;
 
 //calling some app methods
