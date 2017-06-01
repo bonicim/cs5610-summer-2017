@@ -2,9 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Website-List</title>
+    <!-- Local Bootstrap -->
+    <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap CDN from MaxCDN minified version 3.x -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+    <!-- My custom css file -->
+    <link href="css/mycss.css" rel="stylesheet" />
+
+    <!-- jQuery CDN from MaxCDN minified version 1.x -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <!-- Bootstrap JS minified version 3.x-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- My custom js file -->
+    <script src="js/app.js"></script>
 </head>
 <body>
+
+  <nav class="navbar navbar-fixed-top mc-navbar-bg">
+    <div class="container-fluid">
+      <a class="navbar-text pull-left mc-navbar-icon-leftmost" href="profile.html">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a class="navbar-header navbar-brand mc-navbar-text" href="page-list.html">
+        Websites
+      </a>
+      <a class="navbar-text pull-right mc-navbar-icon-rightmost" href="website-new.html">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <ul class="list-group mc-container-under-navbar">
+      <li class="list-group-item mc-list-item-custom-1">
+        Address Book App
+        <a href="website-edit.html"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+      </li>
+      <li class="list-group-item mc-list-item-custom-1">
+        Blogger
+        <a href="website-edit.html"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+      </li>
+      <li class="list-group-item mc-list-item-custom-1">
+        Blogger App
+        <a href="website-edit.html"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+      </li>
+      <li class="list-group-item mc-list-item-custom-1">
+        Script Testing App
+        <a href="website-edit.html"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+      </li>
+    </ul>
+  </div>
+
+  <nav class="navbar navbar-fixed-bottom mc-navbar-bg">
+    <div class="container-fluid">
+      <a class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost" href="profile.html">
+        <span class="glyphicon glyphicon-user"></span>
+      </a>
+    </div>
+  </nav>
 
 </body>
 </html>
