@@ -4,6 +4,56 @@
 }
 
 
+/* Navigation */
+
+.mc-navbar-bg {
+  background-color: blue;
+}
+
+.mc-navbar-text {
+  color: white;
+  font-weight: bold;
+}
+
+.mc-navbar-ok-icon {
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+/* Forms */
+.mc-form-top {
+  margin-top: 50px;
+  padding-top: 15px
+}
+
+
+.cl-blue-navbar{
+  background-color: #337ab7;
+}
+
+.cl-text-white{
+  color: #fff;
+}
+
+.cl-text-black{
+  color: #000000;
+}
+
+.cl-text-bold{
+  font-weight: bold;
+}
+
+.cl-icon-padding {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+
+
+
 .customContainer {
   width: 600px;
   margin: auto;
