@@ -3,30 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <!-- Bootstrap via CDN-->
-    <!-- crossorigin is a security check; purposesly ignoring security for learning purposes -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="css/mycss.css" rel="stylesheet" />
 
-    <!-- meta files -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+    <!-- My custom css file -->
+    <link href="css/mycss.css" rel="stylesheet" />
 </head>
 <body>
-
-<div class="container-fluid">
-    <h1>Login</h1>
-    <input type="text"
-           class="form-control"
-           placeholder="username"/>
-    <input type="password"
-           class="form-control"
-           placeholder="password"/>
-    <a class="btn btn-primary btn-block"
-       href="profile.html">Login</a>
-    <a class="btn btn-success btn-block"
-       href="register.html">Register</a>
-
-</div>
-
+  <div class="container-fluid">
+      <form>
+        <h1>Login</h1>
+        <input type="text"
+               class="form-control"
+               placeholder="username"/>
+        <input type="password"
+               class="form-control"
+               placeholder="password"/>
+        <a class="btn btn-primary btn-block" href="profile.html">Login</a>
+        <a class="btn btn-success btn-block" href="register.html">Register</a>
+      </form>
+  </div>
 </body>
 </html>
