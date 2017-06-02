@@ -1,11 +1,21 @@
 /* Navigation */
-.mc-navbar-bg {
+.mc-navbar-custom1 {
   background-color: blue;
 }
 
 
-.mc-navbar-text {
+.mc-navbar-custom2 {
+  background-color: white;
+}
+
+
+.mc-navbar-text1 {
   color: white;
+  font-weight: bold;
+}
+
+.mc-navbar-text2 {
+  color: black;
   font-weight: bold;
 }
 
