@@ -1,10 +1,12 @@
 /* Elements */
+
 body {
   overflow-x: hidden;
 }
 
 
 /* Navigation */
+
 .mc-navbar-custom1 {
   background-color: blue;
 }
@@ -39,29 +41,37 @@ body {
 
 
 /* Forms */
+
 .mc-container-under-navbar {
   margin-top: 50px;
   padding-top: 15px
 }
 
+
 .mc-input-icon {
   position: relative;
 }
+
 
 .mc-input-icon-right > i {
   right: 0;
 }
 
+
 .mc-icon-spacing {
   padding-left: 10px
 }
+
+
 /* Unordered List */
+
 .mc-list-item-custom-1 {
   border-top: 0 none;
   border-bottom: 0 none;
   border-left: 0 none;
   border-right: 0 none;
 }
+
 
 /* Images */
 
@@ -85,8 +95,6 @@ body {
   width: 600px;
   margin: auto;
 }
-
-
 
 
 .customRow {
