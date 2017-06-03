@@ -37,6 +37,13 @@
   padding-top: 15px
 }
 
+.mc-input-icon {
+  position: relative;
+}
+
+.mc-input-icon-right > i {
+  right: 0;
+}
 
 /* Unordered List */
 .mc-list-item-custom-1 {
