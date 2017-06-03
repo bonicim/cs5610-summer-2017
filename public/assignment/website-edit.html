@@ -3,23 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Website-Edit</title>
+  <!--<link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />-->
 
-  <!-- Local Bootstrap -->
-  <link href="../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-  <!-- Bootstrap CDN from MaxCDN minified version 3.x -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-
-  <!-- My custom css file -->
+  <!-- Adding Bootstrap and custom CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="css/mycss.css" rel="stylesheet" />
 
-  <!-- jQuery CDN from MaxCDN minified version 1.x -->
-  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-
-  <!-- Bootstrap JS minified version 3.x-->
+  <!-- Adding JQuery and custom JS -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <!-- My custom js file -->
   <script src="js/app.js"></script>
 </head>
 
@@ -43,7 +34,7 @@
           <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
       </div>
-      <div class="col-sm-7">
+      <div class="col-sm-8 col-xs-11">
         <a class="navbar-brand mc-navbar-text1" href="website-new.html">
           Edit Website
         </a>
@@ -75,7 +66,7 @@
         </li>
       </ul>
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-8 col-xs-12">
       <form>
         <div class="form-group mc-container-under-navbar">
           <label for="name">Website Name</label>
@@ -83,7 +74,7 @@
         </div>
         <div class="form-group">
           <label for="description">Website Description</label>
-          <textarea id="description" class="form-control" rows="3" cols="50"
+          <textarea id="description" class="form-control" rows="10" cols="50"
                     placeholder="Sero te amavi, pulchritudo tam antiqua et tam nova, sero te amavi!"></textarea>
         </div>
         <a class="btn btn-danger btn-block" href="website-list.html">
@@ -94,12 +85,15 @@
   </div>
 
   <nav class="navbar navbar-fixed-bottom mc-navbar-custom1">
-    <div class="container-fluid">
-      <a class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost" href="profile.html">
-        <span class="glyphicon glyphicon-user"></span>
-      </a>
+    <div class="row container-fluid">
+      <div class="col-xs-12">
+        <a class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost" href="profile.html">
+          <span class="glyphicon glyphicon-user"></span>
+        </a>
+      </div>
     </div>
   </nav>
+
 </body>
 
 </html>
