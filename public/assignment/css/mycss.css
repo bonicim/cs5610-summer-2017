@@ -91,36 +91,3 @@ body {
 }
 
 
-.customContainer {
-  width: 600px;
-  margin: auto;
-}
-
-
-.customRow {
-  clear: both;
-}
-
-
-.customColumn-6 {
-  width: 300px;
-  float: left;
-}
-
-
-.customColumn-3 {
-  width: 150px;
-  float: left;
-}
-
-
-.customColumn-4 {
-  width: 200px;
-  float: left;
-}
-
-
-.customColumn-1 {
-  width: 50px;
-  float: left;
-}
