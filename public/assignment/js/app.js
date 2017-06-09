@@ -1,3 +1,4 @@
-/**
- * Created by bono on 6/1/17.
- */
+(function(){
+    angular
+        .module("WebAppMaker",[]);
+})();
