@@ -16,6 +16,15 @@
       .when("/user/:uid", {
         templateUrl: "/views/user/profile.view.client.html"
       })
+      .when("/user/:uid/website", {
+        templateUrl: "/views/website/website-list.view.client.html"
+      })
+      .when("/user/:uid/website/new", {
+        templateUrl: "/views/website/website-new.view.client.html"
+      })
+      .when("/user/:uid/website/:wid", {
+        templateUrl: "/views/website/website-edit.view.client.html"
+      })
       .otherwise({
         redirectTo: "/"
       })
