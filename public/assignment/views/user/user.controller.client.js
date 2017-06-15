@@ -11,6 +11,7 @@
     console.log("login check");
 
     function login(username, password) {
+      // TODO: implement this
       // var user = null;
       // user = UserService.findUserByCredential(vm.username, vm.password);
       // if (user) {
@@ -31,6 +32,12 @@
   function RegisterController() {
     var vm = this;
     console.log("register check");
+    vm.register = register;
+
+    // TODO: Implement this
+    function register(username, password, vfyPassword) {
+
+    }
   }
 
   function ProfileController() {
