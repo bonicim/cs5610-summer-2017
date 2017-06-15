@@ -1,22 +1,27 @@
 (function() {
   angular
     .module("WebAppMaker")
-    .config(Config);
-  function Config($routeProvider) {
+    .config(config);
+
+  function config($routeProvider) {
     $routeProvider
       .when("/login", {
-        templateUrl: "/views/user/templates/login.view.client.html",
+        templateUrl: "views/user/templates/login.view.client.html",
         controller: "LoginController",
-        controllerAs: model
+        controllerAs: "model"
       })
       .when("/", {
-        templateUrl: "/views/user/login.view.client.html"
+        templateUrl: "views/user/templates/login.view.client.html"
       })
       .when("/register", {
-        templateUrl: "/views/user/register.view.client.html"
+        templateUrl: "views/user/templates/register.view.client.html",
+        controller: "RegisterController",
+        controllerAs: "model"
       })
       .when("/user/:uid", {
-        templateUrl: "/views/user/profile.view.client.html"
+        templateUrl: "views/user/profile.view.client.html",
+        controller: "ProfileController",
+        controllerAs: "model"
       })
       .when("/user/:uid/website", {
         templateUrl: "/views/website/website-list.view.client.html"
@@ -47,6 +52,6 @@
       })
       .otherwise({
         redirectTo: "/"
-      })
+      });
   }
 })();
