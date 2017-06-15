@@ -10,7 +10,7 @@
     vm.login = login;
     console.log("login check");
 
-    function login() {
+    function login(username, password) {
       // var user = null;
       // user = UserService.findUserByCredential(vm.username, vm.password);
       // if (user) {
@@ -26,17 +26,15 @@
       //
       // $location("#!/register");
     }
-
-
   }
 
   function RegisterController() {
     var vm = this;
-    console.log("login register");
+    console.log("register check");
   }
 
   function ProfileController() {
     var vm = this;
-    console.log("login profile");
+    console.log("profile check");
   }
 })();
