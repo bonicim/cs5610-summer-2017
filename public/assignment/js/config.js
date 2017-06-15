@@ -48,7 +48,7 @@
         templateUrl: "views/widget/templates/widget-chooser.view.client.html"
       })
       .when("/user/:uid/website/:wid/page/:pid/widget/:wgid", {
-        templateUrl: "views/widget/templates/widget-chooser.view.client.html"
+        templateUrl: "views/widget/templates/widget-edit.view.client.html"
       })
       .otherwise({
         redirectTo: "/"
