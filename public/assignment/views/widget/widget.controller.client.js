@@ -18,11 +18,11 @@
   function EditWidgetController($routeParams, WidgetService) {
     var vm = this;
     console.log("Edit Widget check");
-    vm.pageId = $routeParams.pid;
+    vm.websiteId = $routeParams.pid;
     vm.widgets = undefined;
 
     function init() {
-      vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+      vm.widgets = WidgetService.findWidgetsByPageId(vm.websiteId);
     }
     init();
   }

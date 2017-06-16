@@ -25,15 +25,24 @@
 
     }
 
+    // TODO: Verify to check if works
     function findPageByWebsiteId(websiteId) {
-
+      var key;
+      var pagesResult = [];
+      for (key in pages) {
+        var page = pages[key];
+        if (parseInt(page.websiteId) === websiteId) {
+          pagesResult.push(page);
+        }
+      }
+      return pagesResult;
     }
 
     function findPageById(pageId) {
       var key;
       for (key in pages) {
         var page = pages[key];
-        if (parseInt(page._id) === parseInt(pageId)) {
+        if (parseInt(page._id) === parseInt(websiteId)) {
           return page;
         }
       }

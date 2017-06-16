@@ -18,11 +18,11 @@
   function EditPageController($routeParams, PageService) {
     var vm = this;
     console.log("EditPage check");
-    vm.pageId = $routeParams.pid;
-    vm.page = undefined;
+    vm.websiteId = $routeParams.wid;
+    vm.pages = undefined;
 
     function init() {
-      vm.page = PageService.findPageById(vm.pageId);
+      vm.pages = PageService.findPageById(vm.websiteId);
     }
     init();
   }
