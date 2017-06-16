@@ -30,7 +30,14 @@
     }
 
     function findPageById(pageId) {
-
+      var key;
+      for (key in pages) {
+        var page = pages[key];
+        if (parseInt(page._id) === parseInt(pageId)) {
+          return page;
+        }
+      }
+      return null;
     }
 
     function updatePage(pageId, page) {

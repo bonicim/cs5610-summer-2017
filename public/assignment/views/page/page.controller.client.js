@@ -15,9 +15,16 @@
 
   }
 
-  function EditPageController() {
+  function EditPageController($routeParams, PageService) {
     var vm = this;
+    console.log("EditPage check");
+    vm.pageId = $routeParams.pid;
+    vm.page = undefined;
 
+    function init() {
+      vm.page = PageService.findPageById(vm.pageId);
+    }
+    init();
   }
 
 }());
