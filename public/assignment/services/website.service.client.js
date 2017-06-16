@@ -30,7 +30,15 @@
     }
 
     function findWebsitesByUser(userId) {
-
+      var key;
+      var websitesArr= [];
+      for (key in websites) {
+        var websiteActual = websites[key];
+        if (parseInt(websiteActual.developerId) === parseInt(userId)) {
+          websitesArr.push(websiteActual);
+        }
+      }
+      return websitesArr;
     }
 
     function findWebsiteById(websiteId) {

@@ -5,8 +5,15 @@
     .controller("NewWebsiteController", NewWebsiteController)
     .controller("EditWebsiteController", EditWebsiteController);
 
-    function WebsiteListController() {
+    function WebsiteListController($routeParams, WebsiteService) {
       var vm = this;
+      vm.userId = $routeParams.uid;
+      vm.websites = undefined;
+
+      function init() {
+        vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+      }
+      init();
     }
 
     function NewWebsiteController() {
