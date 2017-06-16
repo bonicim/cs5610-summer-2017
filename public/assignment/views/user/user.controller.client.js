@@ -11,21 +11,14 @@
     console.log("login check");
 
     function login(username, password) {
-      // TODO: implement this
-      // var user = null;
-      // user = UserService.findUserByCredential(vm.username, vm.password);
-      // if (user) {
-      //   //locationurl
-      // }
-      // else {
-      //   $location
-      // }
-      // // if user login successful
-      // $location.url("#!/user/" + user.id);
-      //
-      // //else
-      //
-      // $location("#!/register");
+      var user = undefined;
+      user = UserService.findUserByCredentials(username, password);
+      if (user) {
+        $location.url("/user/" + user._id);
+      }
+      else {
+        vm.alert = "Unable to login";
+      }
     }
   }
 

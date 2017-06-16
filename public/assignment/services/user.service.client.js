@@ -39,10 +39,22 @@
 
     function findUserByUsername(username) {
 
+
     }
 
     function findUserByCredentials(username, password) {
-
+      var key = undefined;
+      var userActual = undefined;
+      for (key in users) {
+        userActual = users[key];
+        if ((userActual.username === username) && (userActual.password === password)) {
+          return userActual;
+        }
+        else {
+          userActual = null;
+        }
+      }
+      return userActual;
     }
 
     function updateUser(userId, user) {
