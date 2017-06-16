@@ -14,9 +14,16 @@
 
     }
 
-    function EditWebsiteController() {
+    function EditWebsiteController($routeParams, WebsiteService) {
       var vm = this;
+      console.log("editWebsite check");
+      vm.websiteId = $routeParams.wid;
+      vm.website = undefined;
 
+      function init() {
+        vm.website = WebsiteService.findWebsiteById(vm.websiteId);
+      }
+      init();
     }
 
 }());
