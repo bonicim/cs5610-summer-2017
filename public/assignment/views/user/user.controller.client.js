@@ -40,8 +40,16 @@
     }
   }
 
-  function ProfileController() {
+  function ProfileController($routeParams, UserService) {
     var vm = this;
     console.log("profile check");
+    vm.userId = $routeParams.uid;
+    vm.user = undefined;
+
+    function init() {
+      vm.user = UserService.findUserById(vm.userId);
+    }
+    init();
   }
+
 })();

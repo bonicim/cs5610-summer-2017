@@ -27,7 +27,14 @@
     }
 
     function findUserById(userId) {
-
+      var key;
+      for (key in users) {
+        var userActual = users[key];
+        if(parseInt(userActual._id) === parseInt(userId)) {
+          return userActual;
+        }
+      }
+      return null;
     }
 
     function findUserByUsername(username) {
