@@ -16,6 +16,14 @@
 
 <div class="row container-fluid mc-container-under-navbar mc-container-padding">
   <div class="col-xs-12">
+
+    <!-- TODO: Fix presentation -->
+    <ul class="list-group">
+      <li ng-repeat="widget in model.widgets" class="list-group-item mc-list-item-custom-1">
+        <a>{{widget.widgetType}}</a>
+      </li>
+    </ul>
+
     <div>
       <a href="#" class="pull-right">
         <span class="glyphicon glyphicon-menu-hamburger mc-icon-spacing"></span>

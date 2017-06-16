@@ -15,9 +15,16 @@
 
   }
 
-  function EditWidgetController() {
+  function EditWidgetController($routeParams, WidgetService) {
     var vm = this;
+    console.log("Edit Widget check");
+    vm.pageId = $routeParams.pid;
+    vm.widgets = undefined;
 
+    function init() {
+      vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+    }
+    init();
   }
 
 }());

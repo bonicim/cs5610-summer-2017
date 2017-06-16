@@ -31,8 +31,17 @@
 
     }
 
+    // TODO: Fix and test implementation problem
     function findWidgetsByPageId(pageId) {
-
+      var key;
+      var pagesArr = [];
+      for (key in widgets) {
+        var widgetActual = widgets[key];
+        if (parseInt(widgetActual.pageId) === parseInt(pageId)) {
+          pagesArr.push(widgetActual);
+        }
+      }
+      return pagesArr;
     }
 
     function findWidgetsById(widgetId) {
