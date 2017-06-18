@@ -17,28 +17,9 @@
 <div class="row container-fluid">
   <div class="col-xs-12">
     <ul class="list-group mc-container-under-navbar">
-      <!-- TODO: Find out how to display info -->
-      <li ng-repeat="page in model.pages">
-        <a>{{model.name}}</a>
-      </li>
-      <li class="list-group-item mc-list-item-custom-1">
-        Blog Post
-        <a href="page-edit.view.client.html"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-      </li>
-      <li class="list-group-item mc-list-item-custom-1">
-        Blogs
-        <a href="page-edit.view.client.html"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-      </li>
-      <li class="list-group-item mc-list-item-custom-1">
-        Home
-        <a href="page-edit.view.client.html"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-      </li>
-      <li class="list-group-item mc-list-item-custom-1">
-        About
-        <a href="page-edit.view.client.html"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-      </li>
-      <li class="list-group-item mc-list-item-custom-1">
-        Contact Us
+      <li ng-repeat="page in model.pages" class="list-group-item mc-list-item-custom-1">
+        {{page.name}}
+        <!-- TODO: Fix href with ngroute link: construct it here with ng-click -->
         <a href="page-edit.view.client.html"><span class="glyphicon glyphicon-cog pull-right"></span></a>
       </li>
     </ul>

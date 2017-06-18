@@ -5,9 +5,9 @@
 
   function PageService() {
     // temporary database
-    var pages = [{ "_id": "321", "name": "Post 1", "websiteId": "456", "description": "Lorem" },
-      { "_id": "432", "name": "Post 2", "websiteId": "456", "description": "Lorem" },
-      { "_id": "543", "name": "Post 3", "websiteId": "456", "description": "Lorem" }];
+    var pages = [{ "_id": "321", "name": "Post 1", "wid": "456", "description": "Lorem" },
+      { "_id": "432", "name": "Post 2", "wid": "456", "description": "Lorem" },
+      { "_id": "543", "name": "Post 3", "wid": "456", "description": "Lorem" }];
 
 
     // api interface object
@@ -25,13 +25,12 @@
 
     }
 
-    // TODO: Verify to check if works
     function findPageByWebsiteId(websiteId) {
       var key;
       var pagesResult = [];
       for (key in pages) {
         var page = pages[key];
-        if (parseInt(page.websiteId) === websiteId) {
+        if (parseInt(page.wid) === parseInt(websiteId)) {
           pagesResult.push(page);
         }
       }
@@ -42,7 +41,7 @@
       var key;
       for (key in pages) {
         var page = pages[key];
-        if (parseInt(page._id) === parseInt(websiteId)) {
+        if (parseInt(page._id) === parseInt(pageId)) {
           return page;
         }
       }
