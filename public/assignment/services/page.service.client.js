@@ -49,11 +49,14 @@
     }
 
     function updatePage(pageId, page) {
-
+      deletePage(pageId);
+      pages.push(page);
+      console.log(pages);
     }
 
     function deletePage(pageId) {
-
+      pages = pages.filter(function (el) { return parseInt(el._id) !== parseInt(pageId);})
+      console.log(pages);
     }
 
   }

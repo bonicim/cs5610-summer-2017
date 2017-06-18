@@ -62,7 +62,10 @@
         <label for="title">Title</label>
         <input ng-model="model.page.description" id="title" class="form-control" type="text" placeholder="Blog Title"/>
       </div>
-      <a class="btn btn-danger btn-block" href="page-list.view.client.html">
+      <a class="btn btn-primary btn-block" ng-click="model.updatePage(model.page)">
+        Update
+      </a>
+      <a class="btn btn-danger btn-block" ng-click="model.deletePage()">
         Delete
       </a>
     </form>

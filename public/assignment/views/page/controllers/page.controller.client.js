@@ -31,17 +31,43 @@
 
   }
 
-  function EditPageController($routeParams, PageService) {
+  function EditPageController($routeParams, $location, PageService) {
+    // global vars
     var vm = this;
-    console.log("EditPage check");
+    vm.pid = $routeParams.pid;
     vm.wid = $routeParams.wid;
-
+    vm.uid = $routeParams.uid;
+    vm.page = undefined;
     vm.pages = undefined;
 
-    function init() {
-      vm.pages = PageService.findPageById(vm.wid);
-    }
+    // api's
+    vm.updatePage = updatePage;
+    vm.deletePage = deletePage;
+
+    // initializer
     init();
+    function init() {
+      console.log("EditPage check");
+      vm.pages = PageService.findPageByWebsiteId(vm.wid);
+      vm.page = (vm.pages.filter(function (el) {return el._id === vm.pid;}))[0];
+    }
+
+    // implemented api's
+    function updatePage(page) {
+      PageService.updatePage(vm.pid, page);
+      goToPageList();
+    }
+
+    function deletePage() {
+      PageService.deletePage(vm.pid);
+      goToPageList();
+    }
+
+    // helpers
+    function goToPageList() {
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid +"/page");
+    }
+
   }
 
 }());

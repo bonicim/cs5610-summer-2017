@@ -42,6 +42,7 @@
         controller: "EditWebsiteController",
         controllerAs: "model"
       })
+      // Page List
       .when("/user/:uid/website/:wid/page", {
         templateUrl: "views/page/templates/page-list.view.client.html",
         controller: "PageListController",
@@ -52,6 +53,7 @@
         controller: "NewPageController",
         controllerAs: "model"
       })
+      // Edit Page
       .when("/user/:uid/website/:wid/page/:pid", {
         templateUrl: "views/page/templates/page-edit.view.client.html",
         controller: "EditPageController",
