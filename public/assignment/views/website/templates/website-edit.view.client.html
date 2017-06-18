@@ -1,26 +1,26 @@
 <nav class="navbar navbar-fixed-top mc-navbar-custom1">
   <div class="row container-fluid">
     <div class="col-xs-4 hidden-xs">
-      <a class="navbar-text pull-left mc-navbar-icon-leftmost" href="website-list.view.client.html">
+      <a ng-click="model.goToWebsiteList()" class="navbar-text pull-left mc-navbar-icon-leftmost">
         <span class="glyphicon glyphicon-chevron-left"></span>
       </a>
-      <a class="navbar-header navbar-brand mc-navbar-text1" href="../../page/templates/page-list.view.client.html">
+      <a ng-click="model.goToWebsiteList()" class="navbar-header navbar-brand mc-navbar-text1">
         Websites
       </a>
-      <a class="navbar-text pull-right mc-navbar-icon-rightmost" href="website-new.view.client.html">
+      <a ng-click="model.goToNewWebsite()" class="navbar-text pull-right mc-navbar-icon-rightmost">
         <span class="glyphicon glyphicon-plus"></span>
       </a>
     </div>
     <div class="col-xs-1 visible-xs">
-      <a class="navbar-text pull-left mc-navbar-icon-leftmost" href="website-list.view.client.html">
+      <a ng-click="model.goToWebsiteList()" class="navbar-text pull-left mc-navbar-icon-leftmost">
         <span class="glyphicon glyphicon-chevron-left"></span>
       </a>
     </div>
     <div class="col-sm-8 col-xs-11">
-      <a class="navbar-brand mc-navbar-text1" href="website-new.view.client.html">
+      <a ng-click="model.goToEditWebsite(model.uid, model.wid)" class="navbar-brand mc-navbar-text1">
         Edit Website
       </a>
-      <a class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost" href="website-list.view.client.html">
+      <a ng-click="model.updateWebsite(model.website)" class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost">
         <span class="glyphicon glyphicon-ok"></span>
       </a>
     </div>
@@ -30,21 +30,10 @@
 <div class="row container-fluid">
   <div class="col-xs-4 hidden-xs">
     <ul class="list-group mc-container-under-navbar">
-      <li class="list-group-item mc-list-item-custom-1">
-        Address Book App
-        <a href="website-edit.view.client.html"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-      </li>
-      <li class="list-group-item mc-list-item-custom-1">
-        Blogger
-        <a href="website-edit.view.client.html"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-      </li>
-      <li class="list-group-item mc-list-item-custom-1">
-        Blogger App
-        <a href="website-edit.view.client.html"><span class="glyphicon glyphicon-cog pull-right"></span></a>
-      </li>
-      <li class="list-group-item mc-list-item-custom-1">
-        Script Testing App
-        <a href="website-edit.view.client.html"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+      <li ng-repeat="website in model.websiteList" class="list-group-item mc-list-item-custom-1">
+        {{website.name}}
+        <a ng-click="model.goToEditWebsite(website.developerId, website._id)"> <span
+          class="glyphicon glyphicon-cog pull-right"></span> </a>
       </li>
     </ul>
   </div>
@@ -59,9 +48,6 @@
         <textarea ng-model="model.website.description" id="description" class="form-control" rows="10" cols="50"
                   placeholder="Sero te amavi, pulchritudo tam antiqua et tam nova, sero te amavi!"></textarea>
       </div>
-      <a ng-click="model.updateWebsite(model.website)" class="btn btn-primary btn-block">
-        Update
-      </a>
       <a ng-click="model.deleteWebsite()" class="btn btn-danger btn-block">
         Delete
       </a>
@@ -72,7 +58,7 @@
 <nav class="navbar navbar-fixed-bottom mc-navbar-custom1">
   <div class="row container-fluid">
     <div class="col-xs-12">
-      <a class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost" href="../../user/templates/profile.view.client.html">
+      <a ng-click="model.goToProfile()" class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost">
         <span class="glyphicon glyphicon-user"></span>
       </a>
     </div>
