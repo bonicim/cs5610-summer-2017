@@ -53,11 +53,14 @@
     }
 
     function updateWebsite(websiteId, website) {
-
+      deleteWebsite(websiteId);
+      websites.push(website);
+      console.log(websites);
     }
 
     function deleteWebsite(websiteId) {
-
+      websites = websites.filter(function(el) { return el._id !== websiteId});
+      console.log(websites);
     }
 
   }

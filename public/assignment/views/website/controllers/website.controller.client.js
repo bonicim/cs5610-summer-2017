@@ -5,13 +5,13 @@
     .controller("NewWebsiteController", NewWebsiteController)
     .controller("EditWebsiteController", EditWebsiteController);
 
-    function WebsiteListController($routeParams, WebsiteService) {
+    function WebsiteListController($routeParams, $location, WebsiteService) {
       var vm = this;
-      vm.userId = $routeParams.uid;
+      vm.uid = $routeParams.uid;
       vm.websites = undefined;
 
       function init() {
-        vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+        vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
       }
       init();
     }
@@ -21,16 +21,46 @@
 
     }
 
-    function EditWebsiteController($routeParams, WebsiteService) {
+    function EditWebsiteController($routeParams, $location, WebsiteService) {
+      // global vars
       var vm = this;
-      console.log("editWebsite check");
-      vm.websiteId = $routeParams.wid;
+      vm.wid = $routeParams.wid;
+      vm.uid = $routeParams.uid;
+      vm.websiteList = undefined;
       vm.website = undefined;
 
-      function init() {
-        vm.website = WebsiteService.findWebsiteById(vm.websiteId);
-      }
+      // api's
+      vm.updateWebsite = updateWebsite;
+      vm.deleteWebsite = deleteWebsite;
+
+      // initializes all uninitialized global variables
       init();
+      function init() {
+        vm.websiteList = WebsiteService.findWebsitesByUser(vm.uid);
+        vm.website = (vm.websiteList.filter(function (el) {return el._id === vm.wid;}))[0];
+        console.log("Edit Website check");
+        console.log(vm.websiteList)
+        console.log(vm.website);
+      }
+
+      // implemented api's
+      function updateWebsite(website) {
+        console.log(vm.wid);
+        console.log(website);
+        WebsiteService.updateWebsite(vm.wid, website);
+        goToWebsiteList();
+      }
+
+      function deleteWebsite() {
+        WebsiteService.deleteWebsite(vm.wid);
+        goToWebsiteList();
+      }
+
+      // helpers
+      function goToWebsiteList() {
+        $location.url("/user/" + vm.uid + "/website");
+      }
+
     }
 
 }());

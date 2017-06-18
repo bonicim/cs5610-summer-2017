@@ -18,11 +18,13 @@
         controller: "RegisterController",
         controllerAs: "model"
       })
+      // Profile view
       .when("/user/:uid", {
         templateUrl: "views/user/templates/profile.view.client.html",
         controller: "ProfileController",
         controllerAs: "model"
       })
+      // Website List
       .when("/user/:uid/website", {
         templateUrl: "views/website/templates/website-list.view.client.html",
         controller: "WebsiteListController",
@@ -34,6 +36,7 @@
         controllerAs: "model"
 
       })
+      // Edit Website
       .when("/user/:uid/website/:wid", {
         templateUrl: "views/website/templates/website-edit.view.client.html",
         controller: "EditWebsiteController",
