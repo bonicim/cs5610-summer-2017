@@ -88,11 +88,14 @@
     }
 
     function updateUser(userId, user) {
-
+      deleteUser(userId);
+      users.push(user);
+      console.log(users);
     }
 
     function deleteUser(userId) {
-
+      users = users.filter(function(el) { return el._id !== userId});
+      console.log(users);
     }
 
   }

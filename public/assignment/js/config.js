@@ -5,14 +5,17 @@
 
   function config($routeProvider) {
     $routeProvider
+      // Login
       .when("/login", {
         templateUrl: "views/user/templates/login.view.client.html",
         controller: "LoginController",
         controllerAs: "model"
       })
+      // default
       .when("/", {
         templateUrl: "views/user/templates/login.view.client.html"
       })
+      // Register
       .when("/register", {
         templateUrl: "views/user/templates/register.view.client.html",
         controller: "RegisterController",

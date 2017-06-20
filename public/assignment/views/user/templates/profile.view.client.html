@@ -1,9 +1,9 @@
 <nav class="navbar navbar-fixed-top mc-navbar-custom1">
   <div class="container-fluid">
-    <a class="navbar-brand mc-navbar-text1" href="#/">
+    <a class="navbar-brand mc-navbar-text1">
       Profile
     </a>
-    <a class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost" href="#/">
+    <a ng-click="model.updateUser()" class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost">
       <span class="glyphicon glyphicon-ok"></span>
     </a>
   </div>
@@ -20,7 +20,7 @@
     <input ng-model="model.user.firstName" id="first-name" class="form-control" type="text" placeholder="Ella"/>
     <label for="last-name">Last Name</label>
     <input ng-model="model.user.lastName" id="last-name" class="form-control" type="text" placeholder="Fitzgerald"/>
-    <a class="btn btn-primary btn-block" href="../../website/templates/website-list.view.client.html">
+    <a ng-click="model.goToWebsites()" class="btn btn-primary btn-block">
       Websites
     </a>
     <a class="btn btn-success btn-block" href="#/login">
@@ -31,7 +31,7 @@
 
 <nav class="navbar navbar-fixed-bottom mc-navbar-custom1">
   <div class="container-fluid">
-    <a class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost" href="#">
+    <a ng-click="model.goToProfile()" class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost">
       <span class="glyphicon glyphicon-user"></span>
     </a>
   </div>

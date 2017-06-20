@@ -6,18 +6,27 @@
     .controller("ProfileController", ProfileController);
 
   function LoginController($location, UserService) {
+    // global vars
     var vm = this;
+
+    // api's
     vm.login = login;
-    console.log("login check");
+
+    // initializer
+    function init() {
+      console.log("login check");
+    }
+    init();
 
     function login(username, password) {
       var user = UserService.findUserByCredentials(username, password);
       if (user) {
-        // redirect to Profile view
+        console.log("user found");
         $location.url("/user/" + user._id);
       }
       else {
-        vm.alert = "Unable to login";
+        alert("Username and password do not match. Try again.");
+        return;
       }
     }
   }
@@ -68,16 +77,38 @@
 
   }
 
-  function ProfileController($routeParams, UserService) {
+  function ProfileController($routeParams, $location, UserService) {
+    // global vars
     var vm = this;
-    console.log("profile check");
     vm.uid = $routeParams.uid;
     vm.user = undefined;
 
+    // api's
+    vm.updateUser = updateUser;
+    vm.goToWebsites = goToWebsites;
+    vm.goToProfile = goToProfile;
+
+    // initializer
     function init() {
+      console.log("profile check");
       vm.user = UserService.findUserById(vm.uid);
     }
     init();
+
+    // implemented api's
+    function updateUser() {
+      UserService.updateUser(vm.uid, vm.user);
+      goToProfile();
+    }
+
+    function goToWebsites() {
+      $location.url("/user/" + vm.uid + "/website");
+    }
+
+    function goToProfile() {
+      $location.url("/user/" + vm.uid);
+    }
+
   }
 
 })();
