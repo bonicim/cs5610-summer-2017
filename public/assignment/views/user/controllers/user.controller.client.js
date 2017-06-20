@@ -11,9 +11,9 @@
     console.log("login check");
 
     function login(username, password) {
-      var user = undefined;
-      user = UserService.findUserByCredentials(username, password);
+      var user = UserService.findUserByCredentials(username, password);
       if (user) {
+        // redirect to Profile view
         $location.url("/user/" + user._id);
       }
       else {
@@ -23,10 +23,14 @@
   }
 
   function RegisterController($location, UserService) {
+    // global vars
     var vm = this;
     console.log("register check");
+
+    // api's
     vm.register = register;
 
+    // implemented api's
     function register(username, password, vfyPassword) {
       // validate the input
       if (username === undefined || username === null || username === "" || password === undefined || password === "") {
@@ -54,7 +58,12 @@
       var userToAdd = {username : username, password : password, firstName : "", lastName : ""};
       UserService.createUser(userToAdd);
       var newUser = UserService.findUserByUsername(username);
-      $location.url("/user/" + newUser._id);
+      goToProfile(newUser);
+    }
+
+    // helpers
+    function goToProfile(user) {
+      $location.url("/user/" + user._id);
     }
 
   }
@@ -62,11 +71,11 @@
   function ProfileController($routeParams, UserService) {
     var vm = this;
     console.log("profile check");
-    vm.userId = $routeParams.uid;
+    vm.uid = $routeParams.uid;
     vm.user = undefined;
 
     function init() {
-      vm.user = UserService.findUserById(vm.userId);
+      vm.user = UserService.findUserById(vm.uid);
     }
     init();
   }

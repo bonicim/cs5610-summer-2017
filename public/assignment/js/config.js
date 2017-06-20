@@ -30,6 +30,7 @@
         controller: "WebsiteListController",
         controllerAs: "model"
       })
+      // New Website
       .when("/user/:uid/website/new", {
         templateUrl: "views/website/templates/website-new.view.client.html",
         controller: "NewWebsiteController",
@@ -59,16 +60,19 @@
         controller: "EditPageController",
         controllerAs: "model"
       })
+      // Widget List
       .when("/user/:uid/website/:wid/page/:pid/widget", {
         templateUrl: "views/widget/templates/widget-list.view.client.html",
         controller: "WidgetListController",
         controllerAs: "model"
       })
+      // New Widget
       .when("/user/:uid/website/:wid/page/:pid/widget/new", {
         templateUrl: "views/widget/templates/widget-chooser.view.client.html",
         controller: "NewWidgetController",
         controllerAs: "model"
       })
+      // Edit Widget
       .when("/user/:uid/website/:wid/page/:pid/widget/:wgid", {
         templateUrl: "views/widget/templates/widget-edit.view.client.html",
         controller: "EditWidgetController",

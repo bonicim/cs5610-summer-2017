@@ -90,4 +90,15 @@ body {
   padding-bottom: 10%;
 }
 
+/* Widget List */
+
+.mc-youtube-widget {
+  border: none;
+  overflow: hidden;
+}
+
+/* Widget Edit */
+.mc-widget-edit-delete {
+  margin-top: 5px;
+}
 
