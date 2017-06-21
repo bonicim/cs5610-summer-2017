@@ -1,0 +1,61 @@
+<!-- Header -->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="row container-fluid">
+    <div class="col-xs-12">
+      <a ng-click="model.goToPageList()" class="navbar-text pull-left mc-navbar-icon-leftmost">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a ng-click="model.goToListWidget()" class="navbar-header navbar-brand mc-navbar-text2">
+        Widgets
+      </a>
+      <a ng-click="model.goToNewWidget()" class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Body -->
+<div class="row container-fluid mc-container-padding">
+  <div class="col-xs-12">
+    <div ng-repeat="widget in model.widgets">
+      <div>
+        <a class="pull-right">
+          <span class="glyphicon glyphicon-menu-hamburger mc-icon-spacing"></span>
+        </a>
+        <a ng-click="model.goToEditWidget(widget._id)" class="pull-right">
+          <span class="glyphicon glyphicon-cog"></span>
+        </a>
+      </div>
+      <div ng-switch="widget.widgetType">
+        <div ng-switch-when="HEADING">
+          <ng-include src="'views/widget/templates/widget-heading.view.client.html'"></ng-include>
+        </div>
+        <div ng-switch-when="IMAGE">
+          <ng-include src="'views/widget/templates/widget-image.view.client.html'"></ng-include>
+        </div>
+        <div ng-switch-when="YOUTUBE">
+          <ng-include src="'views/widget/templates/widget-youtube.view.client.html'"></ng-include>
+        </div>
+        <div ng-switch-when="HTML" ng-bind-html="model.trustHtml(widget.text)"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<nav class="navbar navbar-default navbar-fixed-bottom">
+  <div class="row container-fluid">
+    <div class="col-xs-6">
+      <a class="navbar-text pull-left" href="#/">
+        <span class="glyphicon glyphicon-play"></span>
+        <span class="glyphicon glyphicon-eye-open mc-icon-spacing"></span>
+      </a>
+    </div>
+    <div class="col-xs-6">
+      <a ng-click="model.goToProfile()" class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost">
+        <span class="glyphicon glyphicon-user" ></span>
+      </a>
+    </div>
+  </div>
+</nav>

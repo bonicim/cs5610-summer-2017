@@ -1,0 +1,37 @@
+<nav class="navbar navbar-fixed-top mc-navbar-custom1">
+  <div class="row container-fluid">
+    <div col-xs-12>
+      <a ng-click="model.goToProfile()" class="navbar-text pull-left mc-navbar-icon-leftmost">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a ng-click="model.goToWebsiteList()" class="navbar-header navbar-brand mc-navbar-text1">
+        Websites
+      </a>
+      <a ng-click="model.goToNewWebsite()" class="navbar-text pull-right mc-navbar-icon-rightmost">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="row container-fluid">
+  <div class="col-xs-12">
+    <ul class="list-group mc-container-under-navbar">
+      <li ng-repeat="website in model.websites" class="list-group-item mc-list-item-custom-1">
+        <a ng-click="model.goToPageList(website._id)"> {{website.name}} <a/>
+        <a ng-click="model.goToEditWebsite(website._id)"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<nav class="navbar navbar-fixed-bottom mc-navbar-custom1">
+  <div class="row container-fluid">
+    <div class="col-xs-12">
+      <a ng-click="model.goToProfile()" class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost">
+        <span class="glyphicon glyphicon-user"></span>
+      </a>
+    </div>
+  </div>
+</nav>
+
