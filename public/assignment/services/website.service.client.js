@@ -26,7 +26,28 @@
     return api;
 
     function createWebsite(userId, website) {
+      var id = generateId();
+      var websiteToAdd = {_id : id, name : website.name, developerId : userId, description : website.description};
+      websites.push(websiteToAdd);
+    }
 
+    function generateId() {
+      function getMaxId(maxId, website) {
+        var currId = parseInt(website._id);
+        if (maxId > currId) {
+          console.log("We should enter here if current unique id greater than the current id that we are comparing.")
+          console.log(maxId);
+          return maxId;
+        }
+        else {
+          console.log("The current unique id has changed and increased by one from the current id.")
+          console.log(currId + 1);
+          return currId + 1;
+        }
+      }
+      var uniqueId = websites.reduce(getMaxId, 0).toString();
+      console.log("We generated a unique id. It is: " + uniqueId);
+      return uniqueId;
     }
 
     function findWebsitesByUser(userId) {

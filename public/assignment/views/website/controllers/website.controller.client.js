@@ -13,6 +13,9 @@
 
       // api's
       vm.goToProfile = goToProfile;
+      vm.goToEditWebsite = goToEditWebsite;
+      vm.goToWebsiteList = goToWebsiteList;
+      vm.goToNewWebsite = goToNewWebsite;
 
       // initializer
       function init() {
@@ -25,11 +28,74 @@
         console.log(vm.uid);
         $location.url("/user/" + vm.uid);
       }
+
+      function goToEditWebsite(wid) {
+        $location.url("/user/" + vm.uid + "/website/" + wid);
+      }
+
+      function goToWebsiteList() {
+        $location.url("/user/" + vm.uid + "/website");
+      }
+
+      function goToNewWebsite() {
+        $location.url("/user/" + vm.uid + "/website/new");
+      }
     }
 
-    function NewWebsiteController() {
+    function NewWebsiteController($routeParams, $location, WebsiteService) {
+      // global vars
       var vm = this;
+      vm.uid = $routeParams.uid;
+      vm.websites = undefined;
+      vm.websiteToAdd = undefined;
 
+      // apis
+      vm.createWebsite = createWebsite;
+      vm.goToWebsiteList = goToWebsiteList;
+      vm.goToProfile = goToProfile;
+      vm.goToNewWebsite = goToNewWebsite;
+      vm.goToEditWebsite = goToEditWebsite;
+
+      // initializer
+      function init() {
+        console.log("new website check");
+        vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
+        vm.websiteToAdd =
+          { "_id": "", "name": null, "developerId": "", "description": null };
+      }
+      init();
+
+      // implemented api's
+      function createWebsite() {
+        if(vm.websiteToAdd.name === undefined || vm.websiteToAdd.name === null || vm.websiteToAdd.name === "" ||
+          vm.websiteToAdd.description === undefined || vm.websiteToAdd.description === null ||
+          vm.websiteToAdd.description === "") {
+          console.log(vm.websiteToAdd.name);
+          alert("Name and description cannot be empty! Try again");
+          return;
+        }
+        else {
+          WebsiteService.createWebsite(vm.uid, vm.websiteToAdd);
+          goToWebsiteList();
+        }
+      }
+
+      function goToProfile() {
+        console.log(vm.uid);
+        $location.url("/user/" + vm.uid);
+      }
+
+      function goToWebsiteList() {
+        $location.url("/user/" + vm.uid + "/website");
+      }
+
+      function goToNewWebsite() {
+        $location.url("/user/" + vm.uid + "/website/new");
+      }
+
+      function goToEditWebsite(wid) {
+        $location.url("/user/" + vm.uid + "/website/" + wid);
+      }
     }
 
     function EditWebsiteController($routeParams, $location, WebsiteService) {
