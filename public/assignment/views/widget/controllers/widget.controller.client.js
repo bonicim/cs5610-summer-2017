@@ -66,12 +66,48 @@
       $location.url("/user/" + vm.uid);
     }
 
-
   }
 
-  function NewWidgetController() {
+  function NewWidgetController($routeParams, $location, WidgetService) {
+    // global vars
     var vm = this;
+    vm.uid = $routeParams.uid;
+    vm.wid = $routeParams.wid;
+    vm.pid = $routeParams.pid;
 
+    // apis
+    vm.createWidget = createWidget;
+    vm.goToProfile = goToProfile;
+    vm.goToEditWidget = goToEditWidget;
+    vm.goToListWidget = goToListWidget;
+
+    // initializer
+    init();
+    function init() {
+      vm.widgetToAdd =  { "_id": null, "widgetType": null, "pageId": null };
+      console.log("New Widget check");
+    }
+
+    // implemented apis
+    function createWidget(widgetType) {
+      var widgetToAdd = { "_id": null, "widgetType": widgetType};
+      console.log(widgetToAdd._id);
+      widgetToAdd = WidgetService.createWidget(vm.pid, widgetToAdd);
+      console.log(widgetToAdd._id);
+      goToEditWidget(widgetToAdd._id);
+    }
+
+    function goToProfile() {
+      $location.url("/user/" + vm.uid);
+    }
+
+    function goToEditWidget(wgid) {
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + wgid);
+    }
+
+    function goToListWidget() {
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+    }
   }
 
   function EditWidgetController($routeParams, $location, WidgetService) {
@@ -116,6 +152,8 @@
       WidgetService.deleteWidget(vm.wgid);
       goToListWidget();
     }
+
+
 
     function convertStringToNumber(text) {
       return parseInt(text);

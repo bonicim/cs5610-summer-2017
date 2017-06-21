@@ -25,7 +25,6 @@
       var id = generateId();
       var pageToAdd = {_id : id, name : page.name, wid : websiteId, description : page.description};
       pages.push(pageToAdd);
-
     }
 
     function generateId() {
