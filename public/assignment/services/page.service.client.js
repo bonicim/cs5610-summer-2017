@@ -22,7 +22,29 @@
     return api;
 
     function createPage(websiteId, page) {
+      var id = generateId();
+      var pageToAdd = {_id : id, name : page.name, wid : websiteId, description : page.description};
+      pages.push(pageToAdd);
 
+    }
+
+    function generateId() {
+      function getMaxId(maxId, page) {
+        var currId = parseInt(page._id);
+        if (maxId > currId) {
+          console.log("We should enter here if current unique id greater than the current id that we are comparing.")
+          console.log(maxId);
+          return maxId;
+        }
+        else {
+          console.log("The current unique id has changed and increased by one from the current id.")
+          console.log(currId + 1);
+          return currId + 1;
+        }
+      }
+      var uniqueId = pages.reduce(getMaxId, 0).toString();
+      console.log("We generated a unique id. It is: " + uniqueId);
+      return uniqueId;
     }
 
     function findPageByWebsiteId(websiteId) {

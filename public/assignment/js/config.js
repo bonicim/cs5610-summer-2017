@@ -51,6 +51,7 @@
         controller: "PageListController",
         controllerAs: "model"
       })
+      // New Page
       .when("/user/:uid/website/:wid/page/new", {
         templateUrl: "views/page/templates/page-new.view.client.html",
         controller: "NewPageController",
