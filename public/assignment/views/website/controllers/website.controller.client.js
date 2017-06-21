@@ -16,6 +16,7 @@
       vm.goToEditWebsite = goToEditWebsite;
       vm.goToWebsiteList = goToWebsiteList;
       vm.goToNewWebsite = goToNewWebsite;
+      vm.goToPageList = goToPageList;
 
       // initializer
       function init() {
@@ -39,6 +40,10 @@
 
       function goToNewWebsite() {
         $location.url("/user/" + vm.uid + "/website/new");
+      }
+
+      function goToPageList(wid) {
+        $location.url("/user/" + vm.uid + "/website/" + wid + "/page");
       }
     }
 

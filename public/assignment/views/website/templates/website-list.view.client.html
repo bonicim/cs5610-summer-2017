@@ -18,7 +18,7 @@
   <div class="col-xs-12">
     <ul class="list-group mc-container-under-navbar">
       <li ng-repeat="website in model.websites" class="list-group-item mc-list-item-custom-1">
-        {{website.name}}
+        <a ng-click="model.goToPageList(website._id)"> {{website.name}} <a/>
         <a ng-click="model.goToEditWebsite(website._id)"><span class="glyphicon glyphicon-cog pull-right"></span></a>
       </li>
     </ul>

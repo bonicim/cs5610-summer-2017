@@ -38,7 +38,6 @@
         templateUrl: "views/website/templates/website-new.view.client.html",
         controller: "NewWebsiteController",
         controllerAs: "model"
-
       })
       // Edit Website
       .when("/user/:uid/website/:wid", {
