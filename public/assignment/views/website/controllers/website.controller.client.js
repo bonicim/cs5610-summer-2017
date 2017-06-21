@@ -60,6 +60,7 @@
       vm.goToProfile = goToProfile;
       vm.goToNewWebsite = goToNewWebsite;
       vm.goToEditWebsite = goToEditWebsite;
+      vm.goToPageList = goToPageList;
 
       // initializer
       function init() {
@@ -101,6 +102,10 @@
       function goToEditWebsite(wid) {
         $location.url("/user/" + vm.uid + "/website/" + wid);
       }
+
+      function goToPageList(wid) {
+        $location.url("/user/" + vm.uid + "/website/" + wid + "/page");
+      }
     }
 
     function EditWebsiteController($routeParams, $location, WebsiteService) {
@@ -118,6 +123,7 @@
       vm.goToEditWebsite = goToEditWebsite;
       vm.goToProfile = goToProfile;
       vm.goToNewWebsite = goToNewWebsite;
+      vm.goToPageList = goToPageList;
 
       // initializes all uninitialized global variables
       init();
@@ -158,6 +164,10 @@
 
       function goToNewWebsite() {
         $location.url("/user/" + vm.uid + "/website/new");
+      }
+
+      function goToPageList(wid) {
+        $location.url("/user/" + vm.uid + "/website/" + wid + "/page");
       }
 
     }
