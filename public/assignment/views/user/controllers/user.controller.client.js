@@ -13,41 +13,28 @@
     vm.login = login;
 
     // initializer
+    init();
     function init() {
       console.log("login check");
     }
-    init();
 
     function login(username, password) {
-      // controller only wants a User object; it is ignorant of the service call
-      // the promise is a User object
-      //var user = UserService.findUserByCredentials(username, password);
       UserService
         .findUserByCredentials(username, password)
-        .then(function (user) {
-          if (user !== null) {
-            console.log("user found");
-            console.log(user._id);
-            $location.url("/user/" + user._id);
-          }
-          else {
-            alert("Username and password do not match. Try again.");
-          }
-        });
-
-
-      // UserService
-      //   .findUserByCredentials(username, password)
-      //   .then(function(user) {
-      //     if (user) {
-      //       console.log("user found");
-      //       $location.url("/user/" + user._id);
-      //     }
-      //     else {
-      //       alert("Username and password do not match. Try again.");
-      //     }
-      //   });
+        .then(goToProfile, renderError);
       }
+
+    function goToProfile(user) {
+      console.log("user found");
+      console.log(user._id);
+      $location.url("/user/" + user._id);
+    }
+
+    function renderError(error) {
+      console.log(error);
+      alert("User not found.");
+    }
+
   }
 
   function RegisterController($location, UserService) {
@@ -115,15 +102,14 @@
       console.log("profile check");
       UserService
         .findUserById(vm.uid)
-        .then(renderUser, userError);
+        .then(bindUser, renderError);
     }
 
-    function renderUser(user) {
-      console.log(user);
+    function bindUser(user) {
       vm.user = user;
     }
 
-    function userError(error) {
+    function renderError(error) {
       console.log(error);
       vm.error = "User not found.";
     }

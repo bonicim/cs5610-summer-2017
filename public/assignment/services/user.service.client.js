@@ -70,15 +70,17 @@
       return null;
     }
 
+    // returns a User object
+    // TODO: change to POST to hid username and password
     function findUserByCredentials(username, password) {
       var url = "/api/user?username=" + username + "&password=" + password;
-      // .get returns not the business object but an HTTP response object
       return $http.get(url)
         .then(function (response) {
           return response.data;
         });
     }
 
+    // calls this function when done
     function updateUser(userId, user) {
       deleteUser(userId);
       users.push(user);
