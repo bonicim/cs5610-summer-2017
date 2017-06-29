@@ -89,9 +89,9 @@
     vm.goToProfile = goToProfile;
 
     // initializer
+    // page is initialized using server-side services
     init();
 
-    // page is initialized using server-side services
     function init() {
       console.log("profile check");
       UserService
@@ -105,6 +105,7 @@
     }
 
     function userError(error) {
+      console.log(error);
       vm.error = "User not found.";
     }
 

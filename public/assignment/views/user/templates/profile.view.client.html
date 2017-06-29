@@ -11,6 +11,9 @@
 
 <div class="container-fluid">
   <form class="mc-container-under-navbar">
+    <div ng-show="model.error" class="alert alert-info">
+      {{model.error}}
+    </div>
     <label for="username">Username</label>
     <input ng-model="model.user.username" id="username" class="form-control" type="text" placeholder="efitzgerald"/>
     <label for="email">Email</label>
