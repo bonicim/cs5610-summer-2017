@@ -50,8 +50,12 @@
       return uniqueId;
     }
 
+    /**
+     * Returns a User given a user ID
+     * @param userId
+     * @returns User
+     */
     function findUserById(userId) {
-      // invoke the URL
       var url = "/api/user/" + userId;
       return $http.get(url)
         .then(function (response) {
@@ -59,19 +63,27 @@
         });
     }
 
+    /**
+     * Returns a User given a username
+     * @param username
+     * @returns User
+     */
     function findUserByUsername(username) {
-      var key;
-      for (key in users) {
-        var userActual = users[key];
-        if(userActual.username === username) {
-          return userActual;
-        }
-      }
-      return null;
+      var url = "/api/user?username=" + username;
+      return $http.get(url)
+        .then(function (response) {
+          return response.data;
+        });
     }
 
-    // returns a User object
-    // TODO: change to POST to hid username and password
+
+    // TODO: change to POST to hide username and password in URL
+    /**
+     * Returns a User given a username and password
+     * @param username
+     * @param password
+     * @returns User
+     */
     function findUserByCredentials(username, password) {
       var url = "/api/user?username=" + username + "&password=" + password;
       return $http.get(url)

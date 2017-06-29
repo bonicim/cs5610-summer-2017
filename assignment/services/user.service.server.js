@@ -12,7 +12,6 @@ var users = [{_id: "123", username: "alice",    password: "alice",    firstName:
 app.post('/api/user', createUser);
 
 // GET
-//app.get('/api/user?username=username', findUserByUsername);
 app.get('/api/user', findUserByCredentials);
 app.get('/api/user/:userId', findUserById);
 
@@ -28,23 +27,33 @@ function createUser() {
 
 }
 
-function findUserByUsername(req, res) {
-}
-
 function findUserByCredentials(req, res) {
   var username = req.query['username'];
   var password = req.query.password;
 
-  // TODO: must do input validation
-  for (key in users) {
-    var userActual = users[key];
-    if ((userActual.username === username) && (userActual.password === password)) {
-      res.status(200).send(userActual);
-      return;
+  if (username && password) {
+    for (key in users) {
+      var userActual = users[key];
+      if ((userActual.username === username) && (userActual.password === password)) {
+        res.status(200).send(userActual);
+        return;
+      }
     }
+    res.sendStatus(404);
+    return;
   }
-  res.sendStatus(404);
-  return;
+  else if (username) {
+    for (key in users) {
+      var userActual = users[key];
+      if (userActual.username === username) {
+        res.status(200).send(userActual);
+        return;
+      }
+    }
+    res.sendStatus(404);
+    return;
+  }
+
 }
 
 function findUserById(req, res) {

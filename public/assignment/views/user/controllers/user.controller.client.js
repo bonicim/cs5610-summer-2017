@@ -22,7 +22,7 @@
       UserService
         .findUserByCredentials(username, password)
         .then(goToProfile, renderError);
-      }
+    }
 
     function goToProfile(user) {
       console.log("user found");
@@ -47,29 +47,16 @@
 
     // implemented api's
     function register(username, password, vfyPassword) {
-      // validate the input
-      if (username === undefined || username === null || username === "" || password === undefined || password === "") {
-        vm.error = "Username and password must not be empty.";
-        alert("Username and password must not be empty. Try again.");
-        return;
-      }
+      if(!isValidInput(username,password,vfyPassword)) {return;}
 
-      // validate password match
-      if (password !== vfyPassword) {
-        vm.error = "Passwords do not match. Try again. Make sure CAPSLOCK is off.";
-        alert("Passwords do not match. Ensure CAPSLOCK is off. Try again.");
-        return;
-      }
+      // finding a user is deemed a success but we treat it with an error message
+      // not finding a user is deemed an error but we treat it with business logic
+      UserService
+        .findUserByUsername(username)
+        .then(renderError, createUser);
+    }
 
-      // validate for duplicate
-      var user = UserService.findUserByUsername(username);
-      if (user !== null) {
-        vm.error = "Username already exists. Pick a different one.";
-        alert("Username already exists. Pick a different one. Try again.");
-        return;
-      }
-
-      // we've passed all the tests; we can add a new user to our db
+    function createUser() {
       var userToAdd = {username : username, password : password, firstName : "", lastName : ""};
       UserService.createUser(userToAdd);
       var newUser = UserService.findUserByUsername(username);
@@ -77,6 +64,33 @@
     }
 
     // helpers
+    function isValidInput(username, password, vfyPassword) {
+      return !hasEmptyInput(username, password) && hasMatchingPasswords(password,vfyPassword);
+    }
+
+    function hasEmptyInput(username, password) {
+      if (username === undefined || username === null || username === "" || password === undefined || password === "") {
+        vm.error = "Username and password must not be empty.";
+        alert("Username and password must not be empty. Try again.");
+        return true;
+      }
+      return false;
+    }
+
+    function hasMatchingPasswords(password, vfyPassword) {
+      if (password !== vfyPassword) {
+        vm.error = "Passwords do not match. Try again. Make sure CAPSLOCK is off.";
+        alert("Passwords do not match. Ensure CAPSLOCK is off. Try again.");
+        return false;
+      }
+      return true;
+    }
+
+    function renderError() {
+        vm.error = "Username already exists. Pick a different one.";
+        alert("Username already exists. Pick a different one. Try again.");
+    }
+
     function goToProfile(user) {
       $location.url("/user/" + user._id);
     }
