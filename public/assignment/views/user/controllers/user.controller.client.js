@@ -105,8 +105,10 @@
     vm.uid = $routeParams.uid;
     vm.user = undefined;
 
-    // api's
+    // functions
     vm.updateUser = updateUser;
+    vm.deleteUser = deleteUser;
+    vm.goToProfile = goToProfile;
     vm.goToWebsites = goToWebsites;
     vm.goToProfile = goToProfile;
 
@@ -128,28 +130,36 @@
       vm.error = "User not found.";
     }
 
-    // implemented api's
+    // implemented functions
     function updateUser(user) {
       UserService
         .updateUser(user._id, user)
-        .then(feedbackSuccess, feedbackError);
+        .then(feedbackSuccessUpdate, feedbackErrorUpdate);
     }
 
-    function feedbackSuccess() {
-      vm.feedbackSuccess = "User update succeeded.";
+    function feedbackSuccessUpdate() {
+      vm.feedbackSuccess = "User update succeeded.";}
+
+    function feedbackErrorUpdate() {
+      vm.feedbackError = "User update did not succeed. Try again.";}
+
+    function deleteUser(user) {
+      UserService
+        .deleteUser(user._id)
+        .then(goToLogin, feedbackErrorUnregister);
     }
 
-    function feedbackError() {
-      vm.feedbackError = "User update did not succeed. Try again.";
-    }
+    function feedbackErrorUnregister() {
+      vm.feedbackErrorUnregister = "Unable to unregister your account. Try again.";}
+
+    function goToLogin() {
+      $location.url("/login");}
 
     function goToWebsites() {
-      $location.url("/user/" + vm.uid + "/website");
-    }
+      $location.url("/user/" + vm.uid + "/website");}
 
     function goToProfile() {
-      $location.url("/user/" + vm.uid);
-    }
+      $location.url("/user/" + vm.uid);}
 
   }
 

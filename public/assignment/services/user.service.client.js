@@ -76,6 +76,12 @@
         });
     }
 
+    /**
+     * Updates the user given the user ID and the updated User object
+     * @param userId
+     * @param user
+     * @returns The newly update User
+     */
     function updateUser(userId, user) {
       var url = "/api/user/" + userId;
       return $http.put(url, user)
@@ -84,9 +90,17 @@
         });
     }
 
+    /**
+     * Removes the user from the database given the user ID
+     * @param userId
+     * @returns
+     */
     function deleteUser(userId) {
-      users = users.filter(function(el) { return el._id !== userId});
-      console.log(users);
+      var url = "/api/user/" + userId;
+      return $http.delete(url)
+        .then(function (response) {
+          return response.data;
+        });
     }
 
   }

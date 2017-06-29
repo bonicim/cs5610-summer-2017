@@ -106,6 +106,16 @@ function updateUser(req, res) {
 }
 
 function deleteUser(req, res) {
+  for (key in users) {
+    var userActual = users[key];
+    if(parseInt(userActual._id) === parseInt(req.params.userId)) {
+      users.splice(key,1);
+      res.sendStatus(200);
+      return;
+    }
+  }
+  res.sendStatus(404);
+  return;
 
 }
 
