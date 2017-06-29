@@ -11,10 +11,8 @@ app.listen(app.get('port'), function() {
 // load the entry point for server side web services
 require('./assignment/app');
 
-// install, looad, and condigure body parser module
+// install, load, and configure body parser module
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
-// list routing api's via some js file
-// user require() to get the API's
