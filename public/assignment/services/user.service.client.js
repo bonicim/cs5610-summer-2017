@@ -50,7 +50,6 @@
       return uniqueId;
     }
 
-    // does translation
     function findUserById(userId) {
       // invoke the URL
       var url = "/api/user/" + userId;
@@ -72,18 +71,12 @@
     }
 
     function findUserByCredentials(username, password) {
-      var key = undefined;
-      var userActual = undefined;
-      for (key in users) {
-        userActual = users[key];
-        if ((userActual.username === username) && (userActual.password === password)) {
-          return userActual;
-        }
-        else {
-          userActual = null;
-        }
-      }
-      return userActual;
+      var url = "/api/user?username=" + username + "&password=" + password;
+      // .get returns not the business object but an HTTP response object
+      return $http.get(url)
+        .then(function (response) {
+          return response.data;
+        });
     }
 
     function updateUser(userId, user) {
@@ -99,5 +92,6 @@
 
   }
 
+  // helper functions
 })();
 

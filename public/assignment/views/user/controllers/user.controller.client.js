@@ -19,16 +19,35 @@
     init();
 
     function login(username, password) {
-      var user = UserService.findUserByCredentials(username, password);
-      if (user) {
-        console.log("user found");
-        $location.url("/user/" + user._id);
+      // controller only wants a User object; it is ignorant of the service call
+      // the promise is a User object
+      //var user = UserService.findUserByCredentials(username, password);
+      UserService
+        .findUserByCredentials(username, password)
+        .then(function (user) {
+          if (user !== null) {
+            console.log("user found");
+            console.log(user._id);
+            $location.url("/user/" + user._id);
+          }
+          else {
+            alert("Username and password do not match. Try again.");
+          }
+        });
+
+
+      // UserService
+      //   .findUserByCredentials(username, password)
+      //   .then(function(user) {
+      //     if (user) {
+      //       console.log("user found");
+      //       $location.url("/user/" + user._id);
+      //     }
+      //     else {
+      //       alert("Username and password do not match. Try again.");
+      //     }
+      //   });
       }
-      else {
-        alert("Username and password do not match. Try again.");
-        return;
-      }
-    }
   }
 
   function RegisterController($location, UserService) {
