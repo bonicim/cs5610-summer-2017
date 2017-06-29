@@ -59,11 +59,10 @@
               password : password,
               firstName : "",
               lastName : ""};
-            UserService
-              .createUser(userToAdd)
-              .then(goToProfile);
+            return UserService.createUser(userToAdd);
           }
-        );
+        )
+        .then(goToProfile);
     }
 
     // helpers
