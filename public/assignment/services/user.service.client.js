@@ -3,7 +3,7 @@
     .module("WebAppMaker")
     .factory("UserService", UserService);
 
-  function UserService() {
+  function UserService($http) {
     // temporary database
     var users = [{_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder"  },
       {_id: "234", username: "bob",      password: "bob",      firstName: "Bob",    lastName: "Marley"  },
@@ -50,15 +50,14 @@
       return uniqueId;
     }
 
+    // does translation
     function findUserById(userId) {
-      var key;
-      for (key in users) {
-        var userActual = users[key];
-        if(parseInt(userActual._id) === parseInt(userId)) {
-          return userActual;
-        }
-      }
-      return null;
+      // invoke the URL
+      var url = "/api/user/" + userId;
+      return $http.get(url)
+        .then(function (response) {
+          return response.data;
+        });
     }
 
     function findUserByUsername(username) {

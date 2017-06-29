@@ -89,11 +89,24 @@
     vm.goToProfile = goToProfile;
 
     // initializer
+    init();
+
+    // page is initialized using server-side services
     function init() {
       console.log("profile check");
-      vm.user = UserService.findUserById(vm.uid);
+      UserService
+        .findUserById(vm.uid)
+        .then(renderUser, userError);
     }
-    init();
+
+    function renderUser(user) {
+      console.log(user);
+      vm.user = user;
+    }
+
+    function userError(error) {
+      vm.error = "User not found.";
+    }
 
     // implemented api's
     function updateUser() {

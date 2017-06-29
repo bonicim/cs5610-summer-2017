@@ -7,3 +7,13 @@ var websites = [{ "_id": "123", "name": "Facebook",    "developerId": "456", "de
   { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem" },
   { "_id": "678", "name": "Checkers",    "developerId": "123", "description": "Lorem" },
   { "_id": "789", "name": "Chess",       "developerId": "234", "description": "Lorem" }];
+
+// POST
+
+// GET
+
+// PUT
+
+// DELETE
+
+// Implementations of event handlers

@@ -22,7 +22,7 @@ app.put('/api/user/:userId', updateUser);
 // DELETE
 app.delete('/api/user/:userId', deleteUser)
 
-
+// Implementations of event handlers
 // TODO: implement business logic
 function createUser() {
 
@@ -36,6 +36,7 @@ function findUserByCredentials(req, res) {
 
 function findUserById(req, res) {
   var key;
+  // gets the parameter values found in the URL that calls this function
   var userId = req.params['userId'];
   for (key in users) {
     var userActual = users[key];
