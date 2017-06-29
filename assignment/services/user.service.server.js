@@ -6,7 +6,7 @@ var users = [{_id: "123", username: "alice",    password: "alice",    firstName:
   {_id: "345", username: "charly",   password: "charly",   firstName: "Charly", lastName: "Garcia"  },
   {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }];
 
-// RESTful URL's of this resource browser is expecting data not HTML
+// Server listeners on specific URL's
 
 // POST
 app.post('/api/user', createUser);
@@ -22,9 +22,31 @@ app.put('/api/user/:userId', updateUser);
 app.delete('/api/user/:userId', deleteUser)
 
 // Implementations of event handlers
-// TODO: implement business logic
-function createUser() {
+function createUser(req, res) {
+  var user = req.body;
+  var id = generateId();
+  var userToAdd = {
+    '_id' : id,
+    username : user.username,
+    password : user.password,
+    firstName : user.firstName,
+    lastName : user.lastName};
+  users.push(userToAdd);
+  res.json(userToAdd); // we know for sure that userToAdd is a JSON
+}
 
+function generateId() {
+  function getMaxId(maxId, user) {
+    var currId = parseInt(user._id);
+    //maxId > currId ? maxId : currId + 1;
+    if (maxId > currId) {
+      return maxId;
+    }
+    else {
+      return currId + 1;
+    }
+  }
+  return users.reduce(getMaxId, 0).toString();
 }
 
 function findUserByCredentials(req, res) {
@@ -58,7 +80,6 @@ function findUserByCredentials(req, res) {
 
 function findUserById(req, res) {
   var key;
-  // gets the parameter values found in the URL that calls this function
   var userId = req.params['userId'];
   for (key in users) {
     var userActual = users[key];
@@ -68,6 +89,7 @@ function findUserById(req, res) {
     }
   }
   res.sendStatus(404);
+  return;
 }
 
 function updateUser() {

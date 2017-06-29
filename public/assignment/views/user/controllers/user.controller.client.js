@@ -12,12 +12,7 @@
     // api's
     vm.login = login;
 
-    // initializer
-    init();
-    function init() {
-      console.log("login check");
-    }
-
+    // implemented api's
     function login(username, password) {
       UserService
         .findUserByCredentials(username, password)
@@ -25,9 +20,8 @@
     }
 
     function goToProfile(user) {
-      console.log("user found");
-      console.log(user._id);
       $location.url("/user/" + user._id);
+      console.log("Going to Profile of user " + user._id);
     }
 
     function renderError(error) {
@@ -40,12 +34,17 @@
   function RegisterController($location, UserService) {
     // global vars
     var vm = this;
-    console.log("register check");
 
     // api's
     vm.register = register;
 
     // implemented api's
+    /**
+     * Calls a service that creates a new user for this application.
+     * @param username
+     * @param password
+     * @param vfyPassword
+     */
     function register(username, password, vfyPassword) {
       if(!isValidInput(username,password,vfyPassword)) {return;}
 
@@ -53,17 +52,33 @@
       // not finding a user is deemed an error but we treat it with business logic
       UserService
         .findUserByUsername(username)
-        .then(renderError, createUser);
-    }
-
-    function createUser() {
-      var userToAdd = {username : username, password : password, firstName : "", lastName : ""};
-      UserService.createUser(userToAdd);
-      var newUser = UserService.findUserByUsername(username);
-      goToProfile(newUser);
+        .then(renderError,
+          function () {
+            var userToAdd = {
+              username : username,
+              password : password,
+              firstName : "",
+              lastName : ""};
+            UserService
+              .createUser(userToAdd)
+              .then(goToProfile);
+          }
+        );
     }
 
     // helpers
+    // function createNewUser(username, password) {
+    //   var userToAdd = {
+    //     username : username,
+    //     password : password,
+    //     firstName : "",
+    //     lastName : ""};
+    //
+    //   UserService
+    //     .createUser(userToAdd)
+    //     .then(goToProfile);
+    // }
+
     function isValidInput(username, password, vfyPassword) {
       return !hasEmptyInput(username, password) && hasMatchingPasswords(password,vfyPassword);
     }
@@ -109,14 +124,12 @@
     vm.goToProfile = goToProfile;
 
     // initializer
-    // page is initialized using server-side services
     init();
-
     function init() {
-      console.log("profile check");
       UserService
         .findUserById(vm.uid)
         .then(bindUser, renderError);
+      console.log("Profile is initialized for user " + vm.uid);
     }
 
     function bindUser(user) {

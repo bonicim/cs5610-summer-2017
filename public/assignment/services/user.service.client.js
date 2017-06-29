@@ -19,35 +19,20 @@
       "updateUser" : updateUser,
       "deleteUser" : deleteUser
     };
-
     return api;
 
-    // Assumes that username is already unique
+    /**
+     *  Assumes that username is already unique
+     * @param user
+     * @returns User
+     */
     function createUser(user) {
-      var id = generateId();
-      var userToAdd = {_id : id, username : user.username, password : user.password, firstName : user.firstName,
-        lastName : user.lastName};
-      users.push(userToAdd);
-    }
-
-    function generateId() {
-      function getMaxId(maxId, user) {
-        console.log("Entered getMaxId");
-        var currId = parseInt(user._id);
-        if (maxId > currId) {
-          console.log("We should enter here if current unique id greater than the current id that we are comparing.")
-          console.log(maxId);
-          return maxId;
-        }
-        else {
-          console.log("The current unique id has changed and increased by one from the current id.")
-          console.log(currId + 1);
-          return currId + 1;
-        }
-      }
-      var uniqueId = users.reduce(getMaxId, 0).toString();
-      console.log("We generated a unique id. It is: " + uniqueId);
-      return uniqueId;
+      var url = "/api/user";
+      // .post takes two args: url, object to be posted
+      return $http.post(url, user)
+        .then(function (response) {
+          return response.data;
+        });
     }
 
     /**
@@ -76,7 +61,6 @@
         });
     }
 
-
     // TODO: change to POST to hide username and password in URL
     /**
      * Returns a User given a username and password
@@ -92,7 +76,6 @@
         });
     }
 
-    // calls this function when done
     function updateUser(userId, user) {
       deleteUser(userId);
       users.push(user);
@@ -106,6 +89,5 @@
 
   }
 
-  // helper functions
 })();
 
