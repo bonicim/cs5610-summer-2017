@@ -66,18 +66,6 @@
     }
 
     // helpers
-    // function createNewUser(username, password) {
-    //   var userToAdd = {
-    //     username : username,
-    //     password : password,
-    //     firstName : "",
-    //     lastName : ""};
-    //
-    //   UserService
-    //     .createUser(userToAdd)
-    //     .then(goToProfile);
-    // }
-
     function isValidInput(username, password, vfyPassword) {
       return !hasEmptyInput(username, password) && hasMatchingPasswords(password,vfyPassword);
     }
@@ -141,9 +129,18 @@
     }
 
     // implemented api's
-    function updateUser() {
-      UserService.updateUser(vm.uid, vm.user);
-      goToProfile();
+    function updateUser(user) {
+      UserService
+        .updateUser(user._id, user)
+        .then(feedbackSuccess, feedbackError);
+    }
+
+    function feedbackSuccess() {
+      vm.feedbackSuccess = "User update succeeded.";
+    }
+
+    function feedbackError() {
+      vm.feedbackError = "User update did not succeed. Try again.";
     }
 
     function goToWebsites() {

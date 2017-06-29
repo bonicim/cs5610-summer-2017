@@ -79,7 +79,6 @@ function findUserByCredentials(req, res) {
 }
 
 function findUserById(req, res) {
-  var key;
   var userId = req.params['userId'];
   for (key in users) {
     var userActual = users[key];
@@ -92,11 +91,21 @@ function findUserById(req, res) {
   return;
 }
 
-function updateUser() {
-
+function updateUser(req, res) {
+  var user = req.body;
+  for (key in users) {
+    var userActual = users[key];
+    if(parseInt(userActual._id) === parseInt(req.params.userId)) {
+      users[key] = user;
+      res.sendStatus(200);
+      return;
+    }
+  }
+  res.sendStatus(404);
+  return;
 }
 
-function deleteUser() {
+function deleteUser(req, res) {
 
 }
 
