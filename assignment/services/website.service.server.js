@@ -38,17 +38,30 @@ function findAllWebsitesForUser(req, res) {
     }
   }
   res.json(websitesArr);
-
 }
 
 function findWebsiteById(req, res) {
-
 }
 
 function updateWebsite(req, res) {
-
+  var website = req.body;
+  for (key in websites) {
+    var websiteActual = websites[key];
+    if (parseInt(websiteActual._id) === parseInt(req.params.websiteId)) {
+      websites[key] = website;
+      return res.sendStatus(200);
+    }
+  }
+  return res.sendStatus(400);
 }
 
 function deleteWebsite(req, res) {
-
+  for (key in websites) {
+    var websiteActual = websites[key];
+    if(parseInt(websiteActual._id) === parseInt(req.params.websiteId)) {
+      websites.splice(key,1);
+      return res.sendStatus(200);
+    }
+  }
+  return res.sendStatus(404);
 }

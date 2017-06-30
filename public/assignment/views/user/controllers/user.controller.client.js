@@ -20,9 +20,7 @@
     }
 
     function goToProfile(user) {
-      $location.url("/user/" + user._id);
-      console.log("Going to Profile of user " + user._id);
-    }
+      $location.url("/user/" + user._id);}
 
     function renderError(error) {
       console.log(error);
@@ -94,8 +92,7 @@
     }
 
     function goToProfile(user) {
-      $location.url("/user/" + user._id);
-    }
+      $location.url("/user/" + user._id);}
 
   }
 
@@ -132,6 +129,8 @@
 
     // implemented functions
     function updateUser(user) {
+      console.log(user);
+      console.log(user._id);
       UserService
         .updateUser(user._id, user)
         .then(feedbackSuccessUpdate, feedbackErrorUpdate);

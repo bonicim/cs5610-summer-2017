@@ -21,7 +21,6 @@
       // initializer
       init();
       function init() {
-        // vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
         WebsiteService
           .findWebsitesByUser(vm.uid)
           .then(bindWebsites);
@@ -49,7 +48,7 @@
     }
 
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     function NewWebsiteController($routeParams, $location, WebsiteService) {
@@ -92,29 +91,23 @@
       }
 
       function goToProfile() {
-        console.log(vm.uid);
-        $location.url("/user/" + vm.uid);
-      }
+        $location.url("/user/" + vm.uid);}
 
       function goToWebsiteList() {
-        $location.url("/user/" + vm.uid + "/website");
-      }
+        $location.url("/user/" + vm.uid + "/website");}
 
       function goToNewWebsite() {
-        $location.url("/user/" + vm.uid + "/website/new");
-      }
+        $location.url("/user/" + vm.uid + "/website/new");}
 
       function goToEditWebsite(wid) {
-        $location.url("/user/" + vm.uid + "/website/" + wid);
-      }
+        $location.url("/user/" + vm.uid + "/website/" + wid);}
 
       function goToPageList(wid) {
-        $location.url("/user/" + vm.uid + "/website/" + wid + "/page");
-      }
+        $location.url("/user/" + vm.uid + "/website/" + wid + "/page");}
     }
 
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     function EditWebsiteController($routeParams, $location, WebsiteService) {
@@ -134,31 +127,36 @@
       vm.goToNewWebsite = goToNewWebsite;
       vm.goToPageList = goToPageList;
 
-      // initializes all uninitialized global variables
+      // initializer
       init();
       function init() {
-        vm.websiteList = WebsiteService.findWebsitesByUser(vm.uid);
-        vm.website = (vm.websiteList.filter(function (el) {return el._id === vm.wid;}))[0];
-        console.log("Edit Website check");
-        console.log(vm.websiteList)
-        console.log(vm.website);
+        WebsiteService
+          .findWebsitesByUser(vm.uid)
+          .then(bindWebsite);
       }
 
       // implemented functions
+      function bindWebsite(websites) {
+        vm.websiteList = websites;
+        // filters the list of websites and returns a list of exactly one website
+        vm.website = (websites.filter(function (el) {return el._id === vm.wid;}))[0];
+        console.log("Edit Website page for user " + vm.uid + "'s " + vm.website.name);
+      }
+
       function updateWebsite(website) {
-        console.log(vm.wid);
-        console.log(website);
-        WebsiteService.updateWebsite(vm.wid, website);
-        goToWebsiteList();
+        WebsiteService
+          .updateWebsite(vm.wid, website)
+          .then(goToWebsiteList());
       }
 
       function deleteWebsite() {
-        WebsiteService.deleteWebsite(vm.wid);
-        goToWebsiteList();
+        WebsiteService.
+          deleteWebsite(vm.wid)
+          .then(goToWebsiteList());
       }
 
-      // helpers
       function goToWebsiteList() {
+        console.log("returned from update");
         $location.url("/user/" + vm.uid + "/website");}
 
       function goToEditWebsite(uid, wid) {

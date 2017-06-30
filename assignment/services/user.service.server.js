@@ -32,7 +32,7 @@ function createUser(req, res) {
     firstName : user.firstName,
     lastName : user.lastName};
   users.push(userToAdd);
-  res.json(userToAdd); // we know for sure that userToAdd is a JSON
+  return res.json(userToAdd); // we know for sure that userToAdd is a JSON
 }
 
 function generateId() {
@@ -57,25 +57,20 @@ function findUserByCredentials(req, res) {
     for (key in users) {
       var userActual = users[key];
       if ((userActual.username === username) && (userActual.password === password)) {
-        res.status(200).send(userActual);
-        return;
+        return res.status(200).send(userActual);
       }
     }
-    res.sendStatus(404);
-    return;
+    return res.sendStatus(404);
   }
   else if (username) {
     for (key in users) {
       var userActual = users[key];
       if (userActual.username === username) {
-        res.status(200).send(userActual);
-        return;
+        return res.status(200).send(userActual);
       }
     }
-    res.sendStatus(404);
-    return;
+    return res.sendStatus(404);
   }
-
 }
 
 function findUserById(req, res) {
@@ -83,12 +78,10 @@ function findUserById(req, res) {
   for (key in users) {
     var userActual = users[key];
     if(parseInt(userActual._id) === parseInt(userId)) {
-      res.send(userActual);
-      return;
+      return res.send(userActual);
     }
   }
-  res.sendStatus(404);
-  return;
+  return res.sendStatus(404);
 }
 
 function updateUser(req, res) {
@@ -97,12 +90,10 @@ function updateUser(req, res) {
     var userActual = users[key];
     if(parseInt(userActual._id) === parseInt(req.params.userId)) {
       users[key] = user;
-      res.sendStatus(200);
-      return;
+      return res.sendStatus(200).json(users[key]);
     }
   }
-  res.sendStatus(404);
-  return;
+  return res.sendStatus(404);
 }
 
 function deleteUser(req, res) {
@@ -110,12 +101,9 @@ function deleteUser(req, res) {
     var userActual = users[key];
     if(parseInt(userActual._id) === parseInt(req.params.userId)) {
       users.splice(key,1);
-      res.sendStatus(200);
-      return;
+      return res.sendStatus(200);
     }
   }
-  res.sendStatus(404);
-  return;
-
+  return res.sendStatus(404);
 }
 

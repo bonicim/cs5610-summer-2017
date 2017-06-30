@@ -49,21 +49,17 @@
       return uniqueId;
     }
 
+    /**
+     * Returns a list of websites owned by the given userId
+     * @param userId
+     * @returns a list of websites
+     */
     function findWebsitesByUser(userId) {
       var url ="/api/user/" + userId + "/website";
       return $http.get(url)
         .then(function (response) {
           return response.data;
         });
-
-      // var websitesArr= [];
-      // for (key in websites) {
-      //   var websiteActual = websites[key];
-      //   if (parseInt(websiteActual.developerId) === parseInt(userId)) {
-      //     websitesArr.push(websiteActual);
-      //   }
-      // }
-      // return websitesArr;
     }
 
     function findWebsiteById(websiteId) {
@@ -77,17 +73,31 @@
       return null;
     }
 
+    /**
+     * Updates the website with the given website
+     * @param websiteId
+     * @param website
+     * @returns http status
+     */
     function updateWebsite(websiteId, website) {
-      deleteWebsite(websiteId);
-      websites.push(website);
-      console.log(websites);
+      var url = "/api/website/" + websiteId;
+      return $http.put(url, website)
+        .then(function (response) {
+          return response.data;
+        });
     }
 
+    /**
+     * Deletes the website
+     * @param websiteId
+     */
     function deleteWebsite(websiteId) {
-      websites = websites.filter(function(el) { return el._id !== websiteId});
-      console.log(websites);
+      var url = "/api/website/" + websiteId;
+      return $http.delete(url)
+        .then(function (response) {
+          return response.data;
+        });
     }
-
   }
 
 })();
