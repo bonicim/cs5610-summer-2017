@@ -11,7 +11,7 @@
       vm.uid = $routeParams.uid;
       vm.websites = undefined;
 
-      // api's
+      // functions
       vm.goToProfile = goToProfile;
       vm.goToEditWebsite = goToEditWebsite;
       vm.goToWebsiteList = goToWebsiteList;
@@ -19,33 +19,38 @@
       vm.goToPageList = goToPageList;
 
       // initializer
-      function init() {
-        vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
-      }
       init();
-
-      // implemented api's
-      function goToProfile() {
-        console.log(vm.uid);
-        $location.url("/user/" + vm.uid);
+      function init() {
+        // vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
+        WebsiteService
+          .findWebsitesByUser(vm.uid)
+          .then(bindWebsites);
+        console.log("Website List for user " + vm.uid);
       }
+
+      function bindWebsites(websites) {
+        vm.websites = websites;}
+
+      // implemented functions
+      function goToProfile() {
+        $location.url("/user/" + vm.uid);}
 
       function goToEditWebsite(wid) {
-        $location.url("/user/" + vm.uid + "/website/" + wid);
-      }
+        $location.url("/user/" + vm.uid + "/website/" + wid);}
 
       function goToWebsiteList() {
-        $location.url("/user/" + vm.uid + "/website");
-      }
+        $location.url("/user/" + vm.uid + "/website");}
 
       function goToNewWebsite() {
-        $location.url("/user/" + vm.uid + "/website/new");
-      }
+        $location.url("/user/" + vm.uid + "/website/new");}
 
       function goToPageList(wid) {
-        $location.url("/user/" + vm.uid + "/website/" + wid + "/page");
-      }
+        $location.url("/user/" + vm.uid + "/website/" + wid + "/page");}
     }
+
+
+
+
 
     function NewWebsiteController($routeParams, $location, WebsiteService) {
       // global vars
@@ -108,6 +113,10 @@
       }
     }
 
+
+
+
+
     function EditWebsiteController($routeParams, $location, WebsiteService) {
       // global vars
       var vm = this;
@@ -116,7 +125,7 @@
       vm.websiteList = undefined;
       vm.website = undefined;
 
-      // api's
+      // functions
       vm.updateWebsite = updateWebsite;
       vm.deleteWebsite = deleteWebsite;
       vm.goToWebsiteList = goToWebsiteList;
@@ -135,7 +144,7 @@
         console.log(vm.website);
       }
 
-      // implemented api's
+      // implemented functions
       function updateWebsite(website) {
         console.log(vm.wid);
         console.log(website);
@@ -150,25 +159,20 @@
 
       // helpers
       function goToWebsiteList() {
-        $location.url("/user/" + vm.uid + "/website");
-      }
+        $location.url("/user/" + vm.uid + "/website");}
 
       function goToEditWebsite(uid, wid) {
-        $location.url("/user/" + uid + "/website/" + wid);
-      }
+        $location.url("/user/" + uid + "/website/" + wid);}
 
       function goToProfile() {
         console.log(vm.uid);
-        $location.url("/user/" + vm.uid);
-      }
+        $location.url("/user/" + vm.uid);}
 
       function goToNewWebsite() {
-        $location.url("/user/" + vm.uid + "/website/new");
-      }
+        $location.url("/user/" + vm.uid + "/website/new");}
 
       function goToPageList(wid) {
-        $location.url("/user/" + vm.uid + "/website/" + wid + "/page");
-      }
+        $location.url("/user/" + vm.uid + "/website/" + wid + "/page");}
 
     }
 
