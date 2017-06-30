@@ -64,6 +64,13 @@ function findAllWebsitesForUser(req, res) {
 }
 
 function findWebsiteById(req, res) {
+  for (key in websites) {
+    var websiteActual = websites[key];
+    if (parseInt(websiteActual._id) === parseInt(req.params.websiteId)) {
+      return res.json(websiteActual);
+    }
+  }
+  return res.sendStatus(404);
 }
 
 function updateWebsite(req, res) {
@@ -75,7 +82,7 @@ function updateWebsite(req, res) {
       return res.sendStatus(200);
     }
   }
-  return res.sendStatus(400);
+  return res.sendStatus(404);
 }
 
 function deleteWebsite(req, res) {

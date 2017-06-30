@@ -40,16 +40,7 @@
         });
     }
 
-    // TODO:
     function findWebsiteById(websiteId) {
-      var key;
-      for (key in websites) {
-        var websiteActual = websites[key];
-        if (parseInt(websiteActual._id) === parseInt(websiteId)) {
-          return websiteActual;
-        }
-      }
-      return null;
     }
 
     /**
