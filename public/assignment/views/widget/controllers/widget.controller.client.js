@@ -85,7 +85,6 @@
     init();
     function init() {
       vm.widgetToAdd =  { "_id": null, "widgetType": null, "pageId": null };
-      console.log("New Widget check");
     }
 
     // implemented apis
@@ -98,17 +97,18 @@
     }
 
     function goToProfile() {
-      $location.url("/user/" + vm.uid);
-    }
+      $location.url("/user/" + vm.uid);}
 
     function goToEditWidget(wgid) {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + wgid);
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + wgid);}
 
     function goToListWidget() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");}
   }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
   function EditWidgetController($routeParams, $location, WidgetService) {
     // global vars
@@ -121,7 +121,7 @@
     vm.widget = undefined;
     vm.widthDisplay = undefined;
 
-    // api's
+    // functions
     vm.updateWidget = updateWidget;
     vm.deleteWidget = deleteWidget;
     vm.convertStringToNumber = convertStringToNumber;
@@ -131,20 +131,17 @@
     vm.goToProfile = goToProfile;
 
     // initializer
+    init();
     function init() {
       console.log("Edit Widget check");
       vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
       vm.widget = WidgetService.findWidgetsById(vm.wgid);
       vm.widthDisplay = parseInt(vm.widget.width);
     }
-    init();
 
-    // implemented api's
+    // implemented functions
     function updateWidget(widget) {
-      console.log(vm.wgid);
-      console.log(widget);
       WidgetService.updateWidget(vm.wgid, widget);
-      console.log(vm.widgets);
       goToListWidget();
     }
 
@@ -153,28 +150,20 @@
       goToListWidget();
     }
 
-
-
     function convertStringToNumber(text) {
-      return parseInt(text);
-    }
+      return parseInt(text);}
 
     function goToListWidget() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");}
 
     function goToNewWidget() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/new");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/new");}
 
     function goToEditWidget(wgid) {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + wgid);
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + wgid);}
 
     function goToProfile() {
-      console.log(vm.uid);
-      $location.url("/user/" + vm.uid);
-    }
+      $location.url("/user/" + vm.uid);}
 
   }
 

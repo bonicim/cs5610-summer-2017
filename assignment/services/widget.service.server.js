@@ -1,4 +1,6 @@
 var app = require('../../express');
+var multer = require('multer');
+var upload = multer({ dest: __dirname + '/../../public/assignment/uploads' });
 
 var widgets = [
   { "_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO"},
@@ -13,6 +15,7 @@ var widgets = [
 ]
 
 // POST
+app.post("/api/upload", upload.single('myFile'), uploadImage);
 
 // GET
 
@@ -21,3 +24,44 @@ var widgets = [
 // DELETE
 
 // Implementations of event handlers
+
+function uploadImage(req, res) {
+  var widgetId      = req.body.widgetId;
+  var width         = req.body.width;
+  var myFile        = req.file;
+
+  var userId = req.body.userId;
+  var websiteId = req.body.websiteId;
+  var pageId = req.body.pageId;
+
+  var originalname  = myFile.originalname; // file name on user's computer
+  var filename      = myFile.filename;     // new file name in upload folder
+  var path          = myFile.path;         // full path of uploaded file
+  var destination   = myFile.destination;  // folder where file is saved to
+  var size          = myFile.size;
+  var mimetype      = myFile.mimetype;
+
+  var widget = getWidgetById(widgetId);
+  widget.url = '/assignment/uploads/'+filename;
+
+  // brings us back to the submission form
+  var callbackUrl =
+    "/public/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
+  res.redirect(callbackUrl);
+}
+
+// gets some widget from an array of widgets based on wgid
+function getWidgetById(wgid) {
+  for (key in widgets) {
+    var widgetActual = widgets[key];
+    if(parseInt(widgetActual._id) === parseInt(wgid)) {
+      return widgetActual;
+    }
+  }
+  // TODO: should throw some error msg; this is bad practice; never return null
+  return null;
+}
+
+function findWidgetById(req, res) {
+
+}
