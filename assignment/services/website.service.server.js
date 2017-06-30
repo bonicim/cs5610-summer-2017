@@ -26,7 +26,30 @@ app.delete('/api/website/:websiteId', deleteWebsite);
 // Implementations of event handlers
 
 function createWebsite(req, res) {
+  var website = req.body;
+  var id = generateId();
+  var websiteToAdd =
+    {_id : id,
+      name : website.name,
+      developerId : req.params['userId'],
+      description : website.description};
+  websites.push(websiteToAdd);
+  return res.json(websiteToAdd);
+}
 
+function generateId() {
+  function getMaxId(maxId, website) {
+    var currId = parseInt(website._id);
+    if (maxId > currId) {
+      return maxId;
+    }
+    else {
+      return currId + 1;
+    }
+  }
+  var uniqueId = websites.reduce(getMaxId, 0).toString();
+  console.log("We generated a unique id. It is: " + uniqueId);
+  return uniqueId;
 }
 
 function findAllWebsitesForUser(req, res) {
@@ -37,7 +60,7 @@ function findAllWebsitesForUser(req, res) {
       websitesArr.push(websiteActual);
     }
   }
-  res.json(websitesArr);
+  return res.json(websitesArr);
 }
 
 function findWebsiteById(req, res) {

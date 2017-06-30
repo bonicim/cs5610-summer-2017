@@ -33,10 +33,10 @@
     // global vars
     var vm = this;
 
-    // api's
+    // functions
     vm.register = register;
 
-    // implemented api's
+    // implemented functions
     /**
      * Calls a service that creates a new user for this application.
      * @param username

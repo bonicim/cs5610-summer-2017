@@ -58,7 +58,7 @@
       vm.websites = undefined;
       vm.websiteToAdd = undefined;
 
-      // apis
+      // functions
       vm.createWebsite = createWebsite;
       vm.goToWebsiteList = goToWebsiteList;
       vm.goToProfile = goToProfile;
@@ -67,28 +67,46 @@
       vm.goToPageList = goToPageList;
 
       // initializer
-      function init() {
-        console.log("new website check");
-        vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
-        vm.websiteToAdd =
-          { "_id": "", "name": null, "developerId": "", "description": null };
-      }
       init();
-
-      // implemented api's
-      function createWebsite() {
-        if(vm.websiteToAdd.name === undefined || vm.websiteToAdd.name === null || vm.websiteToAdd.name === "" ||
-          vm.websiteToAdd.description === undefined || vm.websiteToAdd.description === null ||
-          vm.websiteToAdd.description === "") {
-          console.log(vm.websiteToAdd.name);
-          alert("Name and description cannot be empty! Try again");
-          return;
-        }
-        else {
-          WebsiteService.createWebsite(vm.uid, vm.websiteToAdd);
-          goToWebsiteList();
-        }
+      function init() {
+        WebsiteService
+          .findWebsitesByUser(vm.uid)
+          .then(bindWebsites);
+        initWebsiteToAdd();
       }
+
+      function bindWebsites(websites) {
+        vm.websites = websites;}
+
+      function initWebsiteToAdd() {
+        vm.websiteToAdd = { "_id": "", "name": null, "developerId": "", "description": null };}
+
+      // implemented functions
+      function createWebsite(name, description) {
+        if(!isValidInputs(name, description)) {return};
+
+        // input validation passed, we now call a service to create a website
+        setWebsiteToAdd(name, description);
+        WebsiteService
+          .createWebsite(vm.uid, vm.websiteToAdd)
+          .then(goToWebsiteList);
+      }
+
+      function setWebsiteToAdd(name, description) {
+        vm.websiteToAdd.name = name;
+        vm.websiteToAdd.description = description;
+      }
+
+      function isValidInputs(name, description) {
+        if ((hasEmptyFields(name) || hasEmptyFields(description))) {
+          alert("Name and/or description cannot be empty! Try again");
+          return false;
+        }
+        return true;
+      }
+
+      function hasEmptyFields(obj) {
+        return (obj === undefined || obj === null || obj === "");}
 
       function goToProfile() {
         $location.url("/user/" + vm.uid);}
