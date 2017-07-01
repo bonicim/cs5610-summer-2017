@@ -21,9 +21,20 @@ app.post("/api/upload", upload.single('myFile'), uploadImage);
 
 // PUT
 
+app.put('', sortWidgets);
+
 // DELETE
 
 // Implementations of event handlers
+
+// TODO: implement this
+// grab the params and query
+function sortWidgets(req, res) {
+}
+
+function sortItem(start, end) {
+
+}
 
 function uploadImage(req, res) {
   var widgetId      = req.body.widgetId;
