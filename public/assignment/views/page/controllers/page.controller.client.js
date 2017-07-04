@@ -15,7 +15,14 @@
     // initializer
     init();
     function init() {
-      vm.pages = PageService.findPageByWebsiteId(vm.wid);
+      PageService
+        .findPageByWebsiteId(vm.wid)
+        .then(bindPages);
+      console.log("Initialized pages for website id: " + vm.wid);
+    }
+
+    function bindPages(pages) {
+      vm.pages = pages;
     }
 
     // api's
@@ -48,12 +55,18 @@
     }
   }
 
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
   function NewPageController($routeParams, $location, PageService) {
     // global vars
     var vm = this;
     vm.wid = $routeParams.wid;
     vm.uid = $routeParams.uid;
     vm.pages = undefined;
+    vm.pageName = undefined;
+    vm.pageDescription = undefined;
     vm.pageToAdd = undefined;
 
     // api's
@@ -68,24 +81,36 @@
     init();
     function init() {
       console.log("EditPage check");
-      vm.pages = PageService.findPageByWebsiteId(vm.wid);
-      vm.pageToAdd = { "_id": "", "name": null, "wid": "", "description": null };
+      vm.pageName = null;
+      vm.pageDescription = null;
+      PageService
+        .findPageByWebsiteId(vm.wid)
+        .then(bindPages);
     }
+    function bindPages(pages) {
+      vm.pages = pages;
+    }
+
 
     // implemented api's
-    function createPage() {
-      if(vm.pageToAdd.name === undefined || vm.pageToAdd.name === null || vm.pageToAdd.name === "" ||
-        vm.pageToAdd.description === undefined || vm.pageToAdd.description === null ||
-        vm.pageToAdd.description === "") {
-        alert("Name and description cannot be empty! Try again");
-        return;
-      }
-      else {
-        PageService.createPage(vm.wid, vm.pageToAdd);
-        goToPageList();
-      }
+    function createPage(name, description) {
+      if (!isValidInput(name, description)) {return;}
 
+      // input validation passed, call the service to create a page
+      PageService
+        .createPage(vm.wid, name, description)
+        .then(goToPageList());
     }
+
+   function isValidInput(name, description) {
+       if(vm.pageName === undefined || vm.pageName === null || vm.pageName === "" ||
+           vm.pageDescription === undefined || vm.pageDescription === null ||
+           vm.pageDescription === "") {
+           alert("Name and description cannot be empty! Try again");
+           return false;
+       }
+       return true;
+   }
 
     function goToPageList() {
       $location.url("/user/" + vm.uid + "/website/" + vm.wid +"/page");
