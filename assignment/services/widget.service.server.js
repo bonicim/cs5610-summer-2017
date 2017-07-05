@@ -142,8 +142,12 @@ function uploadImage(req, res) {
   var size          = myFile.size;
   var mimetype      = myFile.mimetype;
 
+  // updates the url for the given widget
   var widget = getWidgetById(widgetId);
-  widget.url = '/assignment/uploads/'+filename;
+  if (widget === null) {
+    return res.sendStatus(500);
+  }
+  widget.url = '/public/assignment/uploads/' + filename;
 
   // brings us back to the submission form
   var callbackUrl =
@@ -159,7 +163,6 @@ function getWidgetById(wgid) {
       return widgetActual;
     }
   }
-  // TODO: should throw some error msg; this is bad practice; never return null
   return null;
 }
 
