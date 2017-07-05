@@ -34,25 +34,19 @@
 
     // implemented api's
     function goToProfile() {
-      console.log(vm.uid);
-      $location.url("/user/" + vm.uid);
-    }
+      $location.url("/user/" + vm.uid);}
 
     function goToWebsiteList() {
-      $location.url("/user/" + vm.uid + "/website");
-    }
+      $location.url("/user/" + vm.uid + "/website");}
 
     function goToNewPage() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/new");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/new");}
 
     function goToWidgetList(pid) {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid + "/widget");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid + "/widget");}
 
     function goToEditPage(pid) {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid);
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid);}
   }
 
 
@@ -80,7 +74,6 @@
     // initializer
     init();
     function init() {
-      console.log("EditPage check");
       vm.pageName = null;
       vm.pageDescription = null;
       PageService
@@ -90,7 +83,6 @@
     function bindPages(pages) {
       vm.pages = pages;
     }
-
 
     // implemented api's
     function createPage(name, description) {
@@ -113,28 +105,22 @@
    }
 
     function goToPageList() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid +"/page");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid +"/page");}
 
     function goToProfile() {
-      $location.url("/user/" + vm.uid);
-    }
+      $location.url("/user/" + vm.uid);}
 
     function goToWebsiteList() {
-      $location.url("/user/" + vm.uid + "/website");
-    }
+      $location.url("/user/" + vm.uid + "/website");}
 
     function goToNewPage() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/new");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/new");}
 
     function goToWidgetList(pid) {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid + "/widget");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid + "/widget");}
 
     function goToEditPage(pid) {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid);
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid);}
 
   }
 
@@ -160,7 +146,6 @@
     // initializer
     init();
     function init() {
-      console.log("EditPage check");
       PageService
         .findPageByWebsiteId(vm.wid)
         .then(bindPages);
@@ -169,7 +154,7 @@
     function bindPages(pages) {
       vm.pages = pages;
       vm.page = (pages.filter(function (el) {return el._id === vm.pid;}))[0];
-      console.log("Initializing Edit Page for page id: " + vm.page._id);
+      console.log("Initialized Edit Page for page id: " + vm.page._id);
     }
 
     // implemented api's
@@ -180,33 +165,28 @@
     }
 
     function deletePage() {
-      PageService.deletePage(vm.pid);
-      goToPageList();
+      PageService
+        .deletePage(vm.pid)
+        .then(goToPageList());
     }
 
     function goToPageList() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid +"/page");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid +"/page");}
 
     function goToProfile() {
-      $location.url("/user/" + vm.uid);
-    }
+      $location.url("/user/" + vm.uid);}
 
     function goToWebsiteList() {
-      $location.url("/user/" + vm.uid + "/website");
-    }
+      $location.url("/user/" + vm.uid + "/website");}
 
     function goToNewPage() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/new");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/new");}
 
     function goToWidgetList(pid) {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid + "/widget");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid + "/widget");}
 
     function goToEditPage(pid) {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid);
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid);}
 
   }
 

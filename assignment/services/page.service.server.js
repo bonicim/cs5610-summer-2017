@@ -30,10 +30,10 @@ function createPage(req, res) {
     var page = req.body;
     var id = generateId();
     var pageToAdd = {
-        id : id,
-        name : page.name,
-        wid : req.params.websiteId,
-        description : page.description};
+        '_id' : id,
+        'name' : page.name,
+        'wid' : req.params.websiteId,
+        'description' : page.description};
     pages.push(pageToAdd);
     return res.json(pageToAdd);
 }
@@ -83,7 +83,7 @@ function updatePage(req, res) {
         "wid" : page.wid,
         "name": req.body.name,
         "description": req.body.description
-      }
+      };
       pages[key] = pageToUpdate;
       return res.json(pageToUpdate);
     }
@@ -92,7 +92,14 @@ function updatePage(req, res) {
 }
 
 function deletePage(req, res) {
-
+  for (key in pages) {
+    var page = pages[key];
+    if (parseInt(page._id) === parseInt(req.params.pageId)) {
+      pages.splice(key, 1);
+      return res.sendStatus(200);
+    }
+  }
+  return res.sendStatus(404);
 }
 
 // this will be called by the widget client service to be able to sort the widgets

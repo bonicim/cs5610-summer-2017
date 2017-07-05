@@ -63,6 +63,13 @@
         })
     }
 
+    /**
+     * Updates the page and returns the page
+     * @param pageId
+     * @param name
+     * @param description
+     * @returns {*}
+     */
     function updatePage(pageId, name, description) {
       var page = {
           "_id" : null,
@@ -77,11 +84,18 @@
        })
     }
 
+
+    /**
+     * Deletes the page from the website
+     * @param pageId
+     * @returns {*}
+     */
     function deletePage(pageId) {
-
-
-      pages = pages.filter(function (el) { return parseInt(el._id) !== parseInt(pageId);})
-      console.log(pages);
+      var url = "/api/page/" + pageId;
+      return $http.delete(url)
+        .then(function (response) {
+          return response.data;
+        })
     }
 
   }
