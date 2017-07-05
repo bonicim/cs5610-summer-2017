@@ -3,7 +3,7 @@
     .module("WebAppMaker")
     .factory("WidgetService", WidgetService);
 
-  function WidgetService() {
+  function WidgetService($http) {
     // temporary database
     var widgets = [
       { "_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO"},
@@ -26,61 +26,30 @@
       "updateWidget" : updateWidget,
       "deleteWidget" : deleteWidget
     };
-
     return api;
 
-    function createWidget(pageId, widget) {
-      console.log("entered crateWidget");
-      var id = generateId();
-      console.log("id successfully generated");
-      var widgetToAdd = {_id : id, widgetType: widget.widgetType, pageId : pageId};
-      console.log(widgetToAdd._id + " NEW ID is now part of new widget");
-      if (widgetToAdd.widgetType === "HEADING") {
-       widgetToAdd['size'] = undefined;
-       widgetToAdd['text'] = undefined;
-      }
-      else if (widgetToAdd.widgetType === "IMAGE") {
-        widgetToAdd['width'] = undefined;
-        widgetToAdd['url'] = undefined;
-
-      }
-      else if (widgetToAdd.widgetType === "YOUTUBE") {
-        widgetToAdd['width'] = undefined;
-        widgetToAdd['url'] = undefined;
-      }
-      widgets.push(widgetToAdd);
-      return widgetToAdd;
-    }
-
-    function generateId() {
-      function getMaxId(maxId, widget) {
-        var currId = parseInt(widget._id);
-        if (maxId > currId) {
-          console.log("We should enter here if current unique id greater than the current id that we are comparing.")
-          console.log(maxId);
-          return maxId;
-        }
-        else {
-          console.log("The current unique id has changed and increased by one from the current id.")
-          console.log(currId + 1);
-          return currId + 1;
-        }
-      }
-      var uniqueId = widgets.reduce(getMaxId, 0).toString();
-      console.log("We generated a unique id. It is: " + uniqueId);
-      return uniqueId;
+    /**
+     * Creates widget
+     * @param pageId
+     * @param widget
+     * @returns {*}
+     */
+    function createWidget(pageId, widgetType) {
+      var widgetToAdd = {"widgetType": widgetType};
+      console.log(widgetToAdd);
+      var url = "/api/page/" + pageId + "/widget";
+      return $http.post(url, widgetToAdd)
+        .then(function (response) {
+          return response.data;
+        });
     }
 
     function findWidgetsByPageId(pageId) {
-      var key;
-      var widgetsArr = [];
-      for (key in widgets) {
-        var widgetActual = widgets[key];
-        if (parseInt(widgetActual.pageId) === parseInt(pageId)) {
-          widgetsArr.push(widgetActual);
-        }
-      }
-      return widgetsArr;
+      var url = "/api/page/" + pageId + "/widget";
+      return $http.get(url)
+        .then(function (response) {
+          return response.data;
+        })
     }
 
     function findWidgetsById(widgetId) {

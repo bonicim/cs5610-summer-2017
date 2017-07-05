@@ -5,6 +5,10 @@
     .controller("NewWidgetController", NewWidgetController)
     .controller("EditWidgetController", EditWidgetController);
 
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
   function WidgetListController($routeParams, $location, $sce, WidgetService) {
     // global vars
     var vm = this;
@@ -25,9 +29,14 @@
     // initializer
     init();
     function init() {
-      console.log("Widget List check");
-      vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
-      console.log(vm.widgets);
+      WidgetService
+        .findWidgetsByPageId(vm.pid)
+        .then(bindWidgets);
+    }
+
+    function bindWidgets(widgets) {
+      vm.widgets = widgets;
+      console.log("Completed initialization for Widget List for page id: " + vm.pid);
     }
 
     // implemented api's
@@ -68,6 +77,10 @@
 
   }
 
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
   function NewWidgetController($routeParams, $location, WidgetService) {
     // global vars
     var vm = this;
@@ -89,15 +102,17 @@
 
     // implemented apis
     function createWidget(widgetType) {
-      var widgetToAdd = { "_id": null, "widgetType": widgetType};
-      console.log(widgetToAdd._id);
-      widgetToAdd = WidgetService.createWidget(vm.pid, widgetToAdd);
-      console.log(widgetToAdd._id);
-      goToEditWidget(widgetToAdd._id);
+      WidgetService
+        .createWidget(vm.pid, widgetType)
+        .then(goToEditWidgetPage);
     }
 
     function goToProfile() {
       $location.url("/user/" + vm.uid);}
+
+    function goToEditWidgetPage(response) {
+      goToEditWidget(response._id);
+    }
 
     function goToEditWidget(wgid) {
       $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + wgid);}
@@ -133,10 +148,15 @@
     // initializer
     init();
     function init() {
-      console.log("Edit Widget check");
-      vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
-      vm.widget = WidgetService.findWidgetsById(vm.wgid);
-      vm.widthDisplay = parseInt(vm.widget.width);
+      WidgetService
+        .findWidgetsByPageId(vm.pid)
+        .then(bindWidgets);
+    }
+
+    function bindWidgets(widgets) {
+      vm.widgets = widgets;
+      vm.widget = (widgets.filter(function (el) {return el._id === vm.wgid;}))[0];
+      console.log("Completed initialization of widget id: " + vm.wgid);
     }
 
     // implemented functions

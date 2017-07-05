@@ -15,21 +15,91 @@ var widgets = [
 ]
 
 // POST
+app.post("/api/page/:pageId/widget", createWidget);
 app.post("/api/upload", upload.single('myFile'), uploadImage);
 
 // GET
+app.get("/api/page/:pageId/widget", findAllWidgetsForPage);
+app.get("/api/widget/:widgetId", findWidgetById);
 
 // PUT
-
+app.put("/api/widget/:widgetId", updateWidget);
 app.put('', sortWidgets);
 
 // DELETE
+app.delete("/api/widget/:widgetId", deleteWidget);
+
 
 // Implementations of event handlers
+
+function createWidget(req, res) {
+  var id = generateId();
+  var widgetToAdd = {
+    '_id' : id,
+    'widgetType': req.body.widgetType,
+    'pageId' : req.params.pageId
+  };
+
+  if (widgetToAdd.widgetType === "HEADING") {
+    widgetToAdd['size'] = undefined;
+    widgetToAdd['text'] = undefined;
+  }
+  else if (widgetToAdd.widgetType === "IMAGE") {
+    widgetToAdd['width'] = undefined;
+    widgetToAdd['url'] = undefined;
+
+  }
+  else if (widgetToAdd.widgetType === "YOUTUBE") {
+    widgetToAdd['width'] = undefined;
+    widgetToAdd['url'] = undefined;
+  }
+
+  widgets.push(widgetToAdd);
+  return res.json(widgetToAdd);
+}
+
+function generateId() {
+  function getMaxId(maxId, widget) {
+    var currId = parseInt(widget._id);
+    if (maxId > currId) {
+      return maxId;
+    }
+    else {
+      return currId + 1;
+    }
+  }
+  var uniqueId = widgets.reduce(getMaxId, 0).toString();
+  console.log("We generated a unique id. It is: " + uniqueId);
+  return uniqueId;
+}
+
+function findAllWidgetsForPage(req, res) {
+  var widgetsArr = [];
+  for (key in widgets) {
+    var widgetActual = widgets[key];
+    if (parseInt(widgetActual.pageId) === parseInt(req.params.pageId)) {
+      widgetsArr.push(widgetActual);
+    }
+  }
+  return res.json(widgetsArr);
+}
+
+function findWidgetById(req, res) {
+
+}
+
+function updateWidget(req, res) {
+
+}
+
+function deleteWidget(req, res) {
+
+}
 
 // TODO: implement this
 // grab the params and query
 function sortWidgets(req, res) {
+
 }
 
 function sortItem(start, end) {
@@ -73,6 +143,3 @@ function getWidgetById(wgid) {
   return null;
 }
 
-function findWidgetById(req, res) {
-
-}
