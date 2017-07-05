@@ -65,11 +65,30 @@ function findAllPagesForWebsite(req, res) {
 }
 
 function findPageById(req, res) {
-
+  for (key in pages) {
+    var page = pages[key];
+    if (parseInt(page._id) === parseInt(req.params.pageId)) {
+      return res.json(page);
+    }
+  }
+  return res.status(404);
 }
 
 function updatePage(req, res) {
-
+  for (key in pages) {
+    var page = pages[key];
+    if (parseInt(page._id) === parseInt(req.params.pageId)) {
+      var pageToUpdate = {
+        "_id" : page._id,
+        "wid" : page.wid,
+        "name": req.body.name,
+        "description": req.body.description
+      }
+      pages[key] = pageToUpdate;
+      return res.json(pageToUpdate);
+    }
+  }
+  return res.sendStatus(404);
 }
 
 function deletePage(req, res) {

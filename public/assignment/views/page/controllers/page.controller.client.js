@@ -138,6 +138,7 @@
 
   }
 
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   function EditPageController($routeParams, $location, PageService) {
     // global vars
     var vm = this;
@@ -160,14 +161,22 @@
     init();
     function init() {
       console.log("EditPage check");
-      vm.pages = PageService.findPageByWebsiteId(vm.wid);
-      vm.page = (vm.pages.filter(function (el) {return el._id === vm.pid;}))[0];
+      PageService
+        .findPageByWebsiteId(vm.wid)
+        .then(bindPages);
+    }
+
+    function bindPages(pages) {
+      vm.pages = pages;
+      vm.page = (pages.filter(function (el) {return el._id === vm.pid;}))[0];
+      console.log("Initializing Edit Page for page id: " + vm.page._id);
     }
 
     // implemented api's
-    function updatePage(page) {
-      PageService.updatePage(vm.pid, page);
-      goToPageList();
+    function updatePage(name, description) {
+      PageService
+        .updatePage(vm.pid, name, description)
+        .then(goToPageList());
     }
 
     function deletePage() {

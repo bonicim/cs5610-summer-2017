@@ -50,24 +50,36 @@
         })
     }
 
+    /**
+     * Returns a page for a given page id
+     * @param pageId
+     * @returns {*}
+     */
     function findPageById(pageId) {
-      var key;
-      for (key in pages) {
-        var page = pages[key];
-        if (parseInt(page._id) === parseInt(pageId)) {
-          return page;
-        }
-      }
-      return null;
+      var url = "/api/page/" + pageId;
+      return $http.get(url)
+        .then(function (response) {
+          return response.data;
+        })
     }
 
-    function updatePage(pageId, page) {
-      deletePage(pageId);
-      pages.push(page);
-      console.log(pages);
+    function updatePage(pageId, name, description) {
+      var page = {
+          "_id" : null,
+          "wid" : null,
+          "name": name,
+          "description": description
+        };
+      var url = "/api/page/" + pageId;
+      return $http.put(url, page)
+       .then(function (response) {
+         return response.data;
+       })
     }
 
     function deletePage(pageId) {
+
+
       pages = pages.filter(function (el) { return parseInt(el._id) !== parseInt(pageId);})
       console.log(pages);
     }
