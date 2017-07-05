@@ -85,15 +85,35 @@ function findAllWidgetsForPage(req, res) {
 }
 
 function findWidgetById(req, res) {
-
+  for (key in widgets) {
+    var widgetActual = widgets[key];
+    if (parseInt(widgetActual._id) === parseInt(req.params.widgetId)) {
+      return res.json(widgetActual);
+    }
+  }
+  return res.sendStatus(404);
 }
 
 function updateWidget(req, res) {
-
+  for (key in widgets) {
+    var widgetActual = widgets[key];
+    if (parseInt(widgetActual._id) === parseInt(req.params.widgetId)) {
+      widgets[key] = req.body;
+      return res.json(widgets[key]);
+    }
+  }
+  return res.sendStatus(404);
 }
 
 function deleteWidget(req, res) {
-
+  for (key in widgets) {
+    var widgetActual = widgets[key];
+    if (parseInt(widgetActual._id) === parseInt(req.params.widgetId)) {
+      widgets.splice(key,1);
+      return res.sendStatus(200);
+    }
+  }
+  return res.sendStatus(404);
 }
 
 // TODO: implement this

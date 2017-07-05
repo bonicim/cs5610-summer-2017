@@ -55,25 +55,19 @@
     }
 
     function goToEditWidget(wgid) {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + wgid);
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + wgid);}
 
     function goToListWidget() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");}
 
     function goToNewWidget() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/new");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/new");}
 
     function goToPageList() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");}
 
     function goToProfile() {
-      console.log(vm.uid);
-      $location.url("/user/" + vm.uid);
-    }
+      $location.url("/user/" + vm.uid);}
 
   }
 
@@ -111,8 +105,7 @@
       $location.url("/user/" + vm.uid);}
 
     function goToEditWidgetPage(response) {
-      goToEditWidget(response._id);
-    }
+      goToEditWidget(response._id);}
 
     function goToEditWidget(wgid) {
       $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + wgid);}
@@ -161,13 +154,15 @@
 
     // implemented functions
     function updateWidget(widget) {
-      WidgetService.updateWidget(vm.wgid, widget);
-      goToListWidget();
+      WidgetService
+        .updateWidget(vm.wgid, widget)
+        .then(goToListWidget);
     }
 
     function deleteWidget() {
-      WidgetService.deleteWidget(vm.wgid);
-      goToListWidget();
+      WidgetService
+        .deleteWidget(vm.wgid)
+        .then(goToListWidget);
     }
 
     function convertStringToNumber(text) {
