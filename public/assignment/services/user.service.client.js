@@ -3,13 +3,7 @@
     .module("WebAppMaker")
     .factory("UserService", UserService);
 
-  function UserService() {
-    // temporary database
-    var users = [{_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder"  },
-      {_id: "234", username: "bob",      password: "bob",      firstName: "Bob",    lastName: "Marley"  },
-      {_id: "345", username: "charly",   password: "charly",   firstName: "Charly", lastName: "Garcia"  },
-      {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }];
-
+  function UserService($http) {
     // api interface object
     var api = {
       "createUser" : createUser,
@@ -19,83 +13,88 @@
       "updateUser" : updateUser,
       "deleteUser" : deleteUser
     };
-
     return api;
 
-    // Assumes that username is already unique
+    /**
+     *  Assumes that username is already unique
+     * @param user
+     * @returns User
+     */
     function createUser(user) {
-      var id = generateId();
-      var userToAdd = {_id : id, username : user.username, password : user.password, firstName : user.firstName,
-        lastName : user.lastName};
-      users.push(userToAdd);
+      var url = "/api/user";
+      // .post takes two args: url, object to be posted
+      return $http.post(url, user)
+        .then(function (response) {
+          return response.data;
+        });
     }
 
-    function generateId() {
-      function getMaxId(maxId, user) {
-        console.log("Entered getMaxId");
-        var currId = parseInt(user._id);
-        if (maxId > currId) {
-          console.log("We should enter here if current unique id greater than the current id that we are comparing.")
-          console.log(maxId);
-          return maxId;
-        }
-        else {
-          console.log("The current unique id has changed and increased by one from the current id.")
-          console.log(currId + 1);
-          return currId + 1;
-        }
-      }
-      var uniqueId = users.reduce(getMaxId, 0).toString();
-      console.log("We generated a unique id. It is: " + uniqueId);
-      return uniqueId;
-    }
-
+    /**
+     * Returns a User given a user ID
+     * @param userId
+     * @returns User
+     */
     function findUserById(userId) {
-      var key;
-      for (key in users) {
-        var userActual = users[key];
-        if(parseInt(userActual._id) === parseInt(userId)) {
-          return userActual;
-        }
-      }
-      return null;
+      var url = "/api/user/" + userId;
+      return $http.get(url)
+        .then(function (response) {
+          return response.data;
+        });
     }
 
+    /**
+     * Returns a User given a username
+     * @param username
+     * @returns User
+     */
     function findUserByUsername(username) {
-      var key;
-      for (key in users) {
-        var userActual = users[key];
-        if(userActual.username === username) {
-          return userActual;
-        }
-      }
-      return null;
+      var url = "/api/user?username=" + username;
+      return $http.get(url)
+        .then(function (response) {
+          return response.data;
+        });
     }
 
+    // TODO: change to POST to hide username and password in URL
+    /**
+     * Returns a User given a username and password
+     * @param username
+     * @param password
+     * @returns User
+     */
     function findUserByCredentials(username, password) {
-      var key = undefined;
-      var userActual = undefined;
-      for (key in users) {
-        userActual = users[key];
-        if ((userActual.username === username) && (userActual.password === password)) {
-          return userActual;
-        }
-        else {
-          userActual = null;
-        }
-      }
-      return userActual;
+      var url = "/api/user?username=" + username + "&password=" + password;
+      return $http.get(url)
+        .then(function (response) {
+          return response.data;
+        });
     }
 
+    /**
+     * Updates the user given the user ID and the updated User object
+     * @param userId
+     * @param user
+     * @returns The newly update User
+     */
     function updateUser(userId, user) {
-      deleteUser(userId);
-      users.push(user);
-      console.log(users);
+      var url = "/api/user/" + userId;
+      return $http.put(url, user)
+        .then(function (response) {
+          return response.data;
+        });
     }
 
+    /**
+     * Removes the user from the database given the user ID
+     * @param userId
+     * @returns
+     */
     function deleteUser(userId) {
-      users = users.filter(function(el) { return el._id !== userId});
-      console.log(users);
+      var url = "/api/user/" + userId;
+      return $http.delete(url)
+        .then(function (response) {
+          return response.data;
+        });
     }
 
   }

@@ -15,7 +15,14 @@
     // initializer
     init();
     function init() {
-      vm.pages = PageService.findPageByWebsiteId(vm.wid);
+      PageService
+        .findPageByWebsiteId(vm.wid)
+        .then(bindPages);
+      console.log("Initialized pages for website id: " + vm.wid);
+    }
+
+    function bindPages(pages) {
+      vm.pages = pages;
     }
 
     // api's
@@ -27,26 +34,24 @@
 
     // implemented api's
     function goToProfile() {
-      console.log(vm.uid);
-      $location.url("/user/" + vm.uid);
-    }
+      $location.url("/user/" + vm.uid);}
 
     function goToWebsiteList() {
-      $location.url("/user/" + vm.uid + "/website");
-    }
+      $location.url("/user/" + vm.uid + "/website");}
 
     function goToNewPage() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/new");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/new");}
 
     function goToWidgetList(pid) {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid + "/widget");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid + "/widget");}
 
     function goToEditPage(pid) {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid);
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid);}
   }
+
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
   function NewPageController($routeParams, $location, PageService) {
     // global vars
@@ -54,6 +59,8 @@
     vm.wid = $routeParams.wid;
     vm.uid = $routeParams.uid;
     vm.pages = undefined;
+    vm.pageName = undefined;
+    vm.pageDescription = undefined;
     vm.pageToAdd = undefined;
 
     // api's
@@ -67,52 +74,57 @@
     // initializer
     init();
     function init() {
-      console.log("EditPage check");
-      vm.pages = PageService.findPageByWebsiteId(vm.wid);
-      vm.pageToAdd = { "_id": "", "name": null, "wid": "", "description": null };
+      vm.pageName = null;
+      vm.pageDescription = null;
+      PageService
+        .findPageByWebsiteId(vm.wid)
+        .then(bindPages);
+    }
+    function bindPages(pages) {
+      vm.pages = pages;
     }
 
     // implemented api's
-    function createPage() {
-      if(vm.pageToAdd.name === undefined || vm.pageToAdd.name === null || vm.pageToAdd.name === "" ||
-        vm.pageToAdd.description === undefined || vm.pageToAdd.description === null ||
-        vm.pageToAdd.description === "") {
-        alert("Name and description cannot be empty! Try again");
-        return;
-      }
-      else {
-        PageService.createPage(vm.wid, vm.pageToAdd);
-        goToPageList();
-      }
+    function createPage(name, description) {
+      if (!isValidInput(name, description)) {return;}
 
+      // input validation passed, call the service to create a page
+      PageService
+        .createPage(vm.wid, name, description)
+        .then(goToPageList());
     }
+
+   function isValidInput(name, description) {
+       if(vm.pageName === undefined || vm.pageName === null || vm.pageName === "" ||
+           vm.pageDescription === undefined || vm.pageDescription === null ||
+           vm.pageDescription === "") {
+           alert("Name and description cannot be empty! Try again");
+           return false;
+       }
+       return true;
+   }
 
     function goToPageList() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid +"/page");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid +"/page");}
 
     function goToProfile() {
-      $location.url("/user/" + vm.uid);
-    }
+      $location.url("/user/" + vm.uid);}
 
     function goToWebsiteList() {
-      $location.url("/user/" + vm.uid + "/website");
-    }
+      $location.url("/user/" + vm.uid + "/website");}
 
     function goToNewPage() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/new");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/new");}
 
     function goToWidgetList(pid) {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid + "/widget");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid + "/widget");}
 
     function goToEditPage(pid) {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid);
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid);}
 
   }
 
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   function EditPageController($routeParams, $location, PageService) {
     // global vars
     var vm = this;
@@ -134,45 +146,47 @@
     // initializer
     init();
     function init() {
-      console.log("EditPage check");
-      vm.pages = PageService.findPageByWebsiteId(vm.wid);
-      vm.page = (vm.pages.filter(function (el) {return el._id === vm.pid;}))[0];
+      PageService
+        .findPageByWebsiteId(vm.wid)
+        .then(bindPages);
+    }
+
+    function bindPages(pages) {
+      vm.pages = pages;
+      vm.page = (pages.filter(function (el) {return el._id === vm.pid;}))[0];
+      console.log("Initialized Edit Page for page id: " + vm.page._id);
     }
 
     // implemented api's
-    function updatePage(page) {
-      PageService.updatePage(vm.pid, page);
-      goToPageList();
+    function updatePage(name, description) {
+      PageService
+        .updatePage(vm.pid, name, description)
+        .then(goToPageList());
     }
 
     function deletePage() {
-      PageService.deletePage(vm.pid);
-      goToPageList();
+      PageService
+        .deletePage(vm.pid)
+        .then(goToPageList());
     }
 
     function goToPageList() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid +"/page");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid +"/page");}
 
     function goToProfile() {
-      $location.url("/user/" + vm.uid);
-    }
+      $location.url("/user/" + vm.uid);}
 
     function goToWebsiteList() {
-      $location.url("/user/" + vm.uid + "/website");
-    }
+      $location.url("/user/" + vm.uid + "/website");}
 
     function goToNewPage() {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/new");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/new");}
 
     function goToWidgetList(pid) {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid + "/widget");
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid + "/widget");}
 
     function goToEditPage(pid) {
-      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid);
-    }
+      $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + pid);}
 
   }
 

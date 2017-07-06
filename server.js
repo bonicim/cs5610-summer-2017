@@ -1,12 +1,19 @@
-//using express with node js
-var express = require('express');
+// load libraries
+var app = require('./express');
+var bodyParser = require('body-parser');
 
-//initialize app as an express application
-var app = express();
-
+// server config
 app.set('port', (process.env.PORT || 5000));
-app.use(express.static(__dirname+'/'));
-
+app.use(app.express.static(__dirname+'/'));
 app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
 });
+
+// install, load, and configure body parser module
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true}));
+
+// load the entry point for server side web services
+require('./assignment/app');
+
+

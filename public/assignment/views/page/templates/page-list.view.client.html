@@ -18,8 +18,12 @@
   <div class="col-xs-12">
     <ul class="list-group mc-container-under-navbar">
       <li ng-repeat="page in model.pages" class="list-group-item mc-list-item-custom-1">
-        <a ng-click="model.goToWidgetList(page._id)">{{page.name}}</a>
-        <a ng-click="model.goToEditPage(page._id)"><span class="glyphicon glyphicon-cog pull-right"></span></a>
+        <a ng-click="model.goToWidgetList(page._id)">
+          {{page.name}}
+        </a>
+        <a ng-click="model.goToEditPage(page._id)">
+          <span class="glyphicon glyphicon-cog pull-right"></span>
+        </a>
       </li>
     </ul>
   </div>

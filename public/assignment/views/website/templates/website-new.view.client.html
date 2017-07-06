@@ -12,7 +12,7 @@
       </a>
     </div>
     <div class="col-xs-1 visible-xs">
-      <a ng-click="model.goToWebsiteList" class="navbar-text pull-left mc-navbar-icon-leftmost">
+      <a ng-click="model.goToWebsiteList()" class="navbar-text pull-left mc-navbar-icon-leftmost">
         <span class="glyphicon glyphicon-chevron-left"></span>
       </a>
     </div>
@@ -20,7 +20,8 @@
       <a class="navbar-brand mc-navbar-text1">
         New Website
       </a>
-      <a ng-click="model.createWebsite()" class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost">
+      <a ng-click="model.createWebsite(model.websiteToAdd.name, model.websiteToAdd.description)"
+         class="navbar-link navbar-text pull-right mc-navbar-icon-rightmost">
         <span class="glyphicon glyphicon-ok"></span>
       </a>
     </div>
@@ -47,6 +48,10 @@
         <textarea ng-model="model.websiteToAdd.description" id="description" class="form-control" rows="10" cols="50"
                   placeholder="Description"></textarea>
       </div>
+      <a ng-click="model.createWebsite(model.websiteToAdd.name, model.websiteToAdd.description)"
+         class="btn btn-success btn-block">
+        Submit
+      </a>
     </form>
   </div>
 </div>
