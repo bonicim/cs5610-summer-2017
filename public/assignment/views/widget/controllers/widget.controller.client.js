@@ -25,6 +25,7 @@
     vm.goToNewWidget = goToNewWidget;
     vm.goToPageList = goToPageList;
     vm.goToProfile = goToProfile;
+    vm.callback = callback;
 
     // initializer
     init();
@@ -33,21 +34,26 @@
         .findWidgetsByPageId(vm.pid)
         .then(bindWidgets);
     }
-
     function bindWidgets(widgets) {
       vm.widgets = widgets;
       console.log("Completed initialization for Widget List for page id: " + vm.pid);
     }
 
     // implemented api's
+    function callback(start, end) {
+     console.log("Entering callback");
+     console.log("The page id is: " + vm.pid);
+     WidgetService
+       .sortWidgets(start, end, vm.pid)
+       .then(goToListWidget());
+    }
+
     function trustHtml(html) {
       // scrub html
-      console.log("Entering trustHtml");
       return $sce.trustAsHtml(html);
     }
 
     function getYouTubeEmbedUrl(url) {
-      console.log("Entering embedUrl");
       var embedUrl = "https://www.youtube.com/embed/";
       var urlLinkParts = url.split('/');
       embedUrl += urlLinkParts[urlLinkParts.length - 1];

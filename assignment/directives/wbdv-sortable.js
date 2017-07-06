@@ -4,49 +4,57 @@
         .directive('wbdvsortable', wbdvsortableDir)
 
     function wbdvsortableDir() {
-
+        console.log("Entering sortable directive.");
         function linker(scope, element, attrs) {
-            console.log("Entering sortable directive.");
+            console.log("Entering sortable linker.");
             var start = -1;
             var end = -1;
-            $(element)
-                // sortable is some function that takes two maps as inputs; each map's value is a function
+            element
                 .sortable({
-                    // gets the item's index of array containing the item
+                    // notifies when dragging of item begins
                     start: function(event, ui) {
-                        start = $(ui.item).index();
+                      start = $(ui.item).index();
+                      console.log("start is: " + start);
                     },
-                    // sets start and end to new values if end >= start
+                    // notifies when dragging stops
                     stop: function (event, ui) {
                         end = $(ui.item).index();
-                        console.log(start, end);
-                        // if(start >= end) {
-                        //     start--;
-                        // }
+                        console.log("end is: " + end);
                         if(end >= start){
                             end = end + 1;
                         }
-                        console.log(start, end);
+                        console.log("final start is: " + start);
+                        console.log("final end is: " + end);
+                        //scope.sortableController.sort(start,end);
                         scope.callback({
-                            start : start,
-                            end : end
+                             start : start,
+                             end : end
                         });
                     }
                 });
         }
 
         var directive =  {
-            // Used as attribute, class, or element
             restrict : 'ACE',
-            // todo: add comment
             scope : {
                 callback : '&'
             },
-            // Post-link function
             link : linker
+            //controller : sortableController,
+            //controllerAs : 'sortableController'
         };
 
         return directive;
     }
 
+    // function sortableController(WidgetService) {
+    //   var vm =this;
+    //   vm.sort = sort;
+    //
+    //   function sort(start, end) {
+    //     WidgetService.sortWidgets(start,end,8);
+    //     console.log("directive is starting to work");
+    //     console.log([start, end]);
+    //   }
+    // }
 })();

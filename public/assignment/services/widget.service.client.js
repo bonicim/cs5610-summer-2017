@@ -10,9 +10,25 @@
       "findWidgetsByPageId" : findWidgetsByPageId,
       "findWidgetsById" : findWidgetsById,
       "updateWidget" : updateWidget,
-      "deleteWidget" : deleteWidget
+      "deleteWidget" : deleteWidget,
+      "sortWidgets" : sortWidgets
     };
     return api;
+
+    function sortWidgets(start, end, pageId) {
+      var url = "/page/" + pageId + "/widget?initial=index1&final=index2";
+      url = url
+         .replace("index1", start)
+         .replace("index2", end);
+      console.log("The new url is: " + url);
+      var dummy = {
+        "initial" : start,
+        "final" : end};
+      return $http.put(url, dummy)
+        .then(function (response) {
+          return response.data;
+        });
+    }
 
     /**
      * Creates widget

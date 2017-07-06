@@ -24,11 +24,11 @@ app.get("/api/widget/:widgetId", findWidgetById);
 
 // PUT
 app.put("/api/widget/:widgetId", updateWidget);
-app.put('', sortWidgets);
+// app.put('/page/:pageId/widget?initial=index1&final=index2, sortWidgets)
+app.put("/page/:pageId/widget", sortWidgets);
 
 // DELETE
 app.delete("/api/widget/:widgetId", deleteWidget);
-
 
 // Implementations of event handlers
 
@@ -116,14 +116,40 @@ function deleteWidget(req, res) {
   return res.sendStatus(404);
 }
 
-// TODO: implement this
-// grab the params and query
 function sortWidgets(req, res) {
+  console.log("pageId is: " + req.params.pageId);
+  console.log("start is: " + req.query.initial);
+  console.log("end is: " + req.query.final);
+  var pageId = req.params.pageId;
+  var start = req.query.initial;
+  var end = req.query.final;
 
-}
+  // get all the widgets by pageid
+  var widgetsArr = [];
+  for (key in widgets) {
+    var widgetActual = widgets[key];
+    if (parseInt(widgetActual.pageId) === parseInt(pageId)) {
+      widgetsArr.push(widgetActual);
+    }
+  }
 
-function sortItem(start, end) {
+  // delete all the widgets by pageId in widgets array
+  // updates the widgets array
+  console.log("The beginning widget array is: " + widgets);
+  widgets = widgets.filter(function (el) {return el.pageId !== pageId;});
+  console.log("The filtered widget array is: " + widgets);
 
+  // reorder the targeted widgets that must be sorted
+  var widgetToBeMoved = widgetsArr.splice(start, 1)[0];
+  widgetsArr.splice(end, 0, widgetToBeMoved);
+  console.log("The reorderd widgets are: " + widgetsArr);
+
+  // add the widgets back in the widgets array
+  for (key in widgetsArr) {
+    widgets.push(widgetsArr[key]);
+  }
+  console.log("The newly sorted widget array is: " + widgets);
+  return res.sendStatus(200);
 }
 
 function uploadImage(req, res) {
