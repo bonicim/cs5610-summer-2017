@@ -21,10 +21,7 @@
          .replace("index1", start)
          .replace("index2", end);
       console.log("The new url is: " + url);
-      var dummy = {
-        "initial" : start,
-        "final" : end};
-      return $http.put(url, dummy)
+      return $http.put(url)
         .then(function (response) {
           return response.data;
         });
