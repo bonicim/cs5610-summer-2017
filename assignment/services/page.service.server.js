@@ -13,17 +13,10 @@ app.get('/api/website/:websiteId/page', findAllPagesForWebsite);
 app.get('/api/page/:pageId', findPageById);
 
 // PUT
-// URL = '/page/:pageId/widget?initial=index1&final=index2
-// pageId: id of page whose widgets are being displayed
-// initial: initial index of the widget being being reordered
-// final: final index of widget after being reordered
-app.put('/page/:pageId/widget', sortWidgets);
 app.put('/api/page/:pageId', updatePage);
 
 // DELETE
 app.delete('/api/page/:pageId', deletePage);
-
-
 
 // Implementations of event handlers
 function createPage(req, res) {
@@ -102,7 +95,3 @@ function deletePage(req, res) {
   return res.sendStatus(404);
 }
 
-// this will be called by the widget client service to be able to sort the widgets
-function sortWidgets(req, res) {
-
-}
