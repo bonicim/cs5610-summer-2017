@@ -1,4 +1,5 @@
 var app = require('../../express');
+var userModel = require('../models/user/user.model.server');
 
 // temporary database
 var users = [{_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder"  },
@@ -7,47 +8,49 @@ var users = [{_id: "123", username: "alice",    password: "alice",    firstName:
   {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }];
 
 // Server listeners on specific URL's
-
-// POST
 app.post('/api/user', createUser);
-
-// GET
 app.get('/api/user', findUserByCredentials);
 app.get('/api/user/:userId', findUserById);
-
-// PUT
 app.put('/api/user/:userId', updateUser);
-
-// DELETE
 app.delete('/api/user/:userId', deleteUser)
 
 // Implementations of event handlers
 function createUser(req, res) {
   var user = req.body;
-  var id = generateId();
-  var userToAdd = {
-    '_id' : id,
-    username : user.username,
-    password : user.password,
-    firstName : user.firstName,
-    lastName : user.lastName};
-  users.push(userToAdd);
-  return res.json(userToAdd); // we know for sure that userToAdd is a JSON
+  userModel
+    .createUser(user)
+    .then(
+      function (user) {
+      return res.json(user)
+    },
+      function (err) {
+        return res.sendStatus(400).send(err);
+      });
+
+  // var id = generateId();
+  // var userToAdd = {
+  //   '_id' : id,
+  //   username : user.username,
+  //   password : user.password,
+  //   firstName : user.firstName,
+  //   lastName : user.lastName};
+  // users.push(userToAdd);
+  // return res.json(userToAdd); // we know for sure that userToAdd is a JSON
 }
 
-function generateId() {
-  function getMaxId(maxId, user) {
-    var currId = parseInt(user._id);
-    //maxId > currId ? maxId : currId + 1;
-    if (maxId > currId) {
-      return maxId;
-    }
-    else {
-      return currId + 1;
-    }
-  }
-  return users.reduce(getMaxId, 0).toString();
-}
+// function generateId() {
+//   function getMaxId(maxId, user) {
+//     var currId = parseInt(user._id);
+//     //maxId > currId ? maxId : currId + 1;
+//     if (maxId > currId) {
+//       return maxId;
+//     }
+//     else {
+//       return currId + 1;
+//     }
+//   }
+//   return users.reduce(getMaxId, 0).toString();
+// }
 
 function findUserByCredentials(req, res) {
   var username = req.query['username'];
