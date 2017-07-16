@@ -41,6 +41,11 @@
     }
 
     function findWebsiteById(websiteId) {
+      var url = "/api/website/" + websiteId;
+      return $http.get(url)
+        .then(function (response) {
+          return response.data;
+        })
     }
 
     /**

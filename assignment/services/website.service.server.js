@@ -1,4 +1,5 @@
 const app = require('../../express');
+var websiteModel = require('../models/website/website.model.server');
 
 var websites = [{ "_id": "123", "name": "Facebook",    "developerId": "456", "description": "Lorem" },
   { "_id": "234", "name": "Tweeter",     "developerId": "456", "description": "Lorem" },
@@ -9,68 +10,73 @@ var websites = [{ "_id": "123", "name": "Facebook",    "developerId": "456", "de
   { "_id": "789", "name": "Chess",       "developerId": "234", "description": "Lorem" }];
 
 // Server listeners on specific URL's
-
-// POST
 app.post('/api/user/:userId/website', createWebsite);
-
-// GET
 app.get('/api/user/:userId/website', findAllWebsitesForUser);
 app.get('/api/website/:websiteId', findWebsiteById);
-
-// PUT
 app.put('/api/website/:websiteId', updateWebsite);
-
-// DELETE
 app.delete('/api/website/:websiteId', deleteWebsite);
 
 // Implementations of event handlers
-
 function createWebsite(req, res) {
   var website = req.body;
-  var id = generateId();
-  var websiteToAdd =
-    {_id : id,
-      name : website.name,
-      developerId : req.params['userId'],
-      description : website.description};
-  websites.push(websiteToAdd);
-  return res.json(websiteToAdd);
-}
-
-function generateId() {
-  function getMaxId(maxId, website) {
-    var currId = parseInt(website._id);
-    if (maxId > currId) {
-      return maxId;
-    }
-    else {
-      return currId + 1;
-    }
-  }
-  var uniqueId = websites.reduce(getMaxId, 0).toString();
-  console.log("We generated a unique id. It is: " + uniqueId);
-  return uniqueId;
+  var userId = req.params['userId'];
+  websiteModel
+    .createWebsiteForUser(userId, website)
+    .then(
+      function(err, website) {
+        if (err) {
+          res.send(err);
+        }
+        if (website) {
+          res.json(website);
+        } else {
+          res.sendStatus(400).send("Bad input. Website not created.");
+        }
+      }
+    );
 }
 
 function findAllWebsitesForUser(req, res) {
-  var websitesArr= [];
-  for (key in websites) {
-    var websiteActual = websites[key];
-    if (parseInt(websiteActual.developerId) === parseInt(req.params.userId)) {
-      websitesArr.push(websiteActual);
-    }
-  }
-  return res.json(websitesArr);
+  var userId = req.params.userId;
+  websiteModel
+    .findAllWebsitesForUser(userId)
+    .then(
+      function(err, websites) {
+        if (err) {
+          res.send(err);
+        }
+        if (websites) {
+          res.json(websites);
+        } else {
+          res.sendStatus(400).send("Bad input. Websites not found.");
+        }
+      }
+    );
 }
 
 function findWebsiteById(req, res) {
-  for (key in websites) {
-    var websiteActual = websites[key];
-    if (parseInt(websiteActual._id) === parseInt(req.params.websiteId)) {
-      return res.json(websiteActual);
-    }
-  }
-  return res.sendStatus(404);
+  var websiteId = req.params.websiteId;
+  websiteModel
+    .findWebsiteById(websiteId)
+    .then(
+      function(err, website) {
+        if (err) {
+          res.send(err);
+        }
+        if (website) {
+          res.json(website);
+        } else {
+          res.sendStatus(400).send("Bad input. Website not found.");
+        }
+      }
+    );
+  // for (key in websites) {
+  //   var websiteActual = websites[key];
+  //   if (parseInt(websiteActual._id) === parseInt(req.params.websiteId)) {
+  //     return res.json(websiteActual);
+  //   }
+  // }
+  // return res.sendStatus(404);
 }
 
 function updateWebsite(req, res) {
