@@ -81,14 +81,30 @@ function findWebsiteById(req, res) {
 
 function updateWebsite(req, res) {
   var website = req.body;
-  for (key in websites) {
-    var websiteActual = websites[key];
-    if (parseInt(websiteActual._id) === parseInt(req.params.websiteId)) {
-      websites[key] = website;
-      return res.sendStatus(200);
-    }
-  }
-  return res.sendStatus(404);
+  var websiteId = req.params.websiteId;
+  websiteModel
+    .updateWebsite(websiteId, website)
+    .then(
+      function(err, website) {
+        if (err) {
+          res.send(err);
+        }
+        if (website) {
+          res.json(website);
+        } else {
+          res.sendStatus(400).send("Bad input. Website not updated.");
+        }
+      }
+    );
+
+  // for (key in websites) {
+  //   var websiteActual = websites[key];
+  //   if (parseInt(websiteActual._id) === parseInt(req.params.websiteId)) {
+  //     websites[key] = website;
+  //     return res.sendStatus(200);
+  //   }
+  // }
+  // return res.sendStatus(404);
 }
 
 function deleteWebsite(req, res) {
