@@ -4,22 +4,34 @@ var localMongodb = 'mongodb://localhost/webdev';
 var remoteMongodb = 'mongodb://admin:admin1@ds157702.mlab.com:57702/webdev';
 
 mongoose
-  .connect(localMongodb, {useMongoClient: true},
+  .connect(localMongodb, {useMongoClient: true})
+  .then(
+    function() {
+      console.log("Successful connection to local MongoDb.");
+    },
     function (err) {
-      if(err) {
-        mongoose.connect(remoteMongodb, {useMongoClient: true},
-          function (err) {
-            if(err) {
-              console.log("Complete db connection failure");
-            } else {
-              console.log("Connected to REMOTE MongoDb");
-            }
+      console.log("Cannot connect to local MongoDb");
+    }
+  );
 
-          });
-      } else {
-        console.log("Connected to LOCAL MongoDb");
-      }
-  });
+//
+// mongoose
+//   .connect(localMongodb, {useMongoClient: true},
+//     function (err) {
+//       if(err) {
+//         mongoose.connect(remoteMongodb, {useMongoClient: true},
+//           function (err) {
+//             if(err) {
+//               console.log("Complete db connection failure");
+//             } else {
+//               console.log("Connected to REMOTE MongoDb");
+//             }
+//
+//           });
+//       } else {
+//         console.log("Connected to LOCAL MongoDb");
+//       }
+//   });
 
 require('./services/user.service.server');
 require('./services/website.service.server');

@@ -21,21 +21,21 @@ function createUser(user) {
 }
 
 function findUserById(userId) {
-  return userModel.findOne({_id: userId});
+  return userModel.findOne({'_id': userId});
 }
 
 function findUserByUsername(username) {
-  return userModel.findOne({username: username});
+  return userModel.findOne({'username': username});
 }
 
 function findUserByCredentials(username, password) {
-  return userModel.findOne({username: username, password: password});
+  return userModel.findOne({'username': username, 'password': password});
 }
 
 function updateUser(userId, user) {
-  return userModel.update({_id: userId}, {$set: user});
+  return userModel.update({'_id': userId}, {$set: user});
 }
 
 function deleteUser(userId) {
-  return userModel.remove({_id: userId});
+  return userModel.remove({'_id': userId});
 }
