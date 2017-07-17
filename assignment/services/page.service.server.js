@@ -1,11 +1,6 @@
 var app = require('../../express');
 var pageModel = require('../models/page/page.model.server')
 
-// temporary database
-var pages = [{ "_id": "321", "name": "Post 1", "wid": "456", "description": "Lorem" },
-  { "_id": "432", "name": "Post 2", "wid": "456", "description": "Lorem" },
-  { "_id": "543", "name": "Post 3", "wid": "456", "description": "Lorem" }];
-
 app.post('/api/website/:websiteId/page', createPage);
 app.get('/api/website/:websiteId/page', findAllPagesForWebsite);
 app.get('/api/page/:pageId', findPageById);
@@ -33,51 +28,75 @@ function createPage(req, res) {
 }
 
 function findAllPagesForWebsite(req, res) {
-  var pagesResult = [];
-  for (key in pages) {
-    var page = pages[key];
-    if (parseInt(page.wid) === parseInt(req.params.websiteId)) {
-      pagesResult.push(page);
-    }
-  }
-  return res.json(pagesResult);
+  var websiteId = req.params.websiteId;
+  pageModel
+    .findAllPagesForWebsite(websiteId)
+    .then(
+      function(err, page) {
+        if (err) {
+          res.send(err);
+        }
+        if (page) {
+          res.json(page);
+        } else {
+          res.sendStatus(400).send("Bad input. Pages not found.");
+        }
+      }
+    );
 }
 
 function findPageById(req, res) {
-  for (key in pages) {
-    var page = pages[key];
-    if (parseInt(page._id) === parseInt(req.params.pageId)) {
-      return res.json(page);
-    }
-  }
-  return res.status(404);
+  var pageId = req.params.pageId;
+  pageModel
+    .findPageById(pageId)
+    .then(
+      function(err, page) {
+        if (err) {
+          res.send(err);
+        }
+        if (page) {
+          res.json(page);
+        } else {
+          res.sendStatus(400).send("Bad input. Page not found.");
+        }
+      }
+    );
 }
 
 function updatePage(req, res) {
-  for (key in pages) {
-    var page = pages[key];
-    if (parseInt(page._id) === parseInt(req.params.pageId)) {
-      var pageToUpdate = {
-        "_id" : page._id,
-        "wid" : page.wid,
-        "name": req.body.name,
-        "description": req.body.description
-      };
-      pages[key] = pageToUpdate;
-      return res.json(pageToUpdate);
-    }
-  }
-  return res.sendStatus(404);
+  var pageId = req.params.pageId;
+  var page = req.body;
+  pageModel
+    .updatePage(pageId, page)
+    .then(
+      function(err, page) {
+        if (err) {
+          res.send(err);
+        }
+        if (page) {
+          res.json(page);
+        } else {
+          res.sendStatus(400).send("Bad input. Page not update.");
+        }
+      }
+    );
 }
 
 function deletePage(req, res) {
-  for (key in pages) {
-    var page = pages[key];
-    if (parseInt(page._id) === parseInt(req.params.pageId)) {
-      pages.splice(key, 1);
-      return res.sendStatus(200);
-    }
-  }
-  return res.sendStatus(404);
+  var pageId = req.params.pageId;
+  pageModel
+    .deletePage(pageId)
+    .then(
+      function(err, page) {
+        if (err) {
+          res.send(err);
+        }
+        if (page) {
+          res.json(page);
+        } else {
+          res.sendStatus(400).send("Bad input. Page not deleted.");
+        }
+      }
+    );
 }
 

@@ -18,17 +18,17 @@ function createPage(websiteId, page) {
 }
 
 function findAllPagesForWebsite(websiteId) {
-
+  return pageModel.find({'_website': websiteId});
 }
 
 function findPageById(pageId) {
-
+  return pageModel.find({'_id': pageId});
 }
 
 function updatePage(pageId, page) {
-
+  return pageModel.update({'_id': pageId}, {$set: page});
 }
 
 function deletePage(pageId) {
-
+  return pageModel.findByIdAndRemove({'_id': pageId});
 }
