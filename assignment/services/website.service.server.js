@@ -1,14 +1,6 @@
 const app = require('../../express');
 var websiteModel = require('../models/website/website.model.server');
 
-var websites = [{ "_id": "123", "name": "Facebook",    "developerId": "456", "description": "Lorem" },
-  { "_id": "234", "name": "Tweeter",     "developerId": "456", "description": "Lorem" },
-  { "_id": "456", "name": "Gizmodo",     "developerId": "456", "description": "Lorem" },
-  { "_id": "890", "name": "Go",          "developerId": "123", "description": "Lorem" },
-  { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem" },
-  { "_id": "678", "name": "Checkers",    "developerId": "123", "description": "Lorem" },
-  { "_id": "789", "name": "Chess",       "developerId": "234", "description": "Lorem" }];
-
 // Server listeners on specific URL's
 app.post('/api/user/:userId/website', createWebsite);
 app.get('/api/user/:userId/website', findAllWebsitesForUser);
@@ -70,13 +62,6 @@ function findWebsiteById(req, res) {
         }
       }
     );
-  // for (key in websites) {
-  //   var websiteActual = websites[key];
-  //   if (parseInt(websiteActual._id) === parseInt(req.params.websiteId)) {
-  //     return res.json(websiteActual);
-  //   }
-  // }
-  // return res.sendStatus(404);
 }
 
 function updateWebsite(req, res) {
@@ -96,24 +81,22 @@ function updateWebsite(req, res) {
         }
       }
     );
-
-  // for (key in websites) {
-  //   var websiteActual = websites[key];
-  //   if (parseInt(websiteActual._id) === parseInt(req.params.websiteId)) {
-  //     websites[key] = website;
-  //     return res.sendStatus(200);
-  //   }
-  // }
-  // return res.sendStatus(404);
 }
 
 function deleteWebsite(req, res) {
-  for (key in websites) {
-    var websiteActual = websites[key];
-    if(parseInt(websiteActual._id) === parseInt(req.params.websiteId)) {
-      websites.splice(key,1);
-      return res.sendStatus(200);
-    }
-  }
-  return res.sendStatus(404);
+  var websiteId = req.params.websiteId;
+  websiteModel
+    .deleteWebsite(websiteId)
+    .then(
+      function(err, website) {
+        if (err) {
+          res.send(err);
+        }
+        if (website) {
+          res.json(website);
+        } else {
+          res.sendStatus(400).send("Bad input. Website not updated.");
+        }
+      }
+    );
 }
