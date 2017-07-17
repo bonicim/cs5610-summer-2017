@@ -95,7 +95,9 @@ function updateWidget(req, res) {
   widgetModel
     .updateWidget(widgetId, widget)
     .then(
-      callback(err, widget, res)
+      function (err, widget) {
+        callback(err, widget, res);
+      }
     );
 
   // for (key in widgets) {
@@ -113,7 +115,9 @@ function deleteWidget(req, res) {
   widgetModel
     .deleteWidget(widgetId)
     .then(
-      callback(err, widget, res)
+      function (err, widget) {
+        callback(err, widget, res);
+      }
     );
   // for (key in widgets) {
   //   var widgetActual = widgets[key];
