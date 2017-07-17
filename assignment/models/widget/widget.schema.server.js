@@ -11,7 +11,9 @@ var widgetObject = {
   placeholder: String,
   description: String,
   url: String,
-  width: String,
+  width: {
+    type: Number
+  },
   height: String,
   rows: Number,
   size: Number,
