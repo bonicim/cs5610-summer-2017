@@ -1,3 +1,34 @@
-/**
- * Created by bono on 7/13/17.
- */
+var mongoose = require('mongoose');
+
+var widgetObject = {
+  _page: {type: mongoose.Schema.ObjectId, ref: "PageModel"},
+  type: {
+    type: String,
+    uppercase: true,
+    enum: ['HEADER', 'IMAGE', 'YOUTUBE', 'HTML', 'TEXT']},
+  name: String,
+  text: String,
+  placeholder: String,
+  description: String,
+  url: String,
+  width: String,
+  height: String,
+  rows: Number,
+  size: Number,
+  class: String,
+  icon: String,
+  deletable: {
+    type: Boolean,
+    default: true},
+  formatted: Boolean,
+  dateCreated: {
+    type: Date,
+    default: Date.now}
+};
+
+var collectionParam = {
+  collection: "widget"
+};
+
+var widgetSchema = mongoose.Schema(widgetObject, collectionParam);
+module.exports = widgetSchema;

@@ -14,20 +14,13 @@ var widgets = [
   { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"}
 ]
 
-// POST
 app.post("/api/page/:pageId/widget", createWidget);
 app.post("/api/upload", upload.single('myFile'), uploadImage);
-
-// GET
 app.get("/api/page/:pageId/widget", findAllWidgetsForPage);
 app.get("/api/widget/:widgetId", findWidgetById);
-
-// PUT
 app.put("/api/widget/:widgetId", updateWidget);
 // app.put('/page/:pageId/widget?initial=index1&final=index2, sortWidgets)
 app.put("/page/:pageId/widget", sortWidgets);
-
-// DELETE
 app.delete("/api/widget/:widgetId", deleteWidget);
 
 // Implementations of event handlers
