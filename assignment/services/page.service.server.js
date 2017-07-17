@@ -1,26 +1,22 @@
 var app = require('../../express');
+var pageModel = require('../models/page/page.model.server')
 
 // temporary database
 var pages = [{ "_id": "321", "name": "Post 1", "wid": "456", "description": "Lorem" },
   { "_id": "432", "name": "Post 2", "wid": "456", "description": "Lorem" },
   { "_id": "543", "name": "Post 3", "wid": "456", "description": "Lorem" }];
 
-// POST
 app.post('/api/website/:websiteId/page', createPage);
-
-// GET
 app.get('/api/website/:websiteId/page', findAllPagesForWebsite);
 app.get('/api/page/:pageId', findPageById);
-
-// PUT
 app.put('/api/page/:pageId', updatePage);
-
-// DELETE
 app.delete('/api/page/:pageId', deletePage);
 
 // Implementations of event handlers
 function createPage(req, res) {
-    var page = req.body;
+
+
+  var page = req.body;
     var id = generateId();
     var pageToAdd = {
         '_id' : id,
