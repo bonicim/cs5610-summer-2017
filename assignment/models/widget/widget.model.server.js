@@ -14,23 +14,24 @@ widgetModel.reorderWidget = reorderWidget;
 module.exports = widgetModel;
 
 function createWidget(pageId, widget) {
-
+  widget._page = pageId;
+  return widgetModel.create(widget);
 }
 
 function findAllWidgetsForPage(pageId) {
-
+  return widgetModel.findOne({_page: pageId});
 }
 
 function findWidgetById(widgetId) {
-
+  return widgetModel.findById({_id: widgetId});
 }
 
 function updateWidget(widgetId, widget) {
-
+  return widgetModel.update({_id: widgetId}, {$set: widget});
 }
 
 function deleteWidget(widgetId) {
-
+  return widgetModel.findByIdAndRemove({'_id': widgetId});
 }
 
 function reorderWidget(pageId, start, end) {

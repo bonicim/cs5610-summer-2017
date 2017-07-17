@@ -34,7 +34,7 @@
      * @returns {*}
      */
     function createWidget(pageId, widgetType) {
-      var widgetToAdd = {"widgetType": widgetType};
+      var widgetToAdd = {"widgetType": widgetType.toUpperCase()};
       console.log(widgetToAdd);
       var url = "/api/page/" + pageId + "/widget";
       return $http.post(url, widgetToAdd)

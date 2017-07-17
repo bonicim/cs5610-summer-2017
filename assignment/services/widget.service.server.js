@@ -1,4 +1,5 @@
 var app = require('../../express');
+var widgetModel = require('../models/widget/widget.model.server');
 var multer = require('multer');
 var upload = multer({ dest: __dirname + '/../../public/assignment/uploads' });
 
@@ -26,87 +27,102 @@ app.delete("/api/widget/:widgetId", deleteWidget);
 // Implementations of event handlers
 
 function createWidget(req, res) {
-  var id = generateId();
-  var widgetToAdd = {
-    '_id' : id,
-    'widgetType': req.body.widgetType,
-    'pageId' : req.params.pageId
-  };
-
-  if (widgetToAdd.widgetType === "HEADING") {
-    widgetToAdd['size'] = undefined;
-    widgetToAdd['text'] = undefined;
-  }
-  else if (widgetToAdd.widgetType === "IMAGE") {
-    widgetToAdd['width'] = undefined;
-    widgetToAdd['url'] = undefined;
-
-  }
-  else if (widgetToAdd.widgetType === "YOUTUBE") {
-    widgetToAdd['width'] = undefined;
-    widgetToAdd['url'] = undefined;
-  }
-
-  widgets.push(widgetToAdd);
-  return res.json(widgetToAdd);
+  var pageId = req.params.pageId;
+  var widget = req.body;
+  widgetModel
+    .createWidget(pageId, widget)
+    .then(
+      function (err, widget) {
+        callback(err, widget, res)
+      }
+    );
 }
 
-function generateId() {
-  function getMaxId(maxId, widget) {
-    var currId = parseInt(widget._id);
-    if (maxId > currId) {
-      return maxId;
-    }
-    else {
-      return currId + 1;
-    }
+function callback(err, obj, res) {
+  if (err) {
+    res.send(err);
   }
-  var uniqueId = widgets.reduce(getMaxId, 0).toString();
-  console.log("We generated a unique id. It is: " + uniqueId);
-  return uniqueId;
+  if (obj) {
+    res.json(obj);
+  } else {
+    res.sendStatus(400).send("Bad input. Page not created.");
+  }
 }
+
 
 function findAllWidgetsForPage(req, res) {
-  var widgetsArr = [];
-  for (key in widgets) {
-    var widgetActual = widgets[key];
-    if (parseInt(widgetActual.pageId) === parseInt(req.params.pageId)) {
-      widgetsArr.push(widgetActual);
-    }
-  }
-  return res.json(widgetsArr);
+  var pageId = req.params.pageId;
+  widgetModel
+    .findAllWidgetsForPage(pageId)
+    .then(
+      function (err, widgets) {
+        callback(err, widgets, res)
+      }
+    );
+
+  // var widgetsArr = [];
+  // for (key in widgets) {
+  //   var widgetActual = widgets[key];
+  //   if (parseInt(widgetActual.pageId) === parseInt(req.params.pageId)) {
+  //     widgetsArr.push(widgetActual);
+  //   }
+  // }
+  // return res.json(widgetsArr);
 }
 
 function findWidgetById(req, res) {
-  for (key in widgets) {
-    var widgetActual = widgets[key];
-    if (parseInt(widgetActual._id) === parseInt(req.params.widgetId)) {
-      return res.json(widgetActual);
-    }
-  }
-  return res.sendStatus(404);
+  var widgetId = req.params.widgetId;
+  widgetModel
+    .findWidgetById(widgetId)
+    .then(
+      function (err, widget) {
+        callback(err, widget, res);
+      }
+    );
+
+  // for (key in widgets) {
+  //   var widgetActual = widgets[key];
+  //   if (parseInt(widgetActual._id) === parseInt(req.params.widgetId)) {
+  //     return res.json(widgetActual);
+  //   }
+  // }
+  // return res.sendStatus(404);
 }
 
 function updateWidget(req, res) {
-  for (key in widgets) {
-    var widgetActual = widgets[key];
-    if (parseInt(widgetActual._id) === parseInt(req.params.widgetId)) {
-      widgets[key] = req.body;
-      return res.json(widgets[key]);
-    }
-  }
-  return res.sendStatus(404);
+  var widgetId = req.params.widgetId;
+  var widget = req.body;
+  widgetModel
+    .updateWidget(widgetId, widget)
+    .then(
+      callback(err, widget, res)
+    );
+
+  // for (key in widgets) {
+  //   var widgetActual = widgets[key];
+  //   if (parseInt(widgetActual._id) === parseInt(req.params.widgetId)) {
+  //     widgets[key] = req.body;
+  //     return res.json(widgets[key]);
+  //   }
+  // }
+  // return res.sendStatus(404);
 }
 
 function deleteWidget(req, res) {
-  for (key in widgets) {
-    var widgetActual = widgets[key];
-    if (parseInt(widgetActual._id) === parseInt(req.params.widgetId)) {
-      widgets.splice(key,1);
-      return res.sendStatus(200);
-    }
-  }
-  return res.sendStatus(404);
+  var widgetId = req.params.widgetId;
+  widgetModel
+    .deleteWidget(widgetId)
+    .then(
+      callback(err, widget, res)
+    );
+  // for (key in widgets) {
+  //   var widgetActual = widgets[key];
+  //   if (parseInt(widgetActual._id) === parseInt(req.params.widgetId)) {
+  //     widgets.splice(key,1);
+  //     return res.sendStatus(200);
+  //   }
+  // }
+  // return res.sendStatus(404);
 }
 
 function sortWidgets(req, res) {
