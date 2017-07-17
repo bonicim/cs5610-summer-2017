@@ -14,32 +14,22 @@ app.delete('/api/page/:pageId', deletePage);
 
 // Implementations of event handlers
 function createPage(req, res) {
-
-
   var page = req.body;
-    var id = generateId();
-    var pageToAdd = {
-        '_id' : id,
-        'name' : page.name,
-        'wid' : req.params.websiteId,
-        'description' : page.description};
-    pages.push(pageToAdd);
-    return res.json(pageToAdd);
-}
-
-function generateId() {
-    function getMaxId(maxId, page) {
-        var currId = parseInt(page._id);
-        if (maxId > currId) {
-            return maxId;
+  var websiteId = req.params.websiteId;
+  pageModel
+    .createPage(websiteId, page)
+    .then(
+      function(err, page) {
+        if (err) {
+          res.send(err);
         }
-        else {
-            return currId + 1;
+        if (page) {
+          res.json(page);
+        } else {
+          res.sendStatus(400).send("Bad input. Page not created.");
         }
-    }
-    var uniqueId = pages.reduce(getMaxId, 0).toString();
-    console.log("We generated a unique id. It is: " + uniqueId);
-    return uniqueId;
+      }
+    );
 }
 
 function findAllPagesForWebsite(req, res) {

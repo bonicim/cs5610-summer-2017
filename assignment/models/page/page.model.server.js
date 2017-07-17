@@ -13,7 +13,8 @@ pageModel.deletePage = deletePage;
 module.exports = pageModel;
 
 function createPage(websiteId, page) {
-
+  page._website = websiteId;
+  return pageModel.create(page);
 }
 
 function findAllPagesForWebsite(websiteId) {
