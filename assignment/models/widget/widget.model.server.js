@@ -23,7 +23,7 @@ function findAllWidgetsForPage(pageId) {
 }
 
 function findWidgetById(widgetId) {
-  return widgetModel.findById({_id: widgetId});
+  return widgetModel.find({_id: widgetId});
 }
 
 function updateWidget(widgetId, widget) {
@@ -35,5 +35,6 @@ function deleteWidget(widgetId) {
 }
 
 function reorderWidget(pageId, start, end) {
-
+  // find all the widgets for the pageId
+  //
 }

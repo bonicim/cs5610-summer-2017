@@ -5,9 +5,7 @@
     .controller("NewWidgetController", NewWidgetController)
     .controller("EditWidgetController", EditWidgetController);
 
-
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
   function WidgetListController($routeParams, $location, $sce, WidgetService) {
     // global vars
@@ -77,9 +75,7 @@
 
   }
 
-
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
   function NewWidgetController($routeParams, $location, WidgetService) {
     // global vars
@@ -120,9 +116,7 @@
       $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");}
   }
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
   function EditWidgetController($routeParams, $location, WidgetService) {
     // global vars

@@ -20,16 +20,23 @@ function createWidget(req, res) {
   widgetModel
     .createWidget(pageId, widget)
     .then(
-      function (err, widget) {
-        callback(err, widget, res)
+      function (widget) {
+        callback(widget, res)
       }
-    );
+    )
+    .catch(
+      function (err) {
+        handleError(err, res);
+      }
+  );
 }
 
-function callback(err, obj, res) {
-  if (err) {
-    res.send(err);
-  }
+function handleError(err, res) {
+  console.log("Call to database failed.")
+  res.send(err);
+}
+
+function callback(obj, res) {
   if (obj) {
     res.json(obj);
   } else {
@@ -42,8 +49,13 @@ function findAllWidgetsForPage(req, res) {
   widgetModel
     .findAllWidgetsForPage(pageId)
     .then(
-      function (err, widgets) {
-        callback(err, widgets, res)
+      function (widgets) {
+        callback(widgets, res)
+      }
+    )
+    .catch(
+      function (err) {
+        handleError(err, res);
       }
     );
 }
@@ -53,8 +65,13 @@ function findWidgetById(req, res) {
   widgetModel
     .findWidgetById(widgetId)
     .then(
-      function (err, widget) {
-        callback(err, widget, res);
+      function (widget) {
+        callback(widget, res);
+      }
+    )
+    .catch(
+      function (err) {
+        handleError(err, res);
       }
     );
 }
@@ -65,8 +82,13 @@ function updateWidget(req, res) {
   widgetModel
     .updateWidget(widgetId, widget)
     .then(
-      function (err, widget) {
-        callback(err, widget, res);
+      function (widget) {
+        callback(widget, res);
+      }
+    )
+    .catch(
+      function (err) {
+        handleError(err, res);
       }
     );
 }
@@ -76,8 +98,13 @@ function deleteWidget(req, res) {
   widgetModel
     .deleteWidget(widgetId)
     .then(
-      function (err, widget) {
-        callback(err, widget, res);
+      function (widget) {
+        callback(widget, res);
+      }
+    )
+    .catch(
+      function (err) {
+        handleError(err, res);
       }
     );
 }
@@ -90,71 +117,116 @@ function sortWidgets(req, res) {
   var start = req.query.initial;
   var end = req.query.final;
 
-  // get all the widgets by pageid
-  var widgetsArr = [];
-  for (key in widgets) {
-    var widgetActual = widgets[key];
-    if (parseInt(widgetActual.pageId) === parseInt(pageId)) {
-      widgetsArr.push(widgetActual);
-    }
-  }
+  widgetModel
+    .reorderWidget(pageId,start,end)
+    .then(
+      function (widgets) {
+        callback(widgets, res);
+      }
+    )
+    .catch(
+      function (err) {
+        handleError(err, res);
+      }
+    )
 
-  // delete all the widgets by pageId in widgets array
-  // updates the widgets array
-  console.log("The beginning widget array is: " + widgets);
-  widgets = widgets.filter(function (el) {return el.pageId !== pageId;});
-  console.log("The filtered widget array is: " + widgets);
-
-  // reorder the targeted widgets that must be sorted
-  var widgetToBeMoved = widgetsArr.splice(start, 1)[0];
-  widgetsArr.splice(end, 0, widgetToBeMoved);
-  console.log("The reorderd widgets are: " + widgetsArr);
-
-  // add the widgets back in the widgets array
-  for (key in widgetsArr) {
-    widgets.push(widgetsArr[key]);
-  }
-  console.log("The newly sorted widget array is: " + widgets);
-  return res.sendStatus(200);
+  // //get all the widgets by pageid
+  // var widgetsArr = [];
+  // for (key in widgets) {
+  //   var widgetActual = widgets[key];
+  //   if (parseInt(widgetActual.pageId) === parseInt(pageId)) {
+  //     widgetsArr.push(widgetActual);
+  //   }
+  // }
+  //
+  // // delete all the widgets by pageId in widgets array
+  // // updates the widgets array
+  // console.log("The beginning widget array is: " + widgets);
+  // widgets = widgets.filter(function (el) {return el.pageId !== pageId;});
+  // console.log("The filtered widget array is: " + widgets);
+  //
+  // // reorder the targeted widgets that must be sorted
+  // var widgetToBeMoved = widgetsArr.splice(start, 1)[0];
+  // widgetsArr.splice(end, 0, widgetToBeMoved);
+  // console.log("The reorderd widgets are: " + widgetsArr);
+  //
+  // // add the widgets back in the widgets array
+  // for (key in widgetsArr) {
+  //   widgets.push(widgetsArr[key]);
+  // }
+  // console.log("The newly sorted widget array is: " + widgets);
+  // return res.sendStatus(200);
 }
 
 function uploadImage(req, res) {
   var widgetId      = req.body.widgetId;
   var width         = req.body.width;
   var myFile        = req.file;
+  var userId        = req.body.userId;
+  var websiteId     = req.body.websiteId;
+  var pageId        = req.body.pageId;
 
-  var userId = req.body.userId;
-  var websiteId = req.body.websiteId;
-  var pageId = req.body.pageId;
-
-  var originalname  = myFile.originalname; // file name on user's computer
-  var filename      = myFile.filename;     // new file name in upload folder
-  var path          = myFile.path;         // full path of uploaded file
-  var destination   = myFile.destination;  // folder where file is saved to
-  var size          = myFile.size;
-  var mimetype      = myFile.mimetype;
+  var uploadDetails = {
+    originalname: myFile.originalname, // file name on user's computer
+    filename:       myFile.filename,     // new file name in upload folder
+    path:           myFile.path,         // full path of uploaded file
+    destination:    myFile.destination,  // folder where file is saved to
+    size:           myFile.size,
+    mimetype:       myFile.mimetype
+  };
 
   // updates the url for the given widget
-  var widget = getWidgetById(widgetId);
-  if (widget === null) {
-    return res.sendStatus(500);
-  }
-  widget.url = '/public/assignment/uploads/' + filename;
+  widgetModel
+    .findWidgetById(widgetId)
+    .then(
+      // the returned object is not a JSON.
+      function (widget) {
+        if (widget) {
+          var callbackUrl =
+            "/public/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
+          updateUrlWidget(widget, res, uploadDetails.filename, callbackUrl);
+        }
+        else {
+          res.sendStatus(400).send("Bad input. Widget could not be found.");
+        }
+      }
+    )
+    .catch(function (err) {
+      handleError(err, res);
+    });
+}
 
-  // brings us back to the submission form
-  var callbackUrl =
-    "/public/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
-  res.redirect(callbackUrl);
+function updateUrlWidget(widget, res, filename, callbackUrl) {
+  widget[0].url = '/public/assignment/uploads/' + filename;
+  console.log("The widget url is: " + widget[0].url);
+  console.log("widget json is: " + widget[0]);
+  widgetModel
+    .updateWidget(widget[0].id, widget[0])
+    .then(
+      function (newWidget) {
+        //callback(newWidget, res);
+        if (newWidget) {
+          console.log("New widget is: " + JSON.stringify(newWidget));
+          console.log("callbackurl is: " + callbackUrl);
+          res.redirect(callbackUrl);
+        } else {
+          res.sendStatus(400).send("Bad input. Widget could not be found and updated.");
+        }
+      }
+    )
+    .catch(function (err) {
+      handleError(err, res);
+    })
 }
 
 // gets some widget from an array of widgets based on wgid
-function getWidgetById(wgid) {
-  for (key in widgets) {
-    var widgetActual = widgets[key];
-    if(parseInt(widgetActual._id) === parseInt(wgid)) {
-      return widgetActual;
-    }
-  }
-  return null;
-}
+// function getWidgetById(widgetId) {
+//   widgetModel
+//     .findWidgetById(widgetId)
+//     .then(
+//       function (err, widget) {
+//         callback(err, widget, res);
+//       }
+//     );
+// }
 
