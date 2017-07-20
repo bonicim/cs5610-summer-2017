@@ -9,9 +9,34 @@ pageModel.findPageById = findPageById;
 pageModel.updatePage = updatePage;
 pageModel.deletePage = deletePage;
 pageModel.insertWidget = insertWidget;
+pageModel.deleteWidget = deleteWidget;
 
 // allows api's to be exported to some service layer
 module.exports = pageModel;
+
+function deleteWidget(pageId, widgetId) {
+  return pageModel
+    .findById({'_id': pageId})
+    .then(
+      function (page) {
+        if (page) {
+          page.widgets.pull({_id: widgetId});
+          return page.save();
+        }
+        else {
+          console.log("Pages array is empty and page could not be found.");
+          return null;
+        }
+      }
+    )
+    .catch(
+      function (err) {
+        console.log("Could not find page.", err);
+        return null;
+      }
+    )
+
+}
 
 function insertWidget(pageId, widgetId) {
   return pageModel

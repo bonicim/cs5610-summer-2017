@@ -10,6 +10,7 @@ app.get("/api/widget/:widgetId", findWidgetById);
 app.put("/api/widget/:widgetId", updateWidget);
 // app.put('/page/:pageId/widget?initial=index1&final=index2, sortWidgets)
 app.put("/page/:pageId/widget", sortWidgets);
+//app.delete("/api/widget/:widgetId?pageId=pid", deleteWidget);
 app.delete("/api/widget/:widgetId", deleteWidget);
 
 // Implementations of event handlers
@@ -95,8 +96,9 @@ function updateWidget(req, res) {
 
 function deleteWidget(req, res) {
   var widgetId = req.params.widgetId;
+  var pageId = req.query.pageId;
   widgetModel
-    .deleteWidget(widgetId)
+    .deleteWidget(pageId, widgetId)
     .then(
       function (widget) {
         callback(widget, res);

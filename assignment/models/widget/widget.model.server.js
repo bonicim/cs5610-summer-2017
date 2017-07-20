@@ -44,8 +44,23 @@ function updateWidget(widgetId, widget) {
   return widgetModel.update({_id: widgetId}, {$set: widget});
 }
 
-function deleteWidget(widgetId) {
-  return widgetModel.findByIdAndRemove({'_id': widgetId});
+function deleteWidget(pageId, widgetId) {
+  return widgetModel
+    .findByIdAndRemove({'_id': widgetId})
+    .then(
+      function (widget) {
+        pageModel.deleteWidget(pageId, widgetId)
+        return widget;
+      }
+
+      // needs the page id and widget id to do the delete
+    )
+    .catch(
+      function (err) {
+        console.log("Error in deleting widget", err);
+        return null;
+      }
+    );
 }
 
 function reorderWidget(pageId, start, end) {

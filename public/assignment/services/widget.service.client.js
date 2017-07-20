@@ -86,13 +86,8 @@
         });
     }
 
-    /**
-     *
-     * @param widgetId
-     * @returns {*}
-     */
-    function deleteWidget(widgetId) {
-      var url ="/api/widget/" + widgetId;
+    function deleteWidget(pageId, widgetId) {
+      var url ="/api/widget/" + widgetId + "?pageId=" +pageId;
       return $http.delete(url)
         .then(function (response) {
           return response.data;

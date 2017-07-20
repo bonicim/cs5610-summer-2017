@@ -161,7 +161,7 @@
 
     function deleteWidget() {
       WidgetService
-        .deleteWidget(vm.wgid)
+        .deleteWidget(vm.pid, vm.wgid)
         .then(goToListWidget);
     }
 
