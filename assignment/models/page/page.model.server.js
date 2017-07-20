@@ -10,9 +10,21 @@ pageModel.updatePage = updatePage;
 pageModel.deletePage = deletePage;
 pageModel.insertWidget = insertWidget;
 pageModel.deleteWidget = deleteWidget;
+pageModel.findAllWidgetsByPageId = findAllWidgetsByPageId;
 
 // allows api's to be exported to some service layer
 module.exports = pageModel;
+
+function findAllWidgetsByPageId(pageId) {
+  return pageModel
+    .findById({'_id': pageId})
+    .populate('widgets') // turns widget references into actual widgets and maintains order
+    .exec()
+    .then(function (page) {
+      console.log("The exec produces: ", page.widgets);
+      return page.widgets; // grabs only the widgets array of the page
+    });
+}
 
 function deleteWidget(pageId, widgetId) {
   return pageModel
@@ -62,6 +74,7 @@ function insertWidget(pageId, widgetId) {
 }
 
 function createPage(websiteId, page) {
+  // TODO: must update website's pages array
   page._website = websiteId;
   return pageModel.create(page);
 }

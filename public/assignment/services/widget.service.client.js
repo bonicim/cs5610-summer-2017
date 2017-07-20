@@ -8,7 +8,7 @@
     var api = {
       "createWidget" : createWidget,
       "findWidgetsByPageId" : findWidgetsByPageId,
-      "findWidgetsById" : findWidgetsById,
+      "findWidgetById" : findWidgetById,
       "updateWidget" : updateWidget,
       "deleteWidget" : deleteWidget,
       "sortWidgets" : sortWidgets
@@ -43,17 +43,14 @@
         });
     }
 
-    /**
-     *
-     * @param pageId
-     * @returns {*}
-     */
+    // client expects an array of actual widgets not just widget references
+    // the array must be in the order according to pageId's array order
     function findWidgetsByPageId(pageId) {
       var url = "/api/page/" + pageId + "/widget";
       return $http.get(url)
         .then(function (response) {
           return response.data;
-        })
+        });
     }
 
     /**
@@ -61,15 +58,14 @@
      * @param widgetId
      * @returns {*}
      */
-    function findWidgetsById(widgetId) {
-      var key;
-      for (key in widgets) {
-        var widgetActual = widgets[key];
-        if (parseInt(widgetActual._id) === parseInt(widgetId)) {
-          return widgetActual;
-        }
-      }
-      return null;
+    function findWidgetById(widgetId) {
+      var url = "/api/widget/" + widgetId;
+      return $http.get(url)
+        .then(
+          function (response) {
+            return response.data;
+          }
+        )
     }
 
     /**

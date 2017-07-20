@@ -49,13 +49,12 @@ function findAllWidgetsForPage(req, res) {
   var pageId = req.params.pageId;
   widgetModel
     .findAllWidgetsForPage(pageId)
-    .then(
-      function (widgets) {
+    .then(function (widgets) {
+        console.log("The actual widgets are: ", widgets);
         callback(widgets, res)
       }
     )
-    .catch(
-      function (err) {
+    .catch(function (err) {
         handleError(err, res);
       }
     );

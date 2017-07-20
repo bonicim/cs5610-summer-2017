@@ -33,7 +33,8 @@ function createWidget(pageId, widget) {
 }
 
 function findAllWidgetsForPage(pageId) {
-  return widgetModel.find({_page: pageId});
+  return pageModel
+    .findAllWidgetsByPageId(pageId);
 }
 
 function findWidgetById(widgetId) {
