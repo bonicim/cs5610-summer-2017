@@ -21,7 +21,6 @@ function findAllWidgetsByPageId(pageId) {
     .populate('widgets') // turns widget references into actual widgets and maintains order
     .exec()
     .then(function (page) {
-      console.log("The exec produces: ", page.widgets);
       return page.widgets; // grabs only the widgets array of the page
     });
 }

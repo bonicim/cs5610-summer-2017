@@ -150,7 +150,9 @@
     function bindWidgets(widgets) {
       console.log("The widgets for this page are: ", widgets);
       vm.widgets = widgets;
-      vm.widget = (widgets.filter(function (el) {return el._id=== vm.wgid;}))[0];
+
+      vm.widget = (widgets.filter(function (el) {return el._id === vm.wgid;}))[0];
+      console.log("The widget in editing is: ", vm.widget);
       console.log("Completed initialization of widget id: " + vm.widget._id);
     }
 

@@ -50,7 +50,6 @@ function findAllWidgetsForPage(req, res) {
   widgetModel
     .findAllWidgetsForPage(pageId)
     .then(function (widgets) {
-        console.log("The actual widgets are: ", widgets);
         callback(widgets, res)
       }
     )
