@@ -32,7 +32,7 @@ function createWidget(req, res) {
 }
 
 function handleError(err, res) {
-  console.log("Call to database failed.")
+  console.log("Call to database failed.", err);
   res.send(err);
 }
 
@@ -40,7 +40,7 @@ function callback(obj, res) {
   if (obj) {
     res.json(obj);
   } else {
-    res.sendStatus(400).send("Bad input. Page not created.");
+    res.sendStatus(400).send("Bad input. Widget not created.");
   }
 }
 
@@ -129,33 +129,6 @@ function sortWidgets(req, res) {
         handleError(err, res);
       }
     )
-
-  // //get all the widgets by pageid
-  // var widgetsArr = [];
-  // for (key in widgets) {
-  //   var widgetActual = widgets[key];
-  //   if (parseInt(widgetActual.pageId) === parseInt(pageId)) {
-  //     widgetsArr.push(widgetActual);
-  //   }
-  // }
-  //
-  // // delete all the widgets by pageId in widgets array
-  // // updates the widgets array
-  // console.log("The beginning widget array is: " + widgets);
-  // widgets = widgets.filter(function (el) {return el.pageId !== pageId;});
-  // console.log("The filtered widget array is: " + widgets);
-  //
-  // // reorder the targeted widgets that must be sorted
-  // var widgetToBeMoved = widgetsArr.splice(start, 1)[0];
-  // widgetsArr.splice(end, 0, widgetToBeMoved);
-  // console.log("The reorderd widgets are: " + widgetsArr);
-  //
-  // // add the widgets back in the widgets array
-  // for (key in widgetsArr) {
-  //   widgets.push(widgetsArr[key]);
-  // }
-  // console.log("The newly sorted widget array is: " + widgets);
-  // return res.sendStatus(200);
 }
 
 function uploadImage(req, res) {
@@ -198,8 +171,6 @@ function uploadImage(req, res) {
 
 function updateUrlWidget(widget, res, filename, callbackUrl) {
   widget[0].url = '/public/assignment/uploads/' + filename;
-  console.log("The widget url is: " + widget[0].url);
-  console.log("widget json is: " + widget[0]);
   widgetModel
     .updateWidget(widget[0].id, widget[0])
     .then(
@@ -207,7 +178,6 @@ function updateUrlWidget(widget, res, filename, callbackUrl) {
         //callback(newWidget, res);
         if (newWidget) {
           console.log("New widget is: " + JSON.stringify(newWidget));
-          console.log("callbackurl is: " + callbackUrl);
           res.redirect(callbackUrl);
         } else {
           res.sendStatus(400).send("Bad input. Widget could not be found and updated.");
@@ -218,15 +188,4 @@ function updateUrlWidget(widget, res, filename, callbackUrl) {
       handleError(err, res);
     })
 }
-
-// gets some widget from an array of widgets based on wgid
-// function getWidgetById(widgetId) {
-//   widgetModel
-//     .findWidgetById(widgetId)
-//     .then(
-//       function (err, widget) {
-//         callback(err, widget, res);
-//       }
-//     );
-// }
 
