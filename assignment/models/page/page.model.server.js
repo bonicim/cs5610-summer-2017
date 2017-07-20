@@ -11,12 +11,13 @@ pageModel.deletePage = deletePage;
 pageModel.insertWidget = insertWidget;
 pageModel.deleteWidget = deleteWidget;
 pageModel.findAllWidgetsByPageId = findAllWidgetsByPageId;
-pageModel.getWidgetArrForPage = getWidgetArrForPage;
+pageModel.reorderWidgetArrByPage = reorderWidgetArrByPage;
 
 // allows api's to be exported to some service layer
 module.exports = pageModel;
 
-function getWidgetArrForPage(pageId, start, end) {
+// TODO: consider doing virtual ordering
+function reorderWidgetArrByPage(pageId, start, end) {
   return pageModel
     .findById({'_id': pageId})
     .then(function (page) {

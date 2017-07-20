@@ -53,8 +53,6 @@ function deleteWidget(pageId, widgetId) {
         pageModel.deleteWidget(pageId, widgetId)
         return widget;
       }
-
-      // needs the page id and widget id to do the delete
     )
     .catch(
       function (err) {
@@ -68,6 +66,6 @@ function reorderWidget(pageId, start, end) {
   // assumption: order displayed on the website corresponds to the order
   // of the widget array in the page
   return pageModel
-    .getWidgetArrForPage(pageId, start, end);
+    .reorderWidgetArrByPage(pageId, start, end);
 }
 
