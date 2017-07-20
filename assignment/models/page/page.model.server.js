@@ -11,9 +11,26 @@ pageModel.deletePage = deletePage;
 pageModel.insertWidget = insertWidget;
 pageModel.deleteWidget = deleteWidget;
 pageModel.findAllWidgetsByPageId = findAllWidgetsByPageId;
+pageModel.getWidgetArrForPage = getWidgetArrForPage;
 
 // allows api's to be exported to some service layer
 module.exports = pageModel;
+
+function getWidgetArrForPage(pageId, start, end) {
+  return pageModel
+    .findById({'_id': pageId})
+    .then(function (page) {
+      console.log("Current order of widgets: ", page.widgets);
+      console.log("start and end", start, end);
+      var widgetToBeMoved = page.widgets.splice(start,1)[0]; // remove the widget at start
+      console.log("widgettobemoved: ", widgetToBeMoved);
+      page.widgets.splice(end,0,widgetToBeMoved); // move the widget to end
+      page.save()
+      console.log("Order changed: ", page.widgets);
+      return page.widgets;
+      }
+    );
+}
 
 function findAllWidgetsByPageId(pageId) {
   return pageModel

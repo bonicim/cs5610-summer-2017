@@ -121,6 +121,7 @@ function sortWidgets(req, res) {
     .reorderWidget(pageId,start,end)
     .then(
       function (widgets) {
+        console.log("The list of widget refs for this page is: ", widgets);
         callback(widgets, res);
       }
     )

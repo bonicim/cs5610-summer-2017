@@ -65,86 +65,9 @@ function deleteWidget(pageId, widgetId) {
 }
 
 function reorderWidget(pageId, start, end) {
-
-
+  // assumption: order displayed on the website corresponds to the order
+  // of the widget array in the page
+  return pageModel
+    .getWidgetArrForPage(pageId, start, end);
 }
 
-  // return widgetModel
-  //   .findAllWidgetsForPage({_id: pageId})
-  //   .then(
-  //     function (widgets) {
-  //       if (widgets) {
-  //         var counter = 0;
-  //         var widgetToBeMoved = undefined;
-  //         // get the widget to be moved
-  //         for (key in widgets) {
-  //           if ( parseInt(counter) === parseInt(start)) {
-  //             widgetToBeMoved = widgets[key];
-  //             break;
-  //           }
-  //           counter = counter + 1;
-  //         }
-  //
-  //         // check to make sure widgetToBeMoved is not null
-  //         console.log("Widget to be moved is: " + widgetToBeMoved);
-  //
-  //         widgetModel
-  //           .findByIdAndRemove({_id: widgetToBeMoved._id})
-  //           .then(
-  //             function () {
-  //               widgetModel
-  //                 .create(widgetToBeMoved)
-  //
-  //
-  //             }
-  //           )
-  //           .catch(
-  //             function (err) {
-  //               return null;
-  //             }
-  //           )
-  //
-  //         // get the widget at start (some find call)
-  //         //store the widget somewhere
-  //         // delete the widget at start (delete)
-  //         //insert the widget at end (create)
-  //       }
-  //       else {
-  //         return null;
-  //       }
-  //
-  //     }
-  //   )
-  //   .catch(function (err) {
-  //     return null;
-  //   })
-
-  // //get all the widgets by pageid
-  // var widgetsArr = [];
-  // for (key in widgets) {
-  //   var widgetActual = widgets[key];
-  //   if (parseInt(widgetActual.pageId) === parseInt(pageId)) {
-  //     widgetsArr.push(widgetActual);
-  //   }
-  // }
-  //
-  // // delete all the widgets by pageId in widgets array
-  // // updates the widgets array
-  // console.log("The beginning widget array is: " + widgets);
-  // widgets = widgets.filter(function (el) {return el.pageId !== pageId;});
-  // console.log("The filtered widget array is: " + widgets);
-  //
-  // // reorder the targeted widgets that must be sorted
-  // var widgetToBeMoved = widgetsArr.splice(start, 1)[0];
-  // widgetsArr.splice(end, 0, widgetToBeMoved);
-  // console.log("The reorderd widgets are: " + widgetsArr);
-  //
-  // // add the widgets back in the widgets array
-  // for (key in widgetsArr) {
-  //   widgets.push(widgetsArr[key]);
-  // }
-  // console.log("The newly sorted widget array is: " + widgets);
-  // return res.sendStatus(200);
-
-  // find all the widgets for the pageId
-  //
