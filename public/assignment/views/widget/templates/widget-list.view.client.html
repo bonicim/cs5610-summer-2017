@@ -38,6 +38,11 @@
           <ng-include src="'views/widget/templates/widget-youtube.view.client.html'"></ng-include>
         </div>
         <div ng-switch-when="HTML" ng-bind-html="model.trustHtml(widget.text)"></div>
+        <div ng-switch-when="TEXT">
+          <ng-include src="'views/widget/templates/widget-text.view.client.html'"></ng-include>
+        </div>
+
+
       </div>
     </div>
   </div>

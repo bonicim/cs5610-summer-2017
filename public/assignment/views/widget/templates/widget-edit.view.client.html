@@ -50,6 +50,9 @@
       <div ng-switch-when="HTML">
         <ng-include src="'views/widget/editors/widget-html-edit.view.client.html'"></ng-include>
       </div>
+      <div ng-switch-when="TEXT">
+        <ng-include src="'views/widget/editors/widget-text-edit.view.client.html'"></ng-include>
+      </div>
       <a ng-click="model.updateWidget(model.widget)" class="btn btn-success btn-block mc-widget-edit-delete">
         Update
       </a>
