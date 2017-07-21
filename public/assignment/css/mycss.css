@@ -125,3 +125,9 @@ body {
   font-size: 100%;
   margin: 20px 0;
 }
+
+.mc-checkbox {
+  top: 0;
+  width: auto;
+  box-shadow: none;
+}
