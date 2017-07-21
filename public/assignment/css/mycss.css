@@ -48,6 +48,11 @@ body {
 }
 
 
+.mc-container-widget-list {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
 .mc-input-icon {
   position: relative;
 }
