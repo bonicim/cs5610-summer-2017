@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var pageSchema = require('./page.schema.server');
 var pageModel = mongoose.model('PageModel', pageSchema);
+var websiteSchema = require('../website/website.schema.server');
+var websiteModel = mongoose.model('WebsiteModel', websiteSchema);
 
 // declares and initializes all api's
 pageModel.createPage = createPage;
@@ -92,8 +94,20 @@ function insertWidget(pageId, widgetId) {
 
 function createPage(websiteId, page) {
   // TODO: must update website's pages array
+  // copy widget create method
+  // create the item
+  // insert the item into the parent's references of children
+
   page._website = websiteId;
-  return pageModel.create(page);
+  return pageModel.create(page)
+    .then(function (item) {
+      websiteModel.insertPageToWebsite(item._id, websiteId);
+      return item;
+    })
+    .catch(function (err) {
+      console.log("Page not created: ", err);
+      return null;
+    });
 }
 
 function findAllPagesForWebsite(websiteId) {
