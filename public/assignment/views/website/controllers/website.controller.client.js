@@ -169,7 +169,7 @@
 
       function deleteWebsite() {
         WebsiteService.
-          deleteWebsite(vm.wid)
+          deleteWebsite(vm.wid, vm.uid)
           .then(goToWebsiteList());
       }
 

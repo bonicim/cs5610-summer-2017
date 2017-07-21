@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var websiteSchema = require('./website.schema.server');
 var websiteModel = mongoose.model('WebsiteModel', websiteSchema);
+var userSchema = require('../user/user.schema.server');
+var userModel = mongoose.model('UserModel', userSchema);
 
 // declares and initializes all api's
 websiteModel.createWebsiteForUser = createWebsiteForUser;
@@ -58,7 +60,15 @@ function insertPageToWebsite(pageId, websiteId) {
 
 function createWebsiteForUser(userId, website) {
   website._user = userId;
-  return websiteModel.create(website);
+  return websiteModel.create(website)
+    .then(function (newWebsite) {
+      userModel.addWebsiteToUser(userId, newWebsite._id);
+      return newWebsite;
+    })
+    .catch(function (err) {
+      console.log("Website not created: ", err);
+      return null;
+    });
 }
 
 function findAllWebsitesForUser(userId) {
@@ -73,6 +83,18 @@ function updateWebsite(websiteId, website) {
   return websiteModel.update({_id: websiteId}, {$set: website});
 }
 
-function deleteWebsite(websiteId) {
-  return websiteModel.findByIdAndRemove({'_id': websiteId});
+function deleteWebsite(websiteId, userId) {
+  return websiteModel.findByIdAndRemove({'_id': websiteId})
+    .then(function(website) {
+      userModel
+        .deleteWebsiteInUser(websiteId, userId)
+        .then(function (data) {
+          return data;
+        })
+        .catch(function (err) {
+          console.log("Could not delete the website reference contained in user: ", err);
+          return null;
+        });
+      return website
+    });
 }

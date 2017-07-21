@@ -6,6 +6,7 @@ app.post('/api/user/:userId/website', createWebsite);
 app.get('/api/user/:userId/website', findAllWebsitesForUser);
 app.get('/api/website/:websiteId', findWebsiteById);
 app.put('/api/website/:websiteId', updateWebsite);
+// app.delete('/api/website/:websiteId?userId=uid', deleteWebsite);
 app.delete('/api/website/:websiteId', deleteWebsite);
 
 // Implementations of event handlers
@@ -85,18 +86,23 @@ function updateWebsite(req, res) {
 
 function deleteWebsite(req, res) {
   var websiteId = req.params.websiteId;
+  var userId = req.query.userId;
   websiteModel
-    .deleteWebsite(websiteId)
-    .then(
-      function(err, website) {
-        if (err) {
-          res.send(err);
-        }
+    .deleteWebsite(websiteId, userId)
+    .then(function(website) {
         if (website) {
           res.json(website);
         } else {
           res.sendStatus(400).send("Bad input. Website not updated.");
         }
       }
-    );
+    )
+    .catch(function (err, res) {
+      handleError(err, res)
+    });
+}
+
+function handleError(err, res) {
+  console.log("Could not execute call to database: ", err);
+  res.sendStatus(500).send("Could not execute call to database: ", err);
 }

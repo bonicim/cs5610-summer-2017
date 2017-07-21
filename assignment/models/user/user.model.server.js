@@ -1,8 +1,5 @@
-// tool that helps us interact with MongoDb
 var mongoose = require('mongoose');
-// MongoDb schema
 var userSchema = require('./user.schema.server');
-// Mongoose instance
 var userModel = mongoose.model('UserModel', userSchema);
 
 // declares and initializes all api's
@@ -12,9 +9,31 @@ userModel.findUserByUsername = findUserByUsername;
 userModel.findUserByCredentials = findUserByCredentials;
 userModel.updateUser = updateUser;
 userModel.deleteUser = deleteUser;
+userModel.addWebsiteToUser = addWebsiteToUser;
+userModel.deleteWebsiteInUser = deleteWebsiteInUser;
 
 // allows api's to be exported to some service layer
 module.exports = userModel;
+
+function deleteWebsiteInUser(websiteId, userId) {
+  return userModel.findById({_id: userId})
+    .then(function (user) {
+      user.websites.pull(websiteId);
+      return user.save();
+    })
+}
+
+function addWebsiteToUser(userId, websiteId) {
+  return userModel.findById({_id: userId})
+    .then(function (user) {
+      user.websites.push(websiteId);
+      return user.save();
+    })
+    .catch(function (err) {
+      console.log("Could not get user to add website inside: ", err)
+      return null;
+    })
+}
 
 function createUser(user) {
   return userModel.create(user);
