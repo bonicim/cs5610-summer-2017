@@ -93,11 +93,6 @@ function insertWidget(pageId, widgetId) {
 }
 
 function createPage(websiteId, page) {
-  // TODO: must update website's pages array
-  // copy widget create method
-  // create the item
-  // insert the item into the parent's references of children
-
   page._website = websiteId;
   return pageModel.create(page)
     .then(function (item) {
@@ -122,6 +117,14 @@ function updatePage(pageId, page) {
   return pageModel.update({'_id': pageId}, {$set: page});
 }
 
-function deletePage(pageId) {
-  return pageModel.findByIdAndRemove({'_id': pageId});
+function deletePage(pageId, websiteId) {
+  return pageModel.findByIdAndRemove({'_id': pageId})
+    .then(function (page) {
+      websiteModel
+        .deletePageInWebsite(pageId, websiteId);
+        return page;
+    })
+    .catch();
+
+
 }

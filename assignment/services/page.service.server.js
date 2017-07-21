@@ -5,6 +5,7 @@ app.post('/api/website/:websiteId/page', createPage);
 app.get('/api/website/:websiteId/page', findAllPagesForWebsite);
 app.get('/api/page/:pageId', findPageById);
 app.put('/api/page/:pageId', updatePage);
+// app.delete('/api/page/:pageId?websiteId=wid', deletePage);
 app.delete('/api/page/:pageId', deletePage);
 
 // Implementations of event handlers
@@ -84,8 +85,9 @@ function updatePage(req, res) {
 
 function deletePage(req, res) {
   var pageId = req.params.pageId;
+  var websiteId = req.query.websiteId;
   pageModel
-    .deletePage(pageId)
+    .deletePage(pageId, websiteId)
     .then(
       function(err, page) {
         if (err) {

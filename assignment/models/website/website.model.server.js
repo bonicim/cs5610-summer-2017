@@ -9,9 +9,31 @@ websiteModel.findAllWebsitesForUser = findAllWebsitesForUser;
 websiteModel.updateWebsite = updateWebsite;
 websiteModel.deleteWebsite = deleteWebsite;
 websiteModel.insertPageToWebsite = insertPageToWebsite;
+websiteModel.deletePageInWebsite = deletePageInWebsite;
 
 // allows api's to be exported to some service layer
 module.exports = websiteModel;
+
+function deletePageInWebsite(pageId, websiteId) {
+  return websiteModel
+    .findById({'_id': websiteId})
+    .then(function (website) {
+      if (website) {
+        website.pages.pull({'_id': pageId})
+        return website.save();
+      }
+      else {
+        console.log("Website array is empty and page could not be found.");
+        return null;
+      }
+    })
+    .catch(
+      function (err) {
+        console.log("Could not find website.", err);
+        return null;
+      }
+    )
+}
 
 function insertPageToWebsite(pageId, websiteId) {
   // get the website object

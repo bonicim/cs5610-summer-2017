@@ -79,20 +79,13 @@
        })
     }
 
-
-    /**
-     * Deletes the page from the website
-     * @param pageId
-     * @returns {*}
-     */
-    function deletePage(pageId) {
-      var url = "/api/page/" + pageId;
+    function deletePage(pageId, websiteId) {
+      var url = "/api/page/" + pageId + "?websiteId=" + websiteId;
       return $http.delete(url)
         .then(function (response) {
           return response.data;
         })
     }
-
   }
 
 })();
