@@ -14,18 +14,19 @@ function createUser(req, res) {
   var user = req.body;
   userModel
     .createUser(user)
-    .then(
-      function(err, user) {
-        if (err) {
-          res.send(err);
-        }
+    .then(function(user) {
         if (user) {
           res.json(user);
-        } else {
+        }
+        else {
           res.sendStatus(400).send("Bad input. User not created.");
         }
       }
-    );
+    )
+    .catch(function (err, res) {
+      console.log("Could not call database", err)
+      res.send(err);
+    });
 }
 
 function findUserById(req, res) {
