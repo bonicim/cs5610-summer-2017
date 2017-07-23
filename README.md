@@ -4,31 +4,15 @@ Mark Bonicillo
 
 bonicillo.m@husky.neu.edu
 
+# Heroku Info
 Heroku root for personal homepage is:
 
 https://cs5610-homepage.herokuapp.com/public/index.html
 
-Heroku root for assignment 5 (database), the staging application, is located at:
 
-https://cs5610-homepage-staging.herokuapp.com/public/assignment/index.html#/
-
-
-To use the staging app, use the following credentials:
-
-username: jannunzi
-
-password: po
-
-
-
-Heroku root for "production-ready" application, which reflects assignment 4 codebase, is:
+Heroku root for "production-ready" application is:
 
 https://cs5610-homepage.herokuapp.com/public/assignment/index.html
 
-To use the production-ready app, use the following credentials:
-
-username: jannunzi
-
-password: jannunzi
-
+To use the production-ready app, create your own account and start using the features.
 
