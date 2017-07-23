@@ -13,7 +13,7 @@ app.listen(app.get('port'), function() {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
-// server side web services
+// server side web services and database services
 require('./assignment/app');
 
 

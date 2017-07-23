@@ -16,4 +16,4 @@ To use the app, use the following credentials:
 
 username: jannunzi
 
-password: jannunzi
+password: po
