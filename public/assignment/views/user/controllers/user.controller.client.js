@@ -86,8 +86,8 @@
       return true;
     }
 
-    function renderError() {
-        vm.error = "Username already exists. Pick a different one.";
+    function renderError(user) {
+        vm.error = "Username already exists. Pick a different one." + "user is: " + user;
         alert("Username already exists. Pick a different one. Try again.");
     }
 

@@ -38,7 +38,7 @@
   </div>
   <div class="col-sm-8 col-xs-12">
     <div ng-switch="model.widget.widgetType">
-      <div ng-switch-when="HEADING">
+      <div ng-switch-when="HEADER">
         <ng-include src="'views/widget/editors/widget-heading-edit.view.client.html'"></ng-include>
       </div>
       <div ng-switch-when="IMAGE">
@@ -47,9 +47,12 @@
       <div ng-switch-when="YOUTUBE">
         <ng-include src="'views/widget/editors/widget-youtube-edit.view.client.html'"></ng-include>
       </div>
-      <!--<div ng-switch-when="HTML">-->
-        <!--<ng-include src="''"></ng-include>-->
-      <!--</div>-->
+      <div ng-switch-when="HTML">
+        <ng-include src="'views/widget/editors/widget-html-edit.view.client.html'"></ng-include>
+      </div>
+      <div ng-switch-when="TEXT">
+        <ng-include src="'views/widget/editors/widget-text-edit.view.client.html'"></ng-include>
+      </div>
       <a ng-click="model.updateWidget(model.widget)" class="btn btn-success btn-block mc-widget-edit-delete">
         Update
       </a>

@@ -166,7 +166,7 @@
 
     function deletePage() {
       PageService
-        .deletePage(vm.pid)
+        .deletePage(vm.pid, vm.wid)
         .then(goToPageList());
     }
 

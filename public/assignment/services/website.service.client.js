@@ -41,6 +41,11 @@
     }
 
     function findWebsiteById(websiteId) {
+      var url = "/api/website/" + websiteId;
+      return $http.get(url)
+        .then(function (response) {
+          return response.data;
+        })
     }
 
     /**
@@ -61,8 +66,8 @@
      * Deletes the website
      * @param websiteId
      */
-    function deleteWebsite(websiteId) {
-      var url = "/api/website/" + websiteId;
+    function deleteWebsite(websiteId, userId) {
+      var url = "/api/website/" + websiteId + "?userId=" + userId;
       return $http.delete(url)
         .then(function (response) {
           return response.data;

@@ -1,97 +1,104 @@
 var app = require('../../express');
+var pageModel = require('../models/page/page.model.server')
 
-// temporary database
-var pages = [{ "_id": "321", "name": "Post 1", "wid": "456", "description": "Lorem" },
-  { "_id": "432", "name": "Post 2", "wid": "456", "description": "Lorem" },
-  { "_id": "543", "name": "Post 3", "wid": "456", "description": "Lorem" }];
-
-// POST
 app.post('/api/website/:websiteId/page', createPage);
-
-// GET
 app.get('/api/website/:websiteId/page', findAllPagesForWebsite);
 app.get('/api/page/:pageId', findPageById);
-
-// PUT
 app.put('/api/page/:pageId', updatePage);
-
-// DELETE
+// app.delete('/api/page/:pageId?websiteId=wid', deletePage);
 app.delete('/api/page/:pageId', deletePage);
 
 // Implementations of event handlers
 function createPage(req, res) {
-    var page = req.body;
-    var id = generateId();
-    var pageToAdd = {
-        '_id' : id,
-        'name' : page.name,
-        'wid' : req.params.websiteId,
-        'description' : page.description};
-    pages.push(pageToAdd);
-    return res.json(pageToAdd);
-}
-
-function generateId() {
-    function getMaxId(maxId, page) {
-        var currId = parseInt(page._id);
-        if (maxId > currId) {
-            return maxId;
+  var page = req.body;
+  var websiteId = req.params.websiteId;
+  pageModel
+    .createPage(websiteId, page)
+    .then(
+      function(err, page) {
+        if (err) {
+          res.send(err);
         }
-        else {
-            return currId + 1;
+        if (page) {
+          res.json(page);
+        } else {
+          res.sendStatus(400).send("Bad input. Page not created.");
         }
-    }
-    var uniqueId = pages.reduce(getMaxId, 0).toString();
-    console.log("We generated a unique id. It is: " + uniqueId);
-    return uniqueId;
+      }
+    );
 }
 
 function findAllPagesForWebsite(req, res) {
-  var pagesResult = [];
-  for (key in pages) {
-    var page = pages[key];
-    if (parseInt(page.wid) === parseInt(req.params.websiteId)) {
-      pagesResult.push(page);
-    }
-  }
-  return res.json(pagesResult);
+  var websiteId = req.params.websiteId;
+  pageModel
+    .findAllPagesForWebsite(websiteId)
+    .then(
+      function(err, page) {
+        if (err) {
+          res.send(err);
+        }
+        if (page) {
+          res.json(page);
+        } else {
+          res.sendStatus(400).send("Bad input. Pages not found.");
+        }
+      }
+    );
 }
 
 function findPageById(req, res) {
-  for (key in pages) {
-    var page = pages[key];
-    if (parseInt(page._id) === parseInt(req.params.pageId)) {
-      return res.json(page);
-    }
-  }
-  return res.status(404);
+  var pageId = req.params.pageId;
+  pageModel
+    .findPageById(pageId)
+    .then(
+      function(err, page) {
+        if (err) {
+          res.send(err);
+        }
+        if (page) {
+          res.json(page);
+        } else {
+          res.sendStatus(400).send("Bad input. Page not found.");
+        }
+      }
+    );
 }
 
 function updatePage(req, res) {
-  for (key in pages) {
-    var page = pages[key];
-    if (parseInt(page._id) === parseInt(req.params.pageId)) {
-      var pageToUpdate = {
-        "_id" : page._id,
-        "wid" : page.wid,
-        "name": req.body.name,
-        "description": req.body.description
-      };
-      pages[key] = pageToUpdate;
-      return res.json(pageToUpdate);
-    }
-  }
-  return res.sendStatus(404);
+  var pageId = req.params.pageId;
+  var page = req.body;
+  pageModel
+    .updatePage(pageId, page)
+    .then(
+      function(err, page) {
+        if (err) {
+          res.send(err);
+        }
+        if (page) {
+          res.json(page);
+        } else {
+          res.sendStatus(400).send("Bad input. Page not update.");
+        }
+      }
+    );
 }
 
 function deletePage(req, res) {
-  for (key in pages) {
-    var page = pages[key];
-    if (parseInt(page._id) === parseInt(req.params.pageId)) {
-      pages.splice(key, 1);
-      return res.sendStatus(200);
-    }
-  }
-  return res.sendStatus(404);
+  var pageId = req.params.pageId;
+  var websiteId = req.query.websiteId;
+  pageModel
+    .deletePage(pageId, websiteId)
+    .then(
+      function(err, page) {
+        if (err) {
+          res.send(err);
+        }
+        if (page) {
+          res.json(page);
+        } else {
+          res.sendStatus(400).send("Bad input. Page not deleted.");
+        }
+      }
+    );
 }
 

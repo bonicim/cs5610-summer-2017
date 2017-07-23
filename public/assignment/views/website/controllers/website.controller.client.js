@@ -79,7 +79,7 @@
         vm.websites = websites;}
 
       function initWebsiteToAdd() {
-        vm.websiteToAdd = { "_id": "", "name": null, "developerId": "", "description": null };}
+        vm.websiteToAdd = {"name": null, "description": null };}
 
       // implemented functions
       function createWebsite(name, description) {
@@ -169,7 +169,7 @@
 
       function deleteWebsite() {
         WebsiteService.
-          deleteWebsite(vm.wid)
+          deleteWebsite(vm.wid, vm.uid)
           .then(goToWebsiteList());
       }
 

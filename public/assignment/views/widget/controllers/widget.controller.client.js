@@ -5,9 +5,7 @@
     .controller("NewWidgetController", NewWidgetController)
     .controller("EditWidgetController", EditWidgetController);
 
-
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
   function WidgetListController($routeParams, $location, $sce, WidgetService) {
     // global vars
@@ -36,6 +34,7 @@
     }
     function bindWidgets(widgets) {
       vm.widgets = widgets;
+      console.log(vm.widgets);
       console.log("Completed initialization for Widget List for page id: " + vm.pid);
     }
 
@@ -77,9 +76,7 @@
 
   }
 
-
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
   function NewWidgetController($routeParams, $location, WidgetService) {
     // global vars
@@ -120,9 +117,7 @@
       $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");}
   }
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
   function EditWidgetController($routeParams, $location, WidgetService) {
     // global vars
@@ -153,9 +148,12 @@
     }
 
     function bindWidgets(widgets) {
+      console.log("The widgets for this page are: ", widgets);
       vm.widgets = widgets;
+
       vm.widget = (widgets.filter(function (el) {return el._id === vm.wgid;}))[0];
-      console.log("Completed initialization of widget id: " + vm.wgid);
+      console.log("The widget in editing is: ", vm.widget);
+      console.log("Completed initialization of widget id: " + vm.widget._id);
     }
 
     // implemented functions
@@ -167,7 +165,7 @@
 
     function deleteWidget() {
       WidgetService
-        .deleteWidget(vm.wgid)
+        .deleteWidget(vm.pid, vm.wgid)
         .then(goToListWidget);
     }
 

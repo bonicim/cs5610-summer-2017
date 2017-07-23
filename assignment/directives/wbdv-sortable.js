@@ -1,7 +1,7 @@
 (function() {
     angular
-        .module("wbdvSortable", [])
-        .directive('wbdvsortable', wbdvsortableDir)
+        .module("wamDirectives", [])
+        .directive('wamSortable', wbdvsortableDir)
 
     function wbdvsortableDir() {
         console.log("Entering sortable directive.");

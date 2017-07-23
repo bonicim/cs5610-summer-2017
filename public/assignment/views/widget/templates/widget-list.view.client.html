@@ -17,7 +17,7 @@
 
 <!-- Body -->
 <div class="row container-fluid mc-container-padding">
-  <div class="col-xs-12" wbdvsortable callback="model.callback(start,end)">
+  <div class="col-xs-12" wam-sortable callback="model.callback(start,end)">
     <div ng-repeat="widget in model.widgets">
       <div>
         <a class="pull-right">
@@ -28,16 +28,19 @@
         </a>
       </div>
       <div ng-switch="widget.widgetType">
-        <div ng-switch-when="HEADING">
+        <div ng-switch-when="HEADER">
           <ng-include src="'views/widget/templates/widget-heading.view.client.html'"></ng-include>
         </div>
         <div ng-switch-when="IMAGE">
           <ng-include src="'views/widget/templates/widget-image.view.client.html'"></ng-include>
         </div>
-        <div ng-switch-when="YOUTUBE">
+        <div ng-switch-when="YOUTUBE" class="mc-youtube-widget-aspect-ratio">
           <ng-include src="'views/widget/templates/widget-youtube.view.client.html'"></ng-include>
         </div>
         <div ng-switch-when="HTML" ng-bind-html="model.trustHtml(widget.text)"></div>
+        <div ng-switch-when="TEXT">
+          <ng-include src="'views/widget/templates/widget-text.view.client.html'"></ng-include>
+        </div>
       </div>
     </div>
   </div>

@@ -2,9 +2,6 @@
   angular
     .module("WebAppMaker")
     .factory("PageService", PageService);
-    var pages = [{ "_id": "321", "name": "Post 1", "wid": "456", "description": "Lorem" },
-        { "_id": "432", "name": "Post 2", "wid": "456", "description": "Lorem" },
-        { "_id": "543", "name": "Post 3", "wid": "456", "description": "Lorem" }];
 
   // errors are handled by controller
   function PageService($http) {
@@ -29,7 +26,7 @@
       var pageToAdd = {
           "name": name,
           "description": description
-      }
+      };
       var url = "/api/website/" + websiteId + "/page";
         return $http.post(url, pageToAdd)
             .then(function (response) {
@@ -72,8 +69,6 @@
      */
     function updatePage(pageId, name, description) {
       var page = {
-          "_id" : null,
-          "wid" : null,
           "name": name,
           "description": description
         };
@@ -84,20 +79,13 @@
        })
     }
 
-
-    /**
-     * Deletes the page from the website
-     * @param pageId
-     * @returns {*}
-     */
-    function deletePage(pageId) {
-      var url = "/api/page/" + pageId;
+    function deletePage(pageId, websiteId) {
+      var url = "/api/page/" + pageId + "?websiteId=" + websiteId;
       return $http.delete(url)
         .then(function (response) {
           return response.data;
         })
     }
-
   }
 
 })();
