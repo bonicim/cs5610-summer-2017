@@ -9,11 +9,11 @@ app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
 });
 
-// install, load, and configure body parser module
+// body parser module
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
-// load the entry point for server side web services
+// server side web services
 require('./assignment/app');
 
 
