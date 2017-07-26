@@ -4,12 +4,16 @@
   "description": "A demo package.",
   "main": "server.js",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.2",
+    "express-session": "^1.15.4",
     "jquery": "^3.2.1",
     "mongoose": "^4.11.1",
     "multer": "^1.3.0",
+    "passport": "^0.3.2",
     "q": "^1.5.0",
     "textangular": "^1.5.16"
   },
