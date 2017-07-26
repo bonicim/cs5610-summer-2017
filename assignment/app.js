@@ -11,16 +11,12 @@ mongoose.Promise = require('q').Promise;
 var connectionString = undefined;
 var connectionResponse = undefined;
 
-if (process.env.MONGODB_URI_LOCAL) {
-  connectionString = process.env.MONGODB_URI_LOCAL;
-  connectionResponse = "Connected to LOCAL mongodb: ";
-}
-else if (process.env.MONGODB_URI) {
+if (process.env.MONGODB_URI) {
   connectionString = process.env.MONGODB_URI;
   connectionResponse = "Connected to REMOTE mongodb: ";
 }
 else {
-  connectionResponse = "Failed to connect to LOCAL and REMOTE mongodb. ";
+  connectionResponse = "Failed to connect to REMOTE mongodb. ";
 }
 
 mongoose
