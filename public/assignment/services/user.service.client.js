@@ -10,10 +10,23 @@
       "findUserById" : findUserById,
       "findUserByUsername" : findUserByUsername,
       "findUserByCredentials" : findUserByCredentials,
+      "login": login,
       "updateUser" : updateUser,
       "deleteUser" : deleteUser
     };
     return api;
+
+    function login(username, password) {
+      var url = "/api/login";
+      var credentials = {
+        username: username,
+        password: password
+      };
+      return $http.post(url, credentials) // mapping must mirror cred object on server
+        .then(function (response) {
+          return response.data;
+        })
+    }
 
     /**
      *  Assumes that username is already unique

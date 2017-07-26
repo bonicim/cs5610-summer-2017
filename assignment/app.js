@@ -8,14 +8,26 @@ var mongoose = require('mongoose');
 mongoose.Promise = require('q').Promise;
 
 // database config
-//var localMongodb = 'mongodb://localhost/webdev';
-var remoteMongodb = process.env.MONGODB_URI;
+var connectionString = undefined;
+var connectionResponse = undefined;
+
+if (process.env.MONGODB_URI_LOCAL) {
+  connectionString = process.env.MONGODB_URI_LOCAL;
+  connectionResponse = "Connected to LOCAL mongodb: ";
+}
+else if (process.env.MONGODB_URI) {
+  connectionString = process.env.MONGODB_URI;
+  connectionResponse = "Connected to REMOTE mongodb: ";
+}
+else {
+  connectionResponse = "Failed to connect to LOCAL and REMOTE mongodb. ";
+}
 
 mongoose
-  .connect(remoteMongodb, {useMongoClient: true})
+  .connect(connectionString, {useMongoClient: true})
   .then(function() {
-    console.log("Connected to REMOTE MongoDb");
+    console.log(connectionResponse, connectionString);
   })
   .catch(function (err) {
-    console.log("Failed to connect to remoteMongodb. ", err);
+    console.log(connectionResponse, err);
   });

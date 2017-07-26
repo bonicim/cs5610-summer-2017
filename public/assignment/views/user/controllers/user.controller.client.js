@@ -15,7 +15,7 @@
     // implemented api's
     function login(username, password) {
       UserService
-        .findUserByCredentials(username, password)
+        .login(username, password)
         .then(goToProfile, renderError);
     }
 
