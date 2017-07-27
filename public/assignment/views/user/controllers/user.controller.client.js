@@ -108,6 +108,7 @@
     vm.goToProfile = goToProfile;
     vm.goToWebsites = goToWebsites;
     vm.goToProfile = goToProfile;
+    vm.logout = logout;
 
     // initializer
     init();
@@ -120,7 +121,13 @@
       vm.error = "User not found.";
     }
 
-    // implemented functions
+    // implemented event handlers
+    function logout() {
+      UserService
+        .logout()
+        .then(goToLogin());
+    }
+
     function updateUser(user) {
       console.log(user);
       console.log(user._id);

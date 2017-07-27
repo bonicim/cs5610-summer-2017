@@ -22,8 +22,15 @@ app.put('/api/user/:userId', updateUser);
 app.delete('/api/user/:userId', deleteUser);
 
 app.get('/api/checkLoggedIn', checkLoggedIn);
+app.post('/api/logout', logout);
+
 
 // Implementations of event handlers
+function logout(req, res) {
+  req.logout(); // removes user from session; clears session and invalidate cookie
+  res.sendStatus(200);
+}
+
 function checkLoggedIn(req, res) {
     // syntactic sugar for doing authentication; method added to req when adding passport library
     if(req.isAuthenticated()) {

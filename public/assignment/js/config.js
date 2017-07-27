@@ -92,7 +92,18 @@
       });
   }
 
-  function checkLoggedIn(UserService) {
-    return UserService.checkLoggedIn(); // returns promise with a user object or a '0'
+  function checkLoggedIn($q, $location, UserService) {
+    var deferred = $q.defer();
+    UserService
+      .checkLoggedIn() // returns promise with a user object or a '0'
+      .then(function (currentUser) {
+        if (currentUser === '0') {
+          deferred.reject();
+          $location.url('/login'); // if no user, go to login page
+        } else {
+          deferred.resolve(currentUser);
+        }
+      })
+    return deferred.promise;
   }
 })();
