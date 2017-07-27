@@ -5,6 +5,7 @@ var LocalStrategy = require('passport-local').Strategy;
 passport.use(new LocalStrategy(localStrategy)); // passport will authenticate based on strategy defined by 'localStrategy' function
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
+var bcrypt = require('bcrypt-nodejs');
 
 
 // Server listeners on specific URL's
@@ -29,17 +30,25 @@ app.post('/api/register', register);
 // Implementations of event handlers
 function register(req, res) {
   var user = req.body;
+  // encrypt the password
+  user.password = bcrypt.hashSync(user.password);
+
   userModel
     .createUser(user)
     .then(function (user) {
+      // after creation of user in database, set login() to newly created user
       req.login(user, function (status) {
         res.json(user);
       })// notify Passport that currently new user, create a new cookie to headers, send to client
     })
+    .catch(function (err) {
+      res.status(400).send(err);
+    });
 }
 
 function logout(req, res) {
   req.logout(); // removes user from session; clears session and invalidate cookie
+  // this is syntactic sugar that invalidates the current user
   res.sendStatus(200);
 }
 
@@ -52,7 +61,9 @@ function checkLoggedIn(req, res) {
     }
 }
 
-function login(req,res) {
+// passport.authenticates will handle the request before login() is called
+// if passport.authenticate passes successfully, login is invoked and the user is returned in req.user
+function login(req, res) {
   res.json(req.user);
 }
 
@@ -63,7 +74,11 @@ function localStrategy(username, password, done) {
     .findUserByCredentials(username, password)
     .then(function (user) {
       if (user) {
-        done(null, user); //goes to login()
+        if (user && bcrypt.compareSync(password, user.password)) {
+          done(null, user); //goes to login()
+        } else {
+          done(null, false);
+        }
       }
       else {
         done(null, false); //abort the http request; does not hit login()

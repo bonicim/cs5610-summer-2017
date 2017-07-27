@@ -23,7 +23,7 @@
       $location.url("/profile");}
 
     function renderError(error) {
-      console.log(error);
+      console.log("User not found; the returned object is the following: ", error);
       alert("User not found.");
     }
 

@@ -39,7 +39,7 @@
       var url = "/api/logout";
       return $http.post(url)
         .then(function (response) {
-          return response.data;
+          return response.data; // must return a promise to the controller
         })
     }
 
@@ -51,7 +51,7 @@
       };
       return $http.post(url, credentials) // mapping must mirror cred object on server
         .then(function (response) {
-          return response.data;
+          return response.data; // returns a promise to the controller
         })
     }
 
