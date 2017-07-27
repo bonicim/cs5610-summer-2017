@@ -92,7 +92,7 @@
       });
   }
 
-  function checkLoggedIn(userService) {
+  function checkLoggedIn(UserService) {
     return userService.checkLoggedIn(); // returns promise with a user object or a '0'
   }
 })();
