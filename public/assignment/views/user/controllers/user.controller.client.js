@@ -19,8 +19,8 @@
         .then(goToProfile, renderError);
     }
 
-    function goToProfile(user) {
-      $location.url("/user/" + user._id);}
+    function goToProfile() {
+      $location.url("/profile");}
 
     function renderError(error) {
       console.log(error);

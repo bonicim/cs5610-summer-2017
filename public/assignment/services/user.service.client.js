@@ -68,7 +68,6 @@
         });
     }
 
-    // TODO: change to POST to hide username and password in URL
     /**
      * Returns a User given a username and password
      * @param username

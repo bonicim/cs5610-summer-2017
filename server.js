@@ -27,10 +27,7 @@ app.use(session({
 app.use(passport.initialize()); // Step 3:
 app.use(passport.session()); // Step 4:
 
-
-
 // server side web services and database services
 require('./assignment/app');
-//require('./sandbox/session/session');
 
 

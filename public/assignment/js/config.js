@@ -23,8 +23,8 @@
         controller: "RegisterController",
         controllerAs: "model"
       })
-      // Profile view
-      .when("/user/:uid", {
+      // Profile
+      .when("/profile", {
         templateUrl: "views/user/templates/profile.view.client.html",
         controller: "ProfileController",
         controllerAs: "model"
