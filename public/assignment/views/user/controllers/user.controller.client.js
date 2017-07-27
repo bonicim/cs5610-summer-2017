@@ -36,13 +36,6 @@
     // functions
     vm.register = register;
 
-    // implemented functions
-    /**
-     * Calls a service that creates a new user for this application.
-     * @param username
-     * @param password
-     * @param vfyPassword
-     */
     function register(username, password, vfyPassword) {
       if(!isValidInput(username,password,vfyPassword)) {return;}
 
@@ -57,7 +50,7 @@
               password : password,
               firstName : "",
               lastName : ""};
-            return UserService.createUser(userToAdd);
+            return UserService.register(userToAdd);
           }
         )
         .then(goToProfile);
@@ -91,8 +84,8 @@
         alert("Username already exists. Pick a different one. Try again.");
     }
 
-    function goToProfile(user) {
-      $location.url("/user/" + user._id);}
+    function goToProfile() {
+      $location.url("/profile");}
 
   }
 

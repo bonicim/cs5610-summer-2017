@@ -23,9 +23,21 @@ app.delete('/api/user/:userId', deleteUser);
 
 app.get('/api/checkLoggedIn', checkLoggedIn);
 app.post('/api/logout', logout);
+app.post('/api/register', register);
 
 
 // Implementations of event handlers
+function register(req, res) {
+  var user = req.body;
+  userModel
+    .createUser(user)
+    .then(function (user) {
+      req.login(user, function (status) {
+        res.json(user);
+      })// notify Passport that currently new user, create a new cookie to headers, send to client
+    })
+}
+
 function logout(req, res) {
   req.logout(); // removes user from session; clears session and invalidate cookie
   res.sendStatus(200);

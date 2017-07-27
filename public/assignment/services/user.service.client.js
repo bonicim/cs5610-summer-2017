@@ -7,6 +7,7 @@
     // api interface object
     var api = {
       "createUser" : createUser,
+      "register" : register,
       "findUserById" : findUserById,
       "findUserByUsername" : findUserByUsername,
       "findUserByCredentials" : findUserByCredentials,
@@ -17,6 +18,14 @@
       "deleteUser" : deleteUser
     };
     return api;
+
+    function register(user) {
+      var url = "/api/register";
+      return $http.post(url, user)
+        .then(function (response) {
+          return response.data;
+        });
+    }
 
     function checkLoggedIn() {
       var url = "/api/checkLoggedIn";
