@@ -48,23 +48,24 @@
         firstName : "",
         lastName : ""};
 
-      return UserService
-        .register(userToAdd)
-        .then(goToProfile());
-      
-      // UserService
-      //   .findUserByUsername(username)
-      //   .then(renderError,
-      //     function () {
-      //       var userToAdd = {
-      //         username : username,
-      //         password : password,
-      //         firstName : "",
-      //         lastName : ""};
-      //       return UserService.register(userToAdd);
-      //     }
-      //   )
-      //   .then(goToProfile);
+      // TODO: fix check on duplicate usernames for registering
+      // return UserService
+      //   .register(userToAdd)
+      //   .then(goToProfile());
+
+      UserService
+        .findUserByUsername(username)
+        .then(renderError,
+          function () {
+            var userToAdd = {
+              username : username,
+              password : password,
+              firstName : "",
+              lastName : ""};
+            return UserService.register(userToAdd);
+          }
+        )
+        .then(goToProfile);
     }
 
     // helpers
