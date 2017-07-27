@@ -70,9 +70,13 @@ function login(req, res) {
 // Local strategy is to simply check username and password
 // uses database's function to check for user name and password, which is essentially authentication
 function localStrategy(username, password, done) {
+  console.log("inside localStrate: ", username, password);
+  // get the password from the db asscoiated with the username
+  // then compare the decrypted password with the plaintext password
   userModel
-    .findUserByCredentials(username, password)
+    .findUserByUsername(username)
     .then(function (user) {
+      console.log("We passed the findByUsername call: ", user);
       if (user) {
         if (user && bcrypt.compareSync(password, user.password)) {
           done(null, user); //goes to login()
@@ -83,12 +87,12 @@ function localStrategy(username, password, done) {
       else {
         done(null, false); //abort the http request; does not hit login()
       }
+
     })
     .catch(function (err) {
-      done(err, false);
-    })
+      console.log("Invalid password ", err)
+    });
 }
-
 
 // these functions are called after authentication succeeds
 // cookie is used to keep data in client browser
@@ -113,26 +117,6 @@ function deserializeUser(user, done) {
       done(err, null);
     })
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function createUser(req, res) {
   var user = req.body;
@@ -174,12 +158,17 @@ function findUserById(req, res) {
 function findUserByCredentials(req, res) {
   var username = req.query['username'];
   var password = req.query.password;
+  console.log("cred is: ", username, password);
   userModel
     .findUserByCredentials(username, password)
     .then(
       function(user) {
         if (user) {
-          res.json(user);
+          if (user && bcrypt.compareSync(password, user.password)) {
+            res.json(user);
+          } else {
+            res.sendStatus(404).send("Invalid password.");
+          }
         } else {
           res.sendStatus(400).send("No user found.");
         }

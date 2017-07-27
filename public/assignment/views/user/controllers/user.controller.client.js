@@ -101,7 +101,7 @@
 
   }
 
-  function ProfileController(currentUser, $routeParams, $location, UserService) {
+  function ProfileController(currentUser, $location, UserService) {
     // global vars
     var vm = this;
     vm.uid = currentUser._id;
