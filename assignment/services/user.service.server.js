@@ -7,11 +7,17 @@ passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
 var bcrypt = require('bcrypt-nodejs');
 
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var googleConfig = {
+  clientID     : process.env.GOOGLE_CLIENT_ID,
+  clientSecret : process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL  : process.env.GOOGLE_CALLBACK_URL
+};
+passport.use(new GoogleStrategy(googleConfig, googleStrategy));
 
 // Server listeners on specific URL's
 app.post('/api/user', createUser);
 
-// TODO: refactor to POST to hide params
 // does not use HTTPS; must pay for HTTPS, allows queries to be encrypted
 app.post('/api/login', passport.authenticate('local'), login); //passport will authenticate login via 'local' strategy
 app.get('/api/user', findUserByCredentials);
@@ -26,8 +32,59 @@ app.get('/api/checkLoggedIn', checkLoggedIn);
 app.post('/api/logout', logout);
 app.post('/api/register', register);
 
+// outgoing to google, passport redirect to google
+app.get('/auth/google',
+  passport.authenticate('google',
+    { scope : ['profile', 'email'] }));
+
+// endpoint created for google callback, passport handles callback
+app.get('/auth/google/callback',
+  passport.authenticate('google', {
+    successRedirect: '/profile',
+    failureRedirect: '/login'
+  }));
 
 // Implementations of event handlers
+// TODO: validate on unique emailParts for username
+function googleStrategy(token, refreshToken, profile, done) {
+  userModel
+    .findUserByGoogleId(profile.id)
+    .then(
+      function(user) {
+        if(user) {
+          return done(null, user); // create a new cookie with user info
+        } else {
+          var email = profile.emails[0].value;
+          var emailParts = email.split("@");
+          var newGoogleUser = {
+            username:  emailParts[0],
+            firstName: profile.name.givenName,
+            lastName:  profile.name.familyName,
+            email:     email,
+            google: {
+              id:    profile.id,
+              token: token
+            }
+          };
+          return userModel.createUser(newGoogleUser);
+        }
+      },
+      function(err) {
+        if (err) { return done(err); }
+      }
+    )
+    .then(
+      function(user){
+        return done(null, user);
+      },
+      function(err){
+        if (err) { return done(err); }
+      }
+    );
+}
+
+
+
 function register(req, res) {
   var user = req.body;
   // encrypt the password
