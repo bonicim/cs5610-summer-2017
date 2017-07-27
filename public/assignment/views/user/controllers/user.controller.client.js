@@ -41,19 +41,30 @@
 
       // finding a user is deemed a success but we treat it with an error message
       // not finding a user is deemed an error but we treat it with business logic
-      UserService
-        .findUserByUsername(username)
-        .then(renderError,
-          function () {
-            var userToAdd = {
-              username : username,
-              password : password,
-              firstName : "",
-              lastName : ""};
-            return UserService.register(userToAdd);
-          }
-        )
-        .then(goToProfile);
+
+      var userToAdd = {
+        username : username,
+        password : password,
+        firstName : "",
+        lastName : ""};
+
+      return UserService
+        .register(userToAdd)
+        .then(goToProfile());
+      
+      // UserService
+      //   .findUserByUsername(username)
+      //   .then(renderError,
+      //     function () {
+      //       var userToAdd = {
+      //         username : username,
+      //         password : password,
+      //         firstName : "",
+      //         lastName : ""};
+      //       return UserService.register(userToAdd);
+      //     }
+      //   )
+      //   .then(goToProfile);
     }
 
     // helpers
