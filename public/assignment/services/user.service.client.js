@@ -11,10 +11,19 @@
       "findUserByUsername" : findUserByUsername,
       "findUserByCredentials" : findUserByCredentials,
       "login": login,
+      "checkLoggedIn": checkLoggedIn,
       "updateUser" : updateUser,
       "deleteUser" : deleteUser
     };
     return api;
+
+    function checkLoggedIn() {
+      var url = "/api/checkLoggedIn";
+      return $http.get(url)
+        .then(function (response) {
+          return response.data; // returns user object or '0'
+        });
+    }
 
     function login(username, password) {
       var url = "/api/login";
@@ -28,11 +37,6 @@
         })
     }
 
-    /**
-     *  Assumes that username is already unique
-     * @param user
-     * @returns User
-     */
     function createUser(user) {
       var url = "/api/user";
       // .post takes two args: url, object to be posted
@@ -42,11 +46,6 @@
         });
     }
 
-    /**
-     * Returns a User given a user ID
-     * @param userId
-     * @returns User
-     */
     function findUserById(userId) {
       var url = "/api/user/" + userId;
       return $http.get(url)
@@ -55,11 +54,6 @@
         });
     }
 
-    /**
-     * Returns a User given a username
-     * @param username
-     * @returns User
-     */
     function findUserByUsername(username) {
       var url = "/api/user?username=" + username;
       return $http.get(url)
@@ -68,12 +62,6 @@
         });
     }
 
-    /**
-     * Returns a User given a username and password
-     * @param username
-     * @param password
-     * @returns User
-     */
     function findUserByCredentials(username, password) {
       var url = "/api/user?username=" + username + "&password=" + password;
       return $http.get(url)

@@ -27,7 +27,11 @@
       .when("/profile", {
         templateUrl: "views/user/templates/profile.view.client.html",
         controller: "ProfileController",
-        controllerAs: "model"
+        controllerAs: "model",
+        // the following things must be resolved before you are allowed to see the profile page
+        resolve: {
+          meatballs: checkLoggedIn
+        }
       })
       // Website List
       .when("/user/:uid/website", {
@@ -86,5 +90,9 @@
       .otherwise({
         redirectTo: "/"
       });
+  }
+
+  function checkLoggedIn(userService) {
+    return userService.checkLoggedIn(); // returns promise with a user object or a '0'
   }
 })();

@@ -19,9 +19,20 @@ app.get('/api/user', findUserByUsername);
 app.get('/api/user/:userId', findUserById);
 
 app.put('/api/user/:userId', updateUser);
-app.delete('/api/user/:userId', deleteUser)
+app.delete('/api/user/:userId', deleteUser);
+
+app.get('/api/checkLoggedIn', checkLoggedIn);
 
 // Implementations of event handlers
+function checkLoggedIn(req, res) {
+    // syntactic sugar for doing authentication; method added to req when adding passport library
+    if(req.isAuthenticated()) {
+      res.json(req.user);
+    } else {
+      res.send('0');
+    }
+}
+
 function login(req,res) {
   res.json(req.user);
 }
