@@ -30,7 +30,7 @@
         controllerAs: "model",
         // the following things must be resolved before you are allowed to see the profile page
         resolve: {
-          meatballs: checkLoggedIn
+          currentUser: checkLoggedIn // promise object is bound to the variable; it is injectible to the controller
         }
       })
       // Website List

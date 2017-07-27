@@ -96,10 +96,10 @@
 
   }
 
-  function ProfileController($routeParams, $location, UserService) {
+  function ProfileController(currentUser, $routeParams, $location, UserService) {
     // global vars
     var vm = this;
-    vm.uid = $routeParams.uid;
+    vm.uid = currentUser._id;
     vm.user = undefined;
 
     // functions
@@ -112,14 +112,7 @@
     // initializer
     init();
     function init() {
-      UserService
-        .findUserById(vm.uid)
-        .then(bindUser, renderError);
-      console.log("Profile is initialized for user " + vm.uid);
-    }
-
-    function bindUser(user) {
-      vm.user = user;
+      vm.user = currentUser;
     }
 
     function renderError(error) {
