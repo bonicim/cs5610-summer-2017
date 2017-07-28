@@ -42,11 +42,11 @@
       // finding a user is deemed a success but we treat it with an error message
       // not finding a user is deemed an error but we treat it with business logic
 
-      var userToAdd = {
-        username : username,
-        password : password,
-        firstName : "",
-        lastName : ""};
+      // var userToAdd = {
+      //   username : username,
+      //   password : password,
+      //   firstName : "",
+      //   lastName : ""};
 
       // TODO: fix check on duplicate usernames for registering
       // return UserService
