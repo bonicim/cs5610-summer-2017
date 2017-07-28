@@ -40,8 +40,8 @@ app.get('/auth/google',
 // endpoint created for google callback, passport handles callback
 app.get('/auth/google/callback',
   passport.authenticate('google', {
-    successRedirect: '/profile',
-    failureRedirect: '/login'
+    successRedirect: '/public/assignment/index.html#/profile',
+    failureRedirect: '/public/assignment/index.html#/login'
   }));
 
 // Implementations of event handlers
