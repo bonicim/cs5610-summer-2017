@@ -11,6 +11,7 @@ userModel.updateUser = updateUser;
 userModel.deleteUser = deleteUser;
 userModel.addWebsiteToUser = addWebsiteToUser;
 userModel.deleteWebsiteInUser = deleteWebsiteInUser;
+userModel.findUserByGoogleId = findUserByGoogleId;
 
 // allows api's to be exported to some service layer
 module.exports = userModel;
@@ -57,4 +58,8 @@ function updateUser(userId, user) {
 
 function deleteUser(userId) {
   return userModel.remove({'_id': userId});
+}
+
+function findUserByGoogleId(id) {
+  return userModel.findOne({'google.id': id});
 }

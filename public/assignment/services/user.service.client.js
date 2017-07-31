@@ -7,19 +7,54 @@
     // api interface object
     var api = {
       "createUser" : createUser,
+      "register" : register,
       "findUserById" : findUserById,
       "findUserByUsername" : findUserByUsername,
       "findUserByCredentials" : findUserByCredentials,
+      "login": login,
+      "logout": logout,
+      "checkLoggedIn": checkLoggedIn,
       "updateUser" : updateUser,
       "deleteUser" : deleteUser
     };
     return api;
 
-    /**
-     *  Assumes that username is already unique
-     * @param user
-     * @returns User
-     */
+    function register(user) {
+      var url = "/api/register";
+      return $http.post(url, user)
+        .then(function (response) {
+          return response.data;
+        });
+    }
+
+    function checkLoggedIn() {
+      var url = "/api/checkLoggedIn";
+      return $http.get(url)
+        .then(function (response) {
+          return response.data; // returns user object or '0'
+        });
+    }
+
+    function logout() {
+      var url = "/api/logout";
+      return $http.post(url)
+        .then(function (response) {
+          return response.data; // must return a promise to the controller
+        })
+    }
+
+    function login(username, password) {
+      var url = "/api/login";
+      var credentials = {
+        username: username,
+        password: password
+      };
+      return $http.post(url, credentials) // mapping must mirror cred object on server
+        .then(function (response) {
+          return response.data; // returns a promise to the controller
+        })
+    }
+
     function createUser(user) {
       var url = "/api/user";
       // .post takes two args: url, object to be posted
@@ -29,11 +64,6 @@
         });
     }
 
-    /**
-     * Returns a User given a user ID
-     * @param userId
-     * @returns User
-     */
     function findUserById(userId) {
       var url = "/api/user/" + userId;
       return $http.get(url)
@@ -42,11 +72,6 @@
         });
     }
 
-    /**
-     * Returns a User given a username
-     * @param username
-     * @returns User
-     */
     function findUserByUsername(username) {
       var url = "/api/user?username=" + username;
       return $http.get(url)
@@ -55,13 +80,6 @@
         });
     }
 
-    // TODO: change to POST to hide username and password in URL
-    /**
-     * Returns a User given a username and password
-     * @param username
-     * @param password
-     * @returns User
-     */
     function findUserByCredentials(username, password) {
       var url = "/api/user?username=" + username + "&password=" + password;
       return $http.get(url)
