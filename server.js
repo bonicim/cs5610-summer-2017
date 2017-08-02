@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var passport = require('passport');
 
-
 // server config
 app.set('port', (process.env.PORT || 5000));
 app.use(app.express.static(__dirname+'/'));
@@ -27,7 +26,8 @@ app.use(session({
 app.use(passport.initialize()); // Step 3:
 app.use(passport.session()); // Step 4:
 
-// server side web services and database services
+// Assignment server and db
 require('./assignment/app');
 
-
+// Project server and db
+require('./project/app');
