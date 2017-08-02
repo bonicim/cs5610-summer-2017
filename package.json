@@ -19,7 +19,9 @@
     "q": "^1.5.0",
     "textangular": "^1.5.16"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
