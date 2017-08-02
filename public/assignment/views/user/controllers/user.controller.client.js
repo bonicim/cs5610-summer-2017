@@ -15,15 +15,15 @@
     // implemented api's
     function login(username, password) {
       UserService
-        .findUserByCredentials(username, password)
+        .login(username, password)
         .then(goToProfile, renderError);
     }
 
-    function goToProfile(user) {
-      $location.url("/user/" + user._id);}
+    function goToProfile() {
+      $location.url("/profile");}
 
     function renderError(error) {
-      console.log(error);
+      console.log("User not found; the returned object is the following: ", error);
       alert("User not found.");
     }
 
@@ -36,18 +36,23 @@
     // functions
     vm.register = register;
 
-    // implemented functions
-    /**
-     * Calls a service that creates a new user for this application.
-     * @param username
-     * @param password
-     * @param vfyPassword
-     */
     function register(username, password, vfyPassword) {
       if(!isValidInput(username,password,vfyPassword)) {return;}
 
       // finding a user is deemed a success but we treat it with an error message
       // not finding a user is deemed an error but we treat it with business logic
+
+      // var userToAdd = {
+      //   username : username,
+      //   password : password,
+      //   firstName : "",
+      //   lastName : ""};
+
+      // TODO: fix check on duplicate usernames for registering
+      // return UserService
+      //   .register(userToAdd)
+      //   .then(goToProfile());
+
       UserService
         .findUserByUsername(username)
         .then(renderError,
@@ -57,7 +62,7 @@
               password : password,
               firstName : "",
               lastName : ""};
-            return UserService.createUser(userToAdd);
+            return UserService.register(userToAdd);
           }
         )
         .then(goToProfile);
@@ -91,15 +96,15 @@
         alert("Username already exists. Pick a different one. Try again.");
     }
 
-    function goToProfile(user) {
-      $location.url("/user/" + user._id);}
+    function goToProfile() {
+      $location.url("/profile");}
 
   }
 
-  function ProfileController($routeParams, $location, UserService) {
+  function ProfileController(currentUser, $location, UserService) {
     // global vars
     var vm = this;
-    vm.uid = $routeParams.uid;
+    vm.uid = currentUser._id;
     vm.user = undefined;
 
     // functions
@@ -108,18 +113,12 @@
     vm.goToProfile = goToProfile;
     vm.goToWebsites = goToWebsites;
     vm.goToProfile = goToProfile;
+    vm.logout = logout;
 
     // initializer
     init();
     function init() {
-      UserService
-        .findUserById(vm.uid)
-        .then(bindUser, renderError);
-      console.log("Profile is initialized for user " + vm.uid);
-    }
-
-    function bindUser(user) {
-      vm.user = user;
+      vm.user = currentUser;
     }
 
     function renderError(error) {
@@ -127,7 +126,13 @@
       vm.error = "User not found.";
     }
 
-    // implemented functions
+    // implemented event handlers
+    function logout() {
+      UserService
+        .logout()
+        .then(goToLogin());
+    }
+
     function updateUser(user) {
       console.log(user);
       console.log(user._id);
