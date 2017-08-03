@@ -10,8 +10,7 @@ var userObject = {
   line: String,
   branch: String,
   rank: String,
-  privatePage: {type: mongoose.Schema.ObjectId, ref: "PageModel"},
-  publicPage: {type: mongoose.Schema.ObjectId, ref: "PageModel"},
+  pages: [{type: mongoose.Schema.ObjectId, ref: "PageModel"}],
   dateCreated: {type: Date, default: Date.now},
   google: {
     id: String,
