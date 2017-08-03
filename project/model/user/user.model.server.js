@@ -8,10 +8,8 @@ userModel.findUserByUsername = findUserByUsername;
 userModel.findUserByCredentials = findUserByCredentials;
 userModel.updateUser = updateUser;
 userModel.deleteUser = deleteUser;
-userModel.addPrivatePageToUser = addPrivatePageToUser;
-userModel.addPublicPageToUser = addPublicPageToUser;
-userModel.deletePrivatePageInUser = deletePrivatePageInUser;
-userModel.deletePublicPageInUser = deletePublicPageInUser;
+userModel.addPageToUser = addPageToUser;
+userModel.deletePageInUser = deletePageInUser;
 userModel.findUserByGoogleId = findUserByGoogleId;
 userModel.findUserByInstagramId = findUserByInstagramId;
 
@@ -41,23 +39,6 @@ function deleteUser(userId) {
   return userModel.remove({'_id': userId});
 }
 
-function addPrivatePageToUser(uid, pid) {
-  return addPageToUser(uid, pid);
-}
-
-function deletePrivatePageInUser(pid, uid) {
-  return deletePageInUser(pid, uid);
-}
-
-function addPublicPageToUser(uid, pid) {
-  return addPageToUser(uid, pid);
-}
-
-function deletePublicPageInUser(pid, uid) {
-  return deletePageInUser(pid, uid);
-}
-
-
 function addPageToUser(userId, pageId) {
   return userModel.findById({_id: userId})
     .then(function (user) {
@@ -65,7 +46,7 @@ function addPageToUser(userId, pageId) {
       return user.save();
     })
     .catch(function (err) {
-      console.log("Could not get user to add website inside: ", err)
+      console.log("Could not get user to add page inside: ", err)
       return null;
     })
 }
