@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 var userSchema = require('./user.schema.server');
-var userModel = mongoose.model('UserModel', userSchema);
-var widgetSchema = require('./widget.schema.server');
-var widgetModel = mongoose.model('WidgetModel', widgetSchema);
+var userModel = mongoose.model('YUserModel', userSchema);
+var widgetSchema = require('../widget/widget.schema.server');
+var widgetModel = mongoose.model('YWidgetModel', widgetSchema);
 
 userModel.createUser = createUser;
 userModel.findUserById = findUserById;
