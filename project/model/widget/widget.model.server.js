@@ -38,7 +38,7 @@ function findAllWidgetsForUser(userId) {
 }
 
 function findWidgetById(widgetId) {
-  return widgetModel.findOne({_id: widgetId});
+  return widgetModel.find({_id: widgetId});
 }
 
 function updateWidget(widgetId, widget) {
@@ -47,4 +47,8 @@ function updateWidget(widgetId, widget) {
 
 function deleteWidget(widgetId) {
   return widgetModel.findByIdAndRemove({'_id': widgetId});
+}
+
+function deleteWidgetsByUserId(userId) {
+  return widgetModel.remove({'_user': userId});
 }
