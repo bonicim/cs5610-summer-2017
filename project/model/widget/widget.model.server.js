@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 var widgetSchema = require('./widget.schema.server');
 var widgetModel = mongoose.model('WidgetModel', widgetSchema);
+var userSchema = require('./user.schema.server');
+var userModel = mongoose.model('UserModel', userSchema);
+
 
 // declares and initializes all api's
 widgetModel.createWidget = createWidget;
@@ -14,5 +17,34 @@ widgetModel.deleteWidgetsByUserId = deleteWidgetsByUserId;
 module.exports = widgetModel;
 
 function createWidget(userId, widget) {
+  widget._user = userId;
+  return widgetModel.create(widget)
+    .then(
+      function (widget) {
+        userModel.addWidgetToUser(userId, widget._id, widget.pageLocation);
+        return widget;
+      }
+    )
+    .catch(
+      function (err) {
+        console.log("Failed to create or widget to user.", err);
+        return null;
+      }
+    );
+}
 
+function findAllWidgetsForUser(userId) {
+  return widgetModel.find({_user: userId});
+}
+
+function findWidgetById(widgetId) {
+  return widgetModel.findOne({_id: widgetId});
+}
+
+function updateWidget(widgetId, widget) {
+  return widgetModel.update({_id: widgetId}, {$set: widget});
+}
+
+function deleteWidget(widgetId) {
+  return widgetModel.findByIdAndRemove({'_id': widgetId});
 }
