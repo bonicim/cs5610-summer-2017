@@ -1,7 +1,11 @@
 var mongoose = require('mongoose');
 
 var widgetObject = {
-  _page: {type: mongoose.Schema.ObjectId, ref: "PageModel"},
+  _user: {type: mongoose.Schema.ObjectId, ref: "UserModel"},
+  pageLocation: {
+    type: String,
+    uppercase: true,
+    enum: ['PRIVATE', 'PUBLIC', 'COMMON']},
   widgetType: {
     type: String,
     uppercase: true,

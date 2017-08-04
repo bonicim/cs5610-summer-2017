@@ -16,12 +16,15 @@ var pageObject = {
   myMatches: [{
     type: mongoose.Schema.ObjectId,
     ref: "UserModel"}],
-  aboutMe: String,
-  idealDate: String,
-  offer: String,
-  myRating: [{
-    type: mongoose.Schema.ObjectId,
-    ref: "WidgetModel"}],
+  aboutMe: {
+    type: String,
+    default: "Immma be me."},
+  idealDate: {
+    type: String,
+    default: "Dinner and a movie."},
+  offer: {
+    type: Number,
+    default: 42},
   dateCreated: {
     type: Date,
     default: Date.now}
