@@ -1,5 +1,5 @@
-var app = require('../../../express');
-var userModel = require('../../model/user/user.model.server');
+var app = require('../../express');
+var yuserModel = require('../../shared/model/models/user.model.server');
 var bcrypt = require('bcrypt-nodejs');
 var passport = require('passport');
 
@@ -48,7 +48,7 @@ function register(req, res) {
   var user = req.body;
   user.password = bcrypt.hashSync(user.password);
 
-  userModel
+  yuserModel
     .createUser(user)
     .then(function (user) {
       // after creation of user in database, set login() to newly created user
@@ -83,7 +83,7 @@ function checkLoggedIn(req, res) {
 }
 
 function googleStrategy(token, refreshToken, profile, done) {
-  userModel
+  yuserModel
     .findUserByGoogleId(profile.id)
     .then(
       function(user) {
@@ -102,7 +102,7 @@ function googleStrategy(token, refreshToken, profile, done) {
               token: token
             }
           };
-          return userModel.createUser(newGoogleUser);
+          return yuserModel.createUser(newGoogleUser);
         }
       },
       function(err) {
@@ -124,7 +124,7 @@ function localStrategy(username, password, done) {
   console.log("inside localStrate: ", username, password);
   // get the password from the db asscoiated with the username
   // then compare the decrypted password with the plaintext password
-  userModel
+  yuserModel
     .findUserByUsername(username)
     .then(function (user) {
       console.log("We passed the findByUsername call: ", user);
@@ -157,7 +157,7 @@ function serializeUser(user, done) {
 // decides what to unwrap
 // intercept each request and authenticate
 function deserializeUser(user, done) {
-  userModel
+  yuserModel
     .findUserById(user._id)
     .then(
       function (user) {
@@ -171,7 +171,7 @@ function deserializeUser(user, done) {
 
 function createUser(req, res) {
   var user = req.body;
-  userModel
+  yuserModel
     .createUser(user)
     .then(function(user) {
         if (user) {
@@ -190,7 +190,7 @@ function createUser(req, res) {
 
 function findUserById(req, res) {
   var userId = req.params['userId'];
-  userModel
+  yuserModel
     .findUserById(userId)
     .then(
       function(err, user) {
@@ -210,7 +210,7 @@ function findUserByCredentials(req, res) {
   var username = req.query['username'];
   var password = req.query.password;
   console.log("cred is: ", username, password);
-  userModel
+  yuserModel
     .findUserByCredentials(username, password)
     .then(
       function(user) {
@@ -232,7 +232,7 @@ function findUserByCredentials(req, res) {
 
 function findUserByUsername(req, res) {
   var username = req.params[username];
-  userModel
+  yuserModel
     .findUserByUsername(username)
     .then(
       function(err, user) {
@@ -251,7 +251,7 @@ function findUserByUsername(req, res) {
 function updateUser(req, res) {
   var user = req.body;
   var userId = req.params.userId;
-  userModel
+  yuserModel
     .updateUser(userId, user)
     .then(
       function(err, user) {
@@ -269,7 +269,7 @@ function updateUser(req, res) {
 
 function deleteUser(req, res) {
   var userId = req.params.userId;
-  userModel
+  yuserModel
     .deleteUser(userId)
     .then(
       function (err, user) {

@@ -32,7 +32,7 @@ var widgetObject = {
 };
 
 var collectionParam = {
-  collection: "widget"
+  collection: "ywidgets"
 };
 
 var widgetSchema = mongoose.Schema(widgetObject, collectionParam);

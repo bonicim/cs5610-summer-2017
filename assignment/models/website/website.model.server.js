@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var websiteSchema = require('./website.schema.server');
 var websiteModel = mongoose.model('WebsiteModel', websiteSchema);
-var userSchema = require('../user/user.schema.server');
+var userSchema = require('../../../shared/model/models/user.schema.server');
 var userModel = mongoose.model('UserModel', userSchema);
 
 // declares and initializes all api's

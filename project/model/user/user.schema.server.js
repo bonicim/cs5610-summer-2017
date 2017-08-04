@@ -28,19 +28,19 @@ var userObject = {
       }],
       widgets: [{
         type: mongoose.Schema.ObjectId,
-        ref: "WidgetModel"
+        ref: "YWidgetModel"
       }]
     },
     public: {
       widgets: [{
         type: mongoose.Schema.ObjectId,
-        ref: "WidgetModel"
+        ref: "YWidgetModel"
       }]
     },
     common: {
       widgets: [{
         type: mongoose.Schema.ObjectId,
-        ref: "WidgetModel"
+        ref: "YWidgetModel"
       }]
     }
   },
@@ -58,7 +58,7 @@ var userObject = {
 };
 
 var collectionParam = {
-  collection: "users"
+  collection: 'meatballs'
 };
 
 var userSchema = mongoose.Schema(userObject, collectionParam);

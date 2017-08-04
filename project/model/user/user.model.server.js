@@ -1,25 +1,25 @@
 var mongoose = require('mongoose');
 var userSchema = require('./user.schema.server');
-var userModel = mongoose.model('YUserModel', userSchema);
+var yuserModel = mongoose.model('YUserModel', userSchema);
 var widgetSchema = require('../widget/widget.schema.server');
 var widgetModel = mongoose.model('YWidgetModel', widgetSchema);
 
-userModel.createUser = createUser;
-userModel.findUserById = findUserById;
-userModel.findUserByUsername = findUserByUsername;
-userModel.findUserByCredentials = findUserByCredentials;
-userModel.findUserByGoogleId = findUserByGoogleId;
-userModel.findUserByInstagramId = findUserByInstagramId;
-userModel.updateUser = updateUser;
-userModel.deleteUser = deleteUser;
-userModel.addWidgetToUser = addWidgetToUser;
-userModel.deletePageInUser = deleteWidgetInUser;
+yuserModel.createUser = createUser;
+yuserModel.findUserById = findUserById;
+yuserModel.findUserByUsername = findUserByUsername;
+yuserModel.findUserByCredentials = findUserByCredentials;
+yuserModel.findUserByGoogleId = findUserByGoogleId;
+yuserModel.findUserByInstagramId = findUserByInstagramId;
+yuserModel.updateUser = updateUser;
+yuserModel.deleteUser = deleteUser;
+yuserModel.addWidgetToUser = addWidgetToUser;
+yuserModel.deletePageInUser = deleteWidgetInUser;
 
-module.exports = userModel;
+module.exports = yuserModel;
 
 // this is the most complex function
 function createUser(user) {
-  return userModel.create(user)
+  return yuserModel.create(user)
     .then(function (createdUser) {
       var userId = createdUser._id;
       // mark widget as common
@@ -47,27 +47,27 @@ function createUser(user) {
 }
 
 function findUserById(userId) {
-  return userModel.findOne({'_id': userId});
+  return yuserModel.findOne({'_id': userId});
 }
 
 function findUserByUsername(username) {
-  return userModel.findOne({'username': username});
+  return yuserModel.findOne({'username': username});
 }
 
 function findUserByCredentials(username, password) {
-  return userModel.findOne({'username': username, 'password': password});
+  return yuserModel.findOne({'username': username, 'password': password});
 }
 
 function findUserByGoogleId(id) {
-  return userModel.findOne({'google.id': id});
+  return yuserModel.findOne({'google.id': id});
 }
 
 function findUserByInstagramId(id) {
-  return userModel.findOne({'instagram.id': id});
+  return yuserModel.findOne({'instagram.id': id});
 }
 
 function updateUser(userId, user) {
-  return userModel.update({'_id': userId}, {$set: user});
+  return yuserModel.update({'_id': userId}, {$set: user});
 }
 
 function deleteUser(userId) {
@@ -77,7 +77,7 @@ function deleteUser(userId) {
       return err;
     })
     .then(function () {
-      return userModel.remove({'_id': userId});
+      return yuserModel.remove({'_id': userId});
     })
     .catch(function (err) {
       console.log("Could not delete user", err);
@@ -86,7 +86,7 @@ function deleteUser(userId) {
 }
 
 function addWidgetToUser(userId, widgetId, pageLocation) {
-  return userModel.findById({_id: userId})
+  return yuserModel.findById({_id: userId})
     .then(function (user) {
       if (pageLocation === "COMMON") {
         user.page.common.widgets.push(widgetId);
@@ -106,7 +106,7 @@ function addWidgetToUser(userId, widgetId, pageLocation) {
 }
 
 function deleteWidgetInUser(userId, widgetId, pageLocation) {
-  return userModel.findById({_id: userId})
+  return yuserModel.findById({_id: userId})
     .then(function (user) {
       if (pageLocation === "COMMON") {
         user.page.common.widgets.pull(widgetId);

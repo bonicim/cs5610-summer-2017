@@ -1,2 +1,2 @@
-require('./model/model.server');
-require('./service/service.server');
+require('./service/user.service.server');
+require('./service/widget.service.server');

@@ -26,8 +26,11 @@ app.use(session({
 app.use(passport.initialize()); // Step 3:
 app.use(passport.session()); // Step 4:
 
-// Assignment server and db
+// db, strategies config that are used by all apps
+require('./shared/app');
+
+// assignment services
 require('./assignment/app');
 
-// Project server and db
+// project app services
 require('./project/app');

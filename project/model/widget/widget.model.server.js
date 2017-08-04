@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 var widgetSchema = require('./widget.schema.server');
 var widgetModel = mongoose.model('YWidgetModel', widgetSchema);
-var userSchema = require('../user/user.schema.server');
-var userModel = mongoose.model('YUserModel', userSchema);
+var userSchema = require('../../../shared/model/models/user.schema.server');
+var userModel = mongoose.model('UserModel', userSchema);
 
 
 // declares and initializes all api's

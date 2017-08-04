@@ -5,10 +5,10 @@ mongoose.Promise = require('q').Promise;
 mongoose
   .connect('mongodb://localhost/webdev', {useMongoClient: true})
   .then(function () {
-    console.log("success connecting to local mongo by Project App")
+    console.log("success connecting to local mongo.")
   });
-//database config
 
+//database config
 // var connectionString = undefined;
 // var connectionResponse = undefined;
 //
