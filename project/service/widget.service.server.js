@@ -150,7 +150,6 @@ function updateUrlWidget(widget, res, filename, callbackUrl) {
     })
 }
 
-
 function handleError(err, res) {
   console.log("Call to database failed.", err);
   res.send(err);
