@@ -3,7 +3,7 @@ mongoose.Promise = require('q').Promise;
 
 // local db connection
 mongoose
-  .connect('mongodb://localhost/webdev', {useMongoClient: true})
+  .connect('mongodb://localhost/project', {useMongoClient: true})
   .then(function () {
     console.log("success connecting to local mongo.")
   });
