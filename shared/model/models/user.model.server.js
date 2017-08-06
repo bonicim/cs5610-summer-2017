@@ -108,8 +108,12 @@ function updateUser(userId, user) {
   return userModel.update({'_id': userId}, {$set: user});
 }
 
+// this is the inverse of create user
 function deleteUser(userId) {
-  return userModel.remove({'_id': userId});
+  return userModel.remove({'_id': userId})
+    .then(function () {
+      return widgetModel.deleteWidgetsByUserId(userId)
+    });
 }
 
 function findUserByGoogleId(id) {

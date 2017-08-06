@@ -30,7 +30,7 @@ function createWidget(req, res) {
 }
 
 function findAllWidgetsForUser(req, res) {
-  var pageId = req.params.pageId;
+  var userId = req.params.userId;
   widgetModel
     .findAllWidgetsForUser(userId)
     .then(function (widgets) {
@@ -92,6 +92,7 @@ function deleteWidget(req, res) {
     );
 }
 
+//TODO: need to fix when doing front end
 function uploadImage(req, res) {
   var widgetId      = req.body.widgetId;
   var width         = req.body.width;
@@ -157,8 +158,9 @@ function handleError(err, res) {
 
 function callback(obj, res) {
   if (obj) {
+    console.log("The widget object is: ", obj)
     res.json(obj);
   } else {
-    res.sendStatus(400).send("Bad input. Widget not created.");
+    res.sendStatus(400);
   }
 }

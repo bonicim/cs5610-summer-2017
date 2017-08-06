@@ -109,6 +109,7 @@ function findUserByUsername(req, res) {
     );
 }
 
+// this becomes more complex when adding more widgets
 function updateUser(req, res) {
   var user = req.body;
   var userId = req.params.userId;
@@ -132,18 +133,19 @@ function deleteUser(req, res) {
   var userId = req.params.userId;
   yuserModel
     .deleteUser(userId)
-    .then(
-      function (err, user) {
-        if (err) {
-          res.send(err);
-        }
-        if (user) {
-          res.json(user);
+    .then(function (result) {
+        if (result) {
+          console.log("success in delete user: ", result)
+          res.json(result);
         } else {
-          res.sendStatus(400).send("User could not be deleted.");
+          res.sendStatus(400);
         }
       }
-    );
+    )
+    .catch(function (err) {
+      console.log("Bug on deleting user and widgets: ", err);
+      res.json(err);
+    });
 }
 
 
