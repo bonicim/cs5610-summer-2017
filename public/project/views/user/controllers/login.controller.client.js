@@ -7,22 +7,20 @@
     var vm = this;
 
     vm.login = login;
-    vm.goToProfile = goToProfile;
+    vm.goToPrivatePage = goToPrivatePage;
     vm.goToRegister = goToRegister;
 
     function login(username, password) {
       UserService
         .login(username, password)
-        .then(goToProfile, renderError);
-        // .then(goToPrivatePage, renderError);
+        .then(function (user) {
+           goToPrivatePage(user)
+          },
+          renderError);
     }
 
-    function goToProfile() {
-      $location.url("/profile");
-    }
-
-    function goToPrivatePage() {
-
+    function goToPrivatePage(user) {
+      $location.url("/user/private");
     }
 
     function goToRegister() {

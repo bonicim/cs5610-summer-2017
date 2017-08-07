@@ -23,11 +23,6 @@
       vm.user = currentUser;
     }
 
-    function renderError(error) {
-      console.log(error);
-      vm.error = "User not found.";
-    }
-
     // implemented event handlers
     function logout() {
       UserService
@@ -68,4 +63,8 @@
       $location.url("/user/" + vm.uid);}
   }
 
+    function renderError(error) {
+    console.log(error);
+    vm.error = "User not found.";
+  }
 }) ();

@@ -34,10 +34,14 @@
         }
       })
       // Private Page
-      .when("/user/private/:uid", {
+      .when("/user/private", {
         templateUrl: "views/page/templates/private.page.view.client.html",
         controller: "PrivatePageController",
-        controllerAs: "model"
+        controllerAs: "model",
+        // the following things must be resolved before you are allowed to see the private page
+        resolve: {
+          currentUser: checkLoggedIn // promise object is bound to the variable; it is injectible to the controller
+        }
       })
       // Public Page
       .when("/user/public/:uid", {
