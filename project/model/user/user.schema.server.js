@@ -7,6 +7,7 @@ var userObject = {
   password: String,
   firstName: String,
   lastName: String,
+  age: Number,
   email: String,
   viber: String,
   line: String,

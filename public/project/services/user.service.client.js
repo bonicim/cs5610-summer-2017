@@ -11,7 +11,8 @@
       "logout": logout,
       "updateUser": updateUser,
       "deleteUser": deleteUser,
-      "checkLoggedIn": checkLoggedIn
+      "checkLoggedIn": checkLoggedIn,
+      "findUserById": findUserById
     };
     return api;
 
@@ -72,6 +73,14 @@
       return $http.get(url)
         .then(function (response) {
           return response.data; // returns user object or '0'
+        });
+    }
+
+    function findUserById(userId) {
+      var url = "/yapi/user/" + userId;
+      return $http.get(url)
+        .then(function (response) {
+          return response.data;
         });
     }
 
