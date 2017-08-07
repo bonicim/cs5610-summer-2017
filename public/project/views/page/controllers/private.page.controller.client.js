@@ -16,6 +16,9 @@
     init();
     function init() {
       vm.user = currentUser;
+      // TODO:
+      // init some variables here that are needed by view client
+
     }
 
     function goToPublicPage() {
