@@ -49,6 +49,12 @@
         controller: "PublicPageController",
         controllerAs: "model"
       })
+      // Edit Widget
+      .when("/user/:uid/public/:wid/:wgid", {
+        templateUrl: "views/page/templates/widget-edit.view.client.html",
+        controller: "EditWidgetController",
+        controllerAs: "model"
+      })
       // Test
       .when("/test", {
         templateUrl: "views/test/templates/test.page.html",
