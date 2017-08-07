@@ -13,7 +13,7 @@
     vm.updateUser = updateUser;
     vm.deleteUser = deleteUser;
     vm.goToProfile = goToProfile;
-    vm.goToWebsites = goToWebsites;
+    vm.goToPrivatePage = goToPrivatePage;
     vm.goToProfile = goToProfile;
     vm.logout = logout;
 
@@ -61,8 +61,8 @@
     function goToLogin() {
       $location.url("/login");}
 
-    function goToWebsites() {
-      $location.url("/user/" + vm.uid + "/website");}
+    function goToPrivatePage() {
+      $location.url("/user/private/" + vm.uid);}
 
     function goToProfile() {
       $location.url("/user/" + vm.uid);}

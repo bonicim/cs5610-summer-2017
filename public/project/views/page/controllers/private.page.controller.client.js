@@ -1,9 +1,9 @@
 (function() {
   angular
     .module("Yobai")
-    .controller("WidgetController", WidgetController);
+    .controller("PrivatePageController", PrivatePageController);
 
-  function WidgetController($location, WidgetService) {
+  function PrivatePageController($location, WidgetService) {
     var vm = this;
   }
 
