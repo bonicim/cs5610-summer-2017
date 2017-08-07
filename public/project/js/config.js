@@ -61,6 +61,9 @@
         controller: "TestController",
         controllerAs: "model"
       })
+      .otherwise({
+        redirectTo: "/"
+      });
   }
 
   function checkLoggedIn($q, $location, UserService) {
