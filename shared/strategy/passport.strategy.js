@@ -43,7 +43,7 @@ function deserializeUser(user, done) {
 // Local strategy is to simply check username and password
 // uses database's function to check for user name and password, which is essentially authentication
 function localStrategy(username, password, done) {
-  console.log("inside localStrate: ", username, password);
+  console.log("inside localStrategy: ", username, password);
   // get the password from the db asscoiated with the username
   // then compare the decrypted password with the plaintext password
   userModel

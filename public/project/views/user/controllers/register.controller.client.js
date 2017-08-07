@@ -15,16 +15,7 @@
       // not finding a user is deemed an error but we treat it with business logic
       UserService
         .findUserByUsername(username)
-        .then(renderError,
-          function () {
-            var userToAdd = {
-              username : username,
-              password : password,
-              firstName : "",
-              lastName : ""};
-            return UserService.register(userToAdd);
-          }
-        )
+        .then(renderError, registerNewUser(username, password))
         .then(goToProfile);
     }
 
@@ -58,6 +49,15 @@
     function renderError(user) {
       vm.error = "Username already exists. Pick a different one." + "user is: " + user;
       alert("Username already exists. Pick a different one. Try again.");
+    }
+
+    function registerNewUser(username, password) {
+      var userToAdd = {
+        username : username,
+        password : password,
+        firstName : "",
+        lastName : ""};
+      return UserService.register(userToAdd);
     }
   }
 

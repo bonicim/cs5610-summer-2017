@@ -19,10 +19,10 @@ app.get('/yapi/checkLoggedIn', checkLoggedIn);
 // does not use HTTPS; must pay for HTTPS, allows queries to be encrypted
 app.post('/yapi/login', passport.authenticate('local'), login); //passport will authenticate login via 'local' strategy
 app.post('/yapi/logout', logout);
+
 // outgoing to google, passport redirect to google
 app.get('/yauth/google', passport.authenticate('google',
     { scope : ['profile', 'email'] }));
-
 // endpoint created for google callback, passport handles callback
 app.get('/yauth/google/callback', passport.authenticate('google', {
     successRedirect: '/public/project/index.html#/profile',
@@ -147,8 +147,6 @@ function deleteUser(req, res) {
       res.json(err);
     });
 }
-
-
 
 ///////////////////////AUTH/////////////////////////////////////////
 function checkLoggedIn(req, res) {

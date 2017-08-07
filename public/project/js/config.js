@@ -5,7 +5,7 @@
 
   function config($routeProvider) {
     $routeProvider
-    // landing
+      // landing
       .when("/", {
         templateUrl: "views/landing/templates/landing.view.client.html",
         controller: "LandingController",
@@ -28,19 +28,21 @@
         templateUrl: "views/user/templates/profile.view.client.html",
         controller: "ProfileController",
         controllerAs: "model",
-        // TODO: the following things must be resolved before you are allowed to see the profile page
-        // resolve: {
-        //   currentUser: checkLoggedIn // promise object is bound to the variable; it is injectible to the controller
-        // }
+        // the following things must be resolved before you are allowed to see the profile page
+        resolve: {
+          currentUser: checkLoggedIn // promise object is bound to the variable; it is injectible to the controller
+        }
       })
-
-
-
-
-      // widget
-      .when("/widget", {
-        templateUrl: "views/widget/templates/widget.view.client.html",
-        controller: "WidgetController",
+      // Private Page
+      .when("/user/private/:uid", {
+        templateUrl: "views/page/templates/private.page.view.client.html",
+        controller: "PrivatePageController",
+        controllerAs: "model"
+      })
+      // Public Page
+      .when("/user/public/:uid", {
+        templateUrl: "views/page/templates/public.page.view.client.html",
+        controller: "PublicPageController",
         controllerAs: "model"
       })
       // Test
@@ -62,7 +64,7 @@
         } else {
           deferred.resolve(currentUser);
         }
-      })
+      });
     return deferred.promise;
   }
 

@@ -14,15 +14,19 @@
       UserService
         .login(username, password)
         .then(goToProfile, renderError);
+        // .then(goToPrivatePage, renderError);
     }
 
     function goToProfile() {
       $location.url("/profile");
     }
 
+    function goToPrivatePage() {
+
+    }
+
     function goToRegister() {
       $location.url("/register");
-
     }
 
     function renderError(error) {
@@ -30,7 +34,5 @@
       alert("User not found.");
     }
   }
-
-
 
 }) ();

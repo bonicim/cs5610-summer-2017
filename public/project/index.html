@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="Yobai">
 
-
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +9,20 @@
   <meta name="author" content="">
 
   <title>Yobai</title>
+
+  <!-- JQuery must come before angular script -->
+  <!--<script src="lib/jquery/jquery.min.js"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- Theme JavaScript -->
+  <script src="js/new-age.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
   <!-- Bootstrap Core CSS -->
   <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -41,9 +53,6 @@
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
 
-  <!-- JQuery must come before angular script -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
   <!-- Adding Angular and relevant JS files-->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
@@ -59,16 +68,12 @@
   <script src="views/user/controllers/register.controller.client.js"></script>
   <script src="services/user.service.client.js"></script>
 
-  <script src="views/widget/controllers/widget.controller.client.js"></script>
+  <script src="views/page/controllers/widget.controller.client.js"></script>
   <script src="services/widget.service.client.js"></script>
 </head>
-
-
 
 <body id="page-top">
   <div ng-view></div>
 </body>
-
-
 
 </html>

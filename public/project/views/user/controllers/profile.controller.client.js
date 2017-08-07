@@ -3,10 +3,69 @@
     .module("Yobai")
     .controller("ProfileController", ProfileController);
 
-  function ProfileController($location, UserService, WidgetService) {
+  function ProfileController(currentUser, $location, UserService) {
+    // global vars
     var vm = this;
+    vm.uid = currentUser._id;
+    vm.user = undefined;
+
+    // functions
+    vm.updateUser = updateUser;
+    vm.deleteUser = deleteUser;
+    vm.goToProfile = goToProfile;
+    vm.goToWebsites = goToWebsites;
+    vm.goToProfile = goToProfile;
+    vm.logout = logout;
+
+    // initializer
+    init();
+    function init() {
+      vm.user = currentUser;
+    }
+
+    function renderError(error) {
+      console.log(error);
+      vm.error = "User not found.";
+    }
+
+    // implemented event handlers
+    function logout() {
+      UserService
+        .logout()
+        .then(goToLogin());
+    }
+
+    function updateUser(user) {
+      console.log(user);
+      console.log(user._id);
+      UserService
+        .updateUser(user._id, user)
+        .then(feedbackSuccessUpdate, feedbackErrorUpdate);
+    }
+
+    function feedbackSuccessUpdate() {
+      vm.feedbackSuccess = "User update succeeded.";}
+
+    function feedbackErrorUpdate() {
+      vm.feedbackError = "User update did not succeed. Try again.";}
+
+    function deleteUser(user) {
+      UserService
+        .deleteUser(user._id)
+        .then(goToLogin, feedbackErrorUnregister);
+    }
+
+    function feedbackErrorUnregister() {
+      vm.feedbackErrorUnregister = "Unable to unregister your account. Try again.";}
+
+    function goToLogin() {
+      $location.url("/login");}
+
+    function goToWebsites() {
+      $location.url("/user/" + vm.uid + "/website");}
+
+    function goToProfile() {
+      $location.url("/user/" + vm.uid);}
   }
-
-
 
 }) ();
