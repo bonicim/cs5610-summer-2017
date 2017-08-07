@@ -17,10 +17,22 @@
           controller: "LoginController",
           controllerAs: "model"
       })
-      // add more views
-
-
-
+      // Register
+      .when("/register", {
+        templateUrl: "views/user/templates/register.view.client.html",
+        controller: "RegisterController",
+        controllerAs: "model"
+      })
+      // Profile
+      .when("/profile", {
+        templateUrl: "views/user/templates/profile.view.client.html",
+        controller: "ProfileController",
+        controllerAs: "model",
+        // TODO: the following things must be resolved before you are allowed to see the profile page
+        // resolve: {
+        //   currentUser: checkLoggedIn // promise object is bound to the variable; it is injectible to the controller
+        // }
+      })
 
 
 
@@ -37,6 +49,21 @@
         controller: "TestController",
         controllerAs: "model"
       })
+  }
+
+  function checkLoggedIn($q, $location, UserService) {
+    var deferred = $q.defer();
+    UserService
+      .checkLoggedIn() // returns promise with a user object or a '0'
+      .then(function (currentUser) {
+        if (currentUser === '0') {
+          deferred.reject();
+          $location.url('/login'); // if no user, go to login page
+        } else {
+          deferred.resolve(currentUser);
+        }
+      })
+    return deferred.promise;
   }
 
 })();

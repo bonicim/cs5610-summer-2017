@@ -4,7 +4,8 @@
     .factory("UserService", UserService);
 
   function UserService($http) {
-
+    var api = {};
+    return api;
   }
 
 

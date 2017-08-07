@@ -4,7 +4,8 @@
     .factory("WidgetService", WidgetService);
 
   function WidgetService($http) {
-
+    var api = {};
+    return api;
   }
 
 

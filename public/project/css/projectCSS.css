@@ -1,0 +1,138 @@
+/* Elements */
+
+body {
+  overflow-x: hidden;
+}
+
+
+/* Navigation */
+
+.mc-navbar-custom1 {
+  background-color: blue;
+}
+
+
+.mc-navbar-custom2 {
+  background-color: white;
+}
+
+
+.mc-navbar-text1 {
+  color: white;
+  font-weight: bold;
+}
+
+.mc-navbar-text2 {
+  color: black;
+  font-weight: bold;
+}
+
+
+.mc-navbar-icon-rightmost {
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+.mc-navbar-icon-leftmost {
+  color: white;
+}
+
+
+/* Forms */
+
+.mc-container-under-navbar {
+  margin-top: 50px;
+  padding-top: 15px
+}
+
+
+.mc-container-widget-list {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.mc-input-icon {
+  position: relative;
+}
+
+
+.mc-input-icon-right > i {
+  right: 0;
+}
+
+
+.mc-icon-spacing {
+  padding-left: 10px
+}
+
+
+/* Unordered List */
+
+.mc-list-item-custom-1 {
+  border-top: 0 none;
+  border-bottom: 0 none;
+  border-left: 0 none;
+  border-right: 0 none;
+}
+
+
+/* Images */
+
+.mc-widget-images{
+  display: inline;
+  width: 85%;
+  z-index: 100;
+  position: relative;
+}
+
+
+/* Container */
+
+.mc-container-padding {
+  padding-top: 5%;
+  padding-bottom: 10%;
+}
+
+/* Widget List */
+
+.mc-youtube-widget {
+  border: none;
+  overflow: hidden;
+}
+
+/* Widget Edit */
+.mc-widget-edit-delete {
+  margin-top: 5px;
+}
+
+/* YouTube widget width responsive*/
+.mc-youtube-widget-aspect-ratio {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+}
+
+.mc-youtube-widget-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ta-editor {
+  min-height: 300px;
+  height: auto;
+  overflow: auto;
+  font-family: inherit;
+  font-size: 100%;
+  margin: 20px 0;
+}
+
+.mc-checkbox {
+  top: 0;
+  width: auto;
+  box-shadow: none;
+}
