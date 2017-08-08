@@ -9,7 +9,7 @@ var widgetObject = {
   widgetType: {
     type: String,
     uppercase: true,
-    enum: ['RATING', 'IMAGE', 'YOUTUBE', 'TEXT']},
+    enum: ['RATING', 'IMAGE', 'YOUTUBE', 'ABOUTME', "IDEALDATE"]},
   name: String,
   text: String,
   placeholder: String,

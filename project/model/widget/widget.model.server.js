@@ -11,6 +11,7 @@ widgetModel.findWidgetById = findWidgetById;
 widgetModel.updateWidget = updateWidget;
 widgetModel.deleteWidget = deleteWidget;
 widgetModel.deleteWidgetsByUserId = deleteWidgetsByUserId;
+widgetModel.findAllWidgetsForConditions = findAllWidgetsForConditions;
 
 // allows api's to be exported to some service layer
 module.exports = widgetModel;
@@ -50,4 +51,8 @@ function deleteWidget(widgetId) {
 
 function deleteWidgetsByUserId(userId) {
   return widgetModel.remove({'_user': userId});
+}
+
+function findAllWidgetsForConditions(widgetId, pageLocation) {
+  return widgetModel.find({_id: widgetId, pageLocation: pageLocation});
 }

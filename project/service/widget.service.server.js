@@ -10,6 +10,9 @@ app.put("/yapi/widget/:widgetId", updateWidget);
 app.delete("/yapi/widget/:widgetId", deleteWidget);
 app.post("/yapi/upload", upload.single('myFile'), uploadImage);
 
+app.post("/yapi/widget/widgetId/cond", findAllWidgetsForUserIdAndConditions);
+
+
 // Implementations of event handlers
 
 function createWidget(req, res) {
@@ -150,6 +153,32 @@ function updateUrlWidget(widget, res, filename, callbackUrl) {
       handleError(err, res);
     })
 }
+
+function findAllWidgetsForUserIdAndConditions(req, res) {
+
+  var cond = req.body;
+  var widgetId = cond.uid;
+  var pageLocation = cond.pageLocation;
+  widgetModel
+    .findAllWidgetsForConditions(widgetId, pageLocation)
+    .then(
+      function (data) {
+        if (data) {
+          console.log("The array of all widgets for conditions is: ", data);
+          res.json(data);
+        } else {
+          res.sendStatus(400);
+        }
+      }
+    )
+    .catch(function (err) {
+      handleError(err, res);
+    })
+
+
+
+}
+
 
 function handleError(err, res) {
   console.log("Call to database failed.", err);

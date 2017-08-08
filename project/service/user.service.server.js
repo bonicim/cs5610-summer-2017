@@ -164,6 +164,7 @@ function login(req, res) {
   res.json(req.user);
 }
 
+
 function logout(req, res) {
   req.logout(); // removes user from session; clears session and invalidate cookie
   // this is syntactic sugar that invalidates the current user
