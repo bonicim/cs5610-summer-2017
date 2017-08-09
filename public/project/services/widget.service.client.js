@@ -22,7 +22,6 @@
     }
 
     function findWidgetsByIdAndPageLocation(uid, pageLocation) {
-      // ToDO create the
       var url = "/yapi/widget/widgetId/cond";
       var cond = {uid: uid, pageLocation: pageLocation};
       return $http.post(url, cond)

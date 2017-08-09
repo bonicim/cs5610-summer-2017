@@ -53,6 +53,6 @@ function deleteWidgetsByUserId(userId) {
   return widgetModel.remove({'_user': userId});
 }
 
-function findAllWidgetsForConditions(widgetId, pageLocation) {
-  return widgetModel.find({_id: widgetId, pageLocation: pageLocation});
+function findAllWidgetsForConditions(userId, pageLocation) {
+  return widgetModel.find({_user: userId, pageLocation: pageLocation});
 }

@@ -6,9 +6,9 @@ var bcrypt = require('bcrypt-nodejs');
 // Server listeners on specific URL's
 app.post('/yapi/register', register);
 
-app.get('/yapi/user/:userId', findUserById); // /yapi/user?username=<actualusername>
-app.get('/yapi/user', findUserByUsername); // /yapi/user?username=<actualusername>&password=<password>
-app.get('/yapi/user', findUserByCredentials);
+app.get('/yapi/user', findUserById); // /yapi/user?userId=<actualusername>
+app.get('/yapi/user', findUserByUsername); // /yapi/user?username=<actualusername>
+app.get('/yapi/user', findUserByCredentials); // /yapi/user?username=<actualusername>&password=<password>
 
 app.put('/yapi/user/:userId', updateUser);
 app.delete('/yapi/user/:userId', deleteUser);
@@ -51,7 +51,7 @@ function register(req, res) {
 }
 
 function findUserById(req, res) {
-  var userId = req.params['userId'];
+  var userId = req.query['userId'];
   yuserModel
     .findUserById(userId)
     .then(

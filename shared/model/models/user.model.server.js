@@ -25,20 +25,37 @@ function createUser(user) {
       var userId = createdUser._id;
       var profileImageWidget = {};
       profileImageWidget.pageLocation = "COMMON";
+      profileImageWidget.widgetType = "IMAGE";
+      profileImageWidget.name = "Profile photo";
+      profileImageWidget.width = 42;
+      if (createdUser.isSuitor) {
+        profileImageWidget.url = "http://img.usmagazine.com/article-leads-vertical-300/1250530894_brad_pitt_290x402.jpg";
+      } else {
+        profileImageWidget.url = "http://i.huffpost.com/gen/3022856/thumbs/o-KARLIE-570.jpg";
+      }
       return widgetModel.createWidget(userId, profileImageWidget)
         .then(function () {
           // mark all widgets as public
           if(createdUser.isSuitor) {
             var ratingWidget = {};
             ratingWidget.pageLocation = "PUBLIC";
+            ratingWidget.widgetType = "IDEALDATE";
+            ratingWidget.text = "Dinner and a movie.";
+            ratingWidget.name = "My ideal date";
             return widgetModel.createWidget(userId, ratingWidget);
           } else {
             var youTubeWidget = {};
             youTubeWidget.pageLocation = "PUBLIC";
+            youTubeWidget.widgetType = "YOUTUBE";
+            youTubeWidget.name = "My youtube clip";
             return widgetModel.createWidget(userId, youTubeWidget)
               .then(function () {
                 var publicImageWidget = {};
                 publicImageWidget.pageLocation = "PUBLIC";
+                publicImageWidget.widgetType = "IMAGE";
+                publicImageWidget.url =  "https://pbs.twimg.com/profile_images/847068073773465600/YXimkxF4.jpg";
+                publicImageWidget.name = "My secondary photo";
+                publicImageWidget.width = 42;
                 return widgetModel.createWidget(userId, publicImageWidget);
               })
           }

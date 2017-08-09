@@ -10,7 +10,9 @@ var widgetObject = {
     type: String,
     uppercase: true,
     enum: ['RATING', 'IMAGE', 'YOUTUBE', 'ABOUTME', "IDEALDATE"]},
-  name: String,
+  name: {
+    type: String,
+    default: ""},
   text: String,
   placeholder: String,
   description: String,

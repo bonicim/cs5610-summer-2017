@@ -9,15 +9,19 @@
     vm.register = register;
     vm.goToProfile = goToProfile;
 
-    function register(username, password, vfyPassword) {
+    function register(username, password, vfyPassword, suitorFlag) {
       if(!isValidInput(username,password,vfyPassword)) {return;}
       // finding a user is deemed a success but we treat it with an error message
       // not finding a user is deemed an error but we treat it with business logic
+      if (suitorFlag === undefined) {
+        suitorFlag = false;
+      }
+      console.log("the suitor flag is: ", suitorFlag);
       UserService
         .findUserByUsername(username)
         .then(
           renderError,
-          registerNewUser(username, password)
+          registerNewUser(username, password, suitorFlag)
             .then(
               function (newUser) {
                 console.log("The new user is:", newUser);
@@ -58,12 +62,13 @@
       alert("Username already exists. Pick a different one. Try again.");
     }
 
-    function registerNewUser(username, password) {
+    function registerNewUser(username, password, suitorFlag) {
       var userToAdd = {
         username : username,
         password : password,
         firstName : "",
-        lastName : ""};
+        lastName : "",
+        isSuitor: suitorFlag};
       return UserService.register(userToAdd);
     }
   }

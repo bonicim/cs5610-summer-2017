@@ -155,12 +155,12 @@ function updateUrlWidget(widget, res, filename, callbackUrl) {
 }
 
 function findAllWidgetsForUserIdAndConditions(req, res) {
-
   var cond = req.body;
-  var widgetId = cond.uid;
+  var userId = cond.uid;
+  console.log("server uid: ", userId);
   var pageLocation = cond.pageLocation;
   widgetModel
-    .findAllWidgetsForConditions(widgetId, pageLocation)
+    .findAllWidgetsForConditions(userId, pageLocation)
     .then(
       function (data) {
         if (data) {

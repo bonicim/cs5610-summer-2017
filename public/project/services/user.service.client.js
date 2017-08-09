@@ -77,7 +77,7 @@
     }
 
     function findUserById(userId) {
-      var url = "/yapi/user/" + userId;
+      var url = "/yapi/user?userId=" + userId;
       return $http.get(url)
         .then(function (response) {
           return response.data;

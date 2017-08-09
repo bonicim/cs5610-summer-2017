@@ -6,7 +6,6 @@
   function PublicPageController($routeParams, $location, $sce, WidgetService, UserService) {
     var vm = this;
     vm.uid = $routeParams.uid;
-
     vm.user = undefined;
     vm.firstName = undefined;
     vm.lastName = undefined;
@@ -19,106 +18,93 @@
     vm.rank = undefined;
     vm.google = undefined;
     vm.instagram = undefined;
-
     vm.photoUrl = undefined;
-
-    //males
-    vm.ratings = [];
-    vm.idealDate = undefined;
-
-    // females
-    vm.aboutMe = undefined;
-    vm.secondPhotoUrl = undefined;
-    vm.youTubeUrl = undefined;
+    vm.maleWidgets = {};
+    vm.femaleWidgets = undefined;
+    // vm.aboutMe = undefined;
+    // vm.secondPhotoUrl = undefined;
+    // vm.youTubeUrl = undefined;
 
     init();
     function init() {
-      // get the user from uid via UserService; define vm.user here
-      // vm.user = put code here
-
-      // after vm.user is defined do the following:
-      vm.firstName = vm.user.firstName;
-      vm.lastName = vm.user.lastName;
-      vm.age = vm.user.age;
-      vm.email = vm.user.email;
-      vm.viber = vm.user.viber;
-      vm.line = vm.user.line;
-      vm.isSuitor = vm.user.isSuitor;
-      vm.branch = vm.user.branch;
-      vm.rank = vm.user.rank;
-      vm.google = vm.user.google;
-      vm.instagram = vm.user.instagram;
-
-      // get the user's photoUrl
-      console.log("The image widget id is: ", vm.user.page.common[0]);
-      WidgetService.findWidgetById(vm.user.page.common[0])
-        .then(function(widget) {
-          if (widget) {
-            vm.photoUrl = widget.url;
+      UserService.findUserById(vm.uid)
+        .then(function (user) {
+          vm.user = user;
+          vm.isSuitor = vm.user.isSuitor;
+          vm.firstName = vm.user.firstName
+          vm.lastName = vm.user.lastName;
+          vm.age = vm.user.age;
+          vm.email = vm.user.email;
+          vm.viber = vm.user.viber;
+          vm.line = vm.user.line;
+          vm.isSuitor = vm.user.isSuitor;
+          vm.branch = vm.user.branch;
+          vm.rank = vm.user.rank;
+          vm.google = vm.user.google;
+          vm.instagram = vm.user.instagram;
+        })
+        .then(function() {
+          WidgetService.findWidgetById(vm.user.page.common.widgets[0])
+            .then(function (widget) {
+              if (widget) {
+                vm.photoUrl = widget.url;
+              } else {
+                vm.photoUrl = null;
+              }
+              console.log("Checking photoUrl: ", vm.photoUrl);
+            });
+        })
+        .then(function () {
+          if (vm.isSuitor) {
+            var idealDateWidget = vm.user.page.public.widgets[0];
+            WidgetService.findWidgetById(idealDateWidget)
+              .then(function (widget) {
+                if (widget) {
+                  vm.maleWidgets.idealDate = widget;
+                  console.log("ideal date is: ", vm.maleWidgets.idealDate);
+                }
+              })
           } else {
-            vm.photoUrl = null;
+            // populate widgets that have the user and are pageLocation is public
+            // check widgetType for IMAGE, YOUTUBE, ABOUTME
+            console.log("The female uid: ", vm.user._id);
+            WidgetService.findWidgetsByIdAndPageLocation(vm.user._id, "PUBLIC")
+              .then(function (widgetsArr) {
+                console.log("array of female widgets is: ", widgetsArr);
+                vm.femaleWidgets = widgetsArr;
+                console.log("array female widgets on browser: ", vm.femaleWidgets);
+              })
+
           }
-          console.log("Checking photoUrl: ",vm.photoUrl);
         });
 
+    }
 
-      // if suitor, get the ratings list of object ids and the idealDate text
-      // for females, get the second photo, aboutMe and youTube
+      vm.trustHtml = trustHtml;
+      vm.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
+      vm.goToProfile = goToProfile;
+      vm.goToEditWidget = goToEditWidget;
 
-      var pubPage = vm.user.page.public.widgets; // an array of widgetIds
-      // populate the userwidgets by calling
-      // what about finding all widgets for the userId and the pageLocation of PUBLIC ?
-      // need a function with conditions
-      if (vm.isSuitor) {
+      function trustHtml(html) {
+        // scrub html
+        return $sce.trustAsHtml(html);
+      }
 
-        // check widgetType for IDEALDATE and RATING
+      function getYouTubeEmbedUrl(url) {
+        var embedUrl = "https://www.youtube.com/embed/";
+        var urlLinkParts = url.split('/');
+        embedUrl += urlLinkParts[urlLinkParts.length - 1];
+        return $sce.trustAsResourceUrl(embedUrl);
+      }
 
+      function goToProfile() {
+        $location.url("/profile")
+      }
 
-      } else {
-        // check widgetType for IMAGE, YOUTUBE, ABOUTME
+      function goToEditWidget() {
 
       }
 
-
-
-
-
-
-
-
-
-
-
-
-    }
-
-    vm.trustHtml = trustHtml;
-    vm.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
-    vm.goToProfile = goToProfile;
-    vm.goToEditWidget = goToEditWidget;
-
-    function trustHtml(html) {
-      // scrub html
-      return $sce.trustAsHtml(html);
-    }
-
-    function getYouTubeEmbedUrl(url) {
-      var embedUrl = "https://www.youtube.com/embed/";
-      var urlLinkParts = url.split('/');
-      embedUrl += urlLinkParts[urlLinkParts.length - 1];
-      return $sce.trustAsResourceUrl(embedUrl);
-    }
-
-    function goToProfile() {
-      $location.url("/profile")
-    }
-
-    function goToEditWidget() {
-
-    }
-
   }
-
-
 
 }) ();

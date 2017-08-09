@@ -4,12 +4,29 @@ var userObject = {
   username: {
     type: String,
     unique: true},
-  password: String,
-  firstName: String,
-  lastName: String,
-  email: String,
-  viber: String,
-  line: String,
+  password: {
+    type: String
+  },
+  firstName: {
+    type: String,
+    default: ""
+  },
+  lastName: {
+    type: String,
+    default: ""
+  },
+  email: {
+    type: String,
+    default: ""
+  },
+  viber: {
+    type: String,
+    default: ""
+  },
+  line: {
+    type: String,
+    default: ""
+  },
   isSuitor: {
     type: Boolean,
     default: true
@@ -18,8 +35,12 @@ var userObject = {
     type: Boolean,
     default: false
   },
-  branch: String,
-  rank: String,
+  branch: {
+    type: String
+  },
+  rank: {
+    type: String
+  },
   page: {
     private: {
       matches: [{
@@ -52,14 +73,27 @@ var userObject = {
     type: Date,
     default: Date.now},
   google: {
-    id: String,
-    token: String
+    id: {
+      type: String,
+      default: ""
+    },
+    token: {
+      type: String,
+      default: ""
+    }
   },
   instagram: {
-    id: String,
-    token: String
+    id: {
+      type: String,
+      default: ""
+    },
+    token: {
+      type: String,
+      default: ""
+    }
   }
 };
+
 var collectionParam = {
   collection: "yuser"
 };
