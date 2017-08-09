@@ -1,20 +1,25 @@
-<div>
+<div ng-switch="model.isSuitor.toString()" id='mainpubpage'>
   <a class="btn btn-success btn-block">
     My Public Page
   </a>
-</div>
+  <p>{{model.user}}</p>
+  <p>{{model.photoUrl}}</p>
 
-<p>{{model.user}}</p>
-<p>{{model.photoUrl}}</p>
 
-<div ng-switch="model.isSuitor.toString()">
-  <div ng-switch-when="true">
+  <div ng-switch-when="true" id='mainpubpagemale'>
     <ng-include src="'views/page/templates/publicPages/suitor.public.page.view.client.html'"></ng-include>
   </div>
   <div ng-switch-when="false">
     <ng-include src="'views/page/templates/publicPages/match.public.page.view.client.html'"></ng-include>
   </div>
 </div>
+
+
+
+
+
+
+
 
 
 

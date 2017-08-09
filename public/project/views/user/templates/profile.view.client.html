@@ -19,13 +19,20 @@
     </div>
     <label for="username">Username</label>
     <input ng-model="model.user.username" id="username" class="form-control" type="text" placeholder="efitzgerald"/>
+
     <label for="email">Email</label>
     <input ng-model="model.user.email" id="email" class="form-control" type="email"
            placeholder="missing-email@missing-email.com"/>
+
     <label for="first-name">First Name</label>
     <input ng-model="model.user.firstName" id="first-name" class="form-control" type="text" placeholder="Ella"/>
+
     <label for="last-name">Last Name</label>
     <input ng-model="model.user.lastName" id="last-name" class="form-control" type="text" placeholder="Fitzgerald"/>
+
+    <label for="instagram">Instagram</label>
+    <input ng-model="model.user.instagram.id" id="instagram" class="form-control" type="text" placeholder="myinstagram"/>
+
     <a ng-click="model.updateUser(model.user)" class="btn btn-success btn-block">
       Update
     </a>

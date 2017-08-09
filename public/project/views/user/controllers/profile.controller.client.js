@@ -57,7 +57,7 @@
       $location.url("/login");}
 
     function goToPrivatePage() {
-      $location.url("/user/private/" + vm.uid);}
+      $location.url("/user/private");}
 
     function goToProfile() {
       $location.url("/user/" + vm.uid);}

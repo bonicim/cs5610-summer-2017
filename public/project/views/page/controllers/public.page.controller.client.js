@@ -3,7 +3,7 @@
     .module("Yobai")
     .controller("PublicPageController", PublicPageController);
 
-  function PublicPageController($routeParams, $location, $sce, WidgetService, UserService) {
+  function PublicPageController($routeParams, $location, $sce, WidgetService, UserService, $window) {
     var vm = this;
     vm.uid = $routeParams.uid;
     vm.user = undefined;
@@ -31,7 +31,7 @@
         .then(function (user) {
           vm.user = user;
           vm.isSuitor = vm.user.isSuitor;
-          vm.firstName = vm.user.firstName
+          vm.firstName = vm.user.firstName;
           vm.lastName = vm.user.lastName;
           vm.age = vm.user.age;
           vm.email = vm.user.email;
@@ -74,10 +74,11 @@
                 vm.femaleWidgets = widgetsArr;
                 console.log("array female widgets on browser: ", vm.femaleWidgets);
               })
-
+              // then make some api call to instagram and pull some pictures from your instagram
+              // display it dynamicall
+              // pics are not saved in mongo
           }
         });
-
     }
 
       vm.trustHtml = trustHtml;

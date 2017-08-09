@@ -136,3 +136,10 @@ body {
   width: auto;
   box-shadow: none;
 }
+
+#mainpubpage,
+#mainpubpagemale {height: 100%;}
+
+#map {
+  height: 100%;
+}
