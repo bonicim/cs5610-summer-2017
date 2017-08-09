@@ -12,7 +12,8 @@
       "updateUser": updateUser,
       "deleteUser": deleteUser,
       "checkLoggedIn": checkLoggedIn,
-      "findUserById": findUserById
+      "findUserById": findUserById,
+      "findEligible": findEligible
     };
     return api;
 
@@ -84,6 +85,13 @@
         });
     }
 
+    function findEligible() {
+      var url = "/yapi/eligible";
+      return $http.get(url)
+        .then(function (response) {
+          return response.data;
+        })
+    }
   }
 
 

@@ -21,6 +21,7 @@
     vm.photoUrl = undefined;
     vm.matches = []; // an array of other users
     vm.mates = []; // an array of other users
+    vm.eligibleMates = []; // an array of only males
 
     vm.goToPublicPage = goToPublicPage;
     // vm.goToEditWidget = goToEditWidget;
@@ -60,7 +61,6 @@
       // get the appropriate array of actual matches or mates for the user
       // for matches: firstName, age,  (later: image)
       // for mates: firstName, age, rank, branch,
-      // TODO: refactor this ugly mess or redesign model
       if (vm.isSuitor) {
         var matchesArr = vm.user.page.private.matches;
         console.log("The array of matches is: ", matchesArr);
@@ -76,7 +76,8 @@
         }
 
         console.log("Checking matches array: ", vm.matches);
-      } else {
+      }
+      else {
         var matesArr = vm.user.page.private.mates;
         console.log("The array of matches is: ", matesArr);
         var lenArr = matesArr.length;
@@ -90,7 +91,11 @@
             });
         }
 
-        console.log("Checking mates array: ", vm.mates);
+        UserService.findEligible()
+          .then(function (eligibleArr) {
+            vm.eligibleMates = eligibleArr;
+          });
+        console.log("eligible mates are", vm.eligibleMates);
       }
 
     }

@@ -9,6 +9,7 @@ userModel.createUser = createUser;
 userModel.findUserById = findUserById;
 userModel.findUserByUsername = findUserByUsername;
 userModel.findUserByCredentials = findUserByCredentials;
+userModel.findUsersEligible = findUsersEligible;
 userModel.updateUser = updateUser;
 userModel.deleteUser = deleteUser;
 userModel.addWidgetToUser = addWidgetToUser;
@@ -117,6 +118,10 @@ function findUserByUsername(username) {
 
 function findUserByCredentials(username, password) {
   return userModel.findOne({'username': username, 'password': password});
+}
+
+function findUsersEligible() {
+  return userModel.find({'isSuitor': true});
 }
 
 function updateUser(userId, user) {

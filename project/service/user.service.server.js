@@ -9,6 +9,7 @@ app.post('/yapi/register', register);
 app.get('/yapi/user', findUserById); // /yapi/user?userId=<actualusername>
 app.get('/yapi/user', findUserByUsername); // /yapi/user?username=<actualusername>
 app.get('/yapi/user', findUserByCredentials); // /yapi/user?username=<actualusername>&password=<password>
+app.get('/yapi/eligible', findUsersEligible);
 
 app.put('/yapi/user/:userId', updateUser);
 app.delete('/yapi/user/:userId', deleteUser);
@@ -110,6 +111,22 @@ function findUserByUsername(req, res) {
         }
       }
     );
+}
+
+function findUsersEligible(req, res) {
+  yuserModel
+    .findUsersEligible()
+    .then(function (users) {
+      if (users) {
+        res.json(users);
+      }
+      else {
+        res.sendStatus(400);
+      }
+    })
+    .catch(function (err) {
+      console.log("failure", err);
+    })
 }
 
 // this becomes more complex when adding more widgets
