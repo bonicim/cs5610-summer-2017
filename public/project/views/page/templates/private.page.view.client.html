@@ -14,21 +14,27 @@ basic info
  -->
 
 <div>
-  My Private Page kjh
+  My Private Page
 </a>
 </div>
 
 <p>{{model.user}}</p>
-
 <p>photourl {{model.photoUrl}}</p>
-<p>matches {{model.matches}}</p>
-<p>mates {{model.mates}}</p>
-<p>eligible {{model.eligibleMates}}</p>
+
+
+<div ng-switch="model.isSuitor.toString()">
+  <div ng-switch-when="true">
+    <ng-include src="'views/page/templates/privatePages/suitor.private.page.view.client.html'"></ng-include>
+  </div>
+  <div ng-switch-when="false">
+    <ng-include src="'views/page/templates/privatePages/match.private.page.view.client.html'"></ng-include>
+  </div>
+</div>
 
 
 <div>
   <a class="btn btn-success btn-block" ng-click="model.goToPublicPage()">
-    My Public Page kjh
+    Goto Public Page
   </a>
 </div>
 

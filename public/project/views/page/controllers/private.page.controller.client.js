@@ -94,8 +94,8 @@
         UserService.findEligible()
           .then(function (eligibleArr) {
             vm.eligibleMates = eligibleArr;
+            console.log("eligible mates are", vm.eligibleMates);
           });
-        console.log("eligible mates are", vm.eligibleMates);
       }
 
     }

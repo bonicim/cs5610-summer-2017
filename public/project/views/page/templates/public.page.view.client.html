@@ -5,10 +5,18 @@
 </div>
 
 <p>{{model.user}}</p>
-
 <p>{{model.photoUrl}}</p>
 
-<p> male widget associative array {{model.maleWidgets}}</p>
+<div ng-switch="model.isSuitor.toString()">
+  <div ng-switch-when="true">
+    <ng-include src="'views/page/templates/publicPages/suitor.public.page.view.client.html'"></ng-include>
+  </div>
+  <div ng-switch-when="false">
+    <ng-include src="'views/page/templates/publicPages/match.public.page.view.client.html'"></ng-include>
+  </div>
+</div>
 
-<p> female widget indexed array {{model.femaleWidgets}}</p>
+
+
+
 
