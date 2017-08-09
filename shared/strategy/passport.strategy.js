@@ -1,6 +1,7 @@
-var bcrypt = require('bcrypt-nodejs');
-var userModel = require('../model/models/user.model.server');
 var passport = require('passport');
+var userModel = require('../model/models/user.model.server');
+var bcrypt = require('bcrypt-nodejs');
+
 var LocalStrategy = require('passport-local').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var googleConfig = {

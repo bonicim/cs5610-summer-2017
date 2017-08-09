@@ -14,6 +14,10 @@ var userObject = {
     type: Boolean,
     default: true
   },
+  isAdmin: {
+    type: Boolean,
+    default: false
+  },
   branch: String,
   rank: String,
   page: {
@@ -59,11 +63,6 @@ var userObject = {
 var collectionParam = {
   collection: "yuser"
 };
-
-
-
-
-
 
 var userSchema = mongoose.Schema(userObject, collectionParam);
 module.exports = userSchema;

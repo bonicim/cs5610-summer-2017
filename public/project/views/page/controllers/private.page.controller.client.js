@@ -23,12 +23,13 @@
     vm.mates = []; // an array of other users
 
     vm.goToPublicPage = goToPublicPage;
-    vm.goToEditWidget = goToEditWidget;
-    vm.goToSuitorPublicPage = goToSuitorPublicPage;
-    vm.goToMatchPublicPage = goToMatchPublicPage;
-    vm.goToProfile = goToProfile;
+    // vm.goToEditWidget = goToEditWidget;
+    // vm.goToSuitorPublicPage = goToSuitorPublicPage;
+    // vm.goToMatchPublicPage = goToMatchPublicPage;
+    // vm.goToProfile = goToProfile;
 
     init();
+
     function init() {
       vm.user = currentUser;
       vm.firstName = vm.user.firstName;
@@ -44,15 +45,15 @@
       vm.instagram = vm.user.instagram;
 
       // get image widget from common page (it's the first one)
-      console.log("The image widget id is: ", vm.user.page.common[0]);
-      WidgetService.findWidgetById(vm.user.page.common[0])
-        .then(function(widget) {
+      console.log("The image widget id is: ", vm.user.page.common.widgets[0]);
+      WidgetService.findWidgetById(vm.user.page.common.widgets[0])
+        .then(function (widget) {
           if (widget) {
             vm.photoUrl = widget.url;
           } else {
             vm.photoUrl = null;
           }
-          console.log("Checking photoUrl: ",vm.photoUrl);
+          console.log("Checking photoUrl: ", vm.photoUrl);
         });
 
 
@@ -76,7 +77,7 @@
 
         console.log("Checking matches array: ", vm.matches);
       } else {
-        var matesArr = vm.user.page.private.matches;
+        var matesArr = vm.user.page.private.mates;
         console.log("The array of matches is: ", matesArr);
         var lenArr = matesArr.length;
 
@@ -115,7 +116,5 @@
     }
 
   }
-
-
 
 }) ();

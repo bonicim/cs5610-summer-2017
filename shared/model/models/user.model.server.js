@@ -4,8 +4,6 @@ var userModel = mongoose.model('UserModel', userSchema);
 var widgetSchema = require('../../../project/model/widget/widget.schema.server');
 var widgetModel = mongoose.model('YWidgetModel', widgetSchema);
 
-// var widgetModel = require('../../../project/model/widget/widget.model.server');
-
 // declares and initializes all api's
 userModel.createUser = createUser;
 userModel.findUserById = findUserById;

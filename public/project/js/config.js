@@ -72,6 +72,7 @@
       .checkLoggedIn() // returns promise with a user object or a '0'
       .then(function (currentUser) {
         if (currentUser === '0') {
+          console.log("current User is:", currentUser );
           deferred.reject();
           $location.url('/login'); // if no user, go to login page
         } else {

@@ -1,28 +1,24 @@
 var app = require('../../express');
 var yuserModel = require('../../shared/model/models/user.model.server');
-var bcrypt = require('bcrypt-nodejs');
 var passport = require('../../shared/strategy/passport.strategy');
+var bcrypt = require('bcrypt-nodejs');
 
 // Server listeners on specific URL's
 app.post('/yapi/register', register);
 
-app.get('/yapi/user/:userId', findUserById);
-// /yapi/user?username=<actualusername>
-app.get('/yapi/user', findUserByUsername);
-// /yapi/user?username=<actualusername>&password=<password>
+app.get('/yapi/user/:userId', findUserById); // /yapi/user?username=<actualusername>
+app.get('/yapi/user', findUserByUsername); // /yapi/user?username=<actualusername>&password=<password>
 app.get('/yapi/user', findUserByCredentials);
 
 app.put('/yapi/user/:userId', updateUser);
 app.delete('/yapi/user/:userId', deleteUser);
 
-app.get('/yapi/checkLoggedIn', checkLoggedIn);
-// does not use HTTPS; must pay for HTTPS, allows queries to be encrypted
+app.get('/yapi/checkLoggedIn', checkLoggedIn); // does not use HTTPS; must pay for HTTPS, allows queries to be encrypted
 app.post('/yapi/login', passport.authenticate('local'), login); //passport will authenticate login via 'local' strategy
 app.post('/yapi/logout', logout);
 
 // outgoing to google, passport redirect to google
-app.get('/yauth/google', passport.authenticate('google',
-    { scope : ['profile', 'email'] }));
+app.get('/yauth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 // endpoint created for google callback, passport handles callback
 app.get('/yauth/google/callback', passport.authenticate('google', {
     successRedirect: '/public/project/index.html#/profile',
@@ -32,19 +28,26 @@ app.get('/yauth/google/callback', passport.authenticate('google', {
 
 function register(req, res) {
   var user = req.body;
+  // encrypt the password
   user.password = bcrypt.hashSync(user.password);
 
   yuserModel
     .createUser(user)
     .then(function (user) {
-      // after creation of user in database, set login() to newly created user
-      req.login(user, function (status) {
-        res.json(user);
-      })// notify Passport that currently new user, create a new cookie to headers, send to client
+      if(user) {
+        req.login(user, function(err) {
+          if(err) {
+            res.sendStatus(400);
+          } else {
+            console.log("inside login: Our new user is:", user);
+            res.json(user);
+          }
+        });
+      }
     })
-    .catch(function (err) {
-      res.status(400).send(err);
-    });
+  .catch(function (err) {
+    res.status(400).send(err);
+  });
 }
 
 function findUserById(req, res) {
