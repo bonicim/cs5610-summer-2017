@@ -13,7 +13,8 @@
       "deleteUser": deleteUser,
       "checkLoggedIn": checkLoggedIn,
       "findUserById": findUserById,
-      "findEligible": findEligible
+      "findEligible": findEligible,
+      "getOmdbKey": getOmdbKey
     };
     return api;
 
@@ -93,7 +94,13 @@
         })
     }
 
+    function getOmdbKey() {
+      var url = "/yenv/omdb";
+      return $http.get(url)
+        .then(function (response) {
+          return response.data;
+        })
+    }
   }
-
 
 }) ();

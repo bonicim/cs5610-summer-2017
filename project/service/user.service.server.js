@@ -33,6 +33,8 @@ app.get('/yauth/facebook/callback',
     failureRedirect: '/public/project/index.html#'
   }));
 
+app.get("/yenv/omdb", getOmdb);
+
 function register(req, res) {
   var user = req.body;
   // encrypt the password
@@ -190,9 +192,13 @@ function login(req, res) {
   res.json(req.user);
 }
 
-
 function logout(req, res) {
   req.logout(); // removes user from session; clears session and invalidate cookie
   // this is syntactic sugar that invalidates the current user
   res.sendStatus(200);
+}
+
+function getOmdb(req, res) {
+  console.log("KEY", process.env.OMDB_KEY);
+  return res.json(process.env.OMDB_KEY);
 }

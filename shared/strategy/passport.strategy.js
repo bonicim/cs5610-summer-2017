@@ -11,19 +11,19 @@ var googleConfig = {
   callbackURL  : process.env.GOOGLE_CALLBACK_URL
 };
 
-var FacebookStrategy = require('passport-facebook').Strategy;
-var facebookConfig = {
-  clientID: process.env.FACEBOOK_CLIENT_ID,
-  clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-  callbackURL: process.env.FACEBOOK_CALLBACK_URL,
-  profileFields: ['id', 'emails', 'displayName', 'name']
-};
+// var FacebookStrategy = require('passport-facebook').Strategy;
+// var facebookConfig = {
+//   clientID: process.env.FACEBOOK_CLIENT_ID,
+//   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+//   callbackURL: process.env.FACEBOOK_CALLBACK_URL,
+//   profileFields: ['id', 'emails', 'displayName', 'name']
+// };
 
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
 passport.use(new LocalStrategy(localStrategy)); // passport will authenticate based on strategy defined by 'localStrategy' function
 passport.use(new GoogleStrategy(googleConfig, googleStrategy));
-passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+// passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
 module.exports = passport;
 
@@ -116,43 +116,43 @@ function googleStrategy(token, refreshToken, profile, done) {
     );
 }
 
-function facebookStrategy(token, refreshToken, profile, done) {
-  userModel
-    .findUserByFacebookId(profile.id)
-    .then(
-      function (user) {
-        if (user) {
-          return done(null, user);
-        } else {
-          var email = profile.emails[0].value;
-          var emailParts = email.split("@");
-          var newFacebookUser = {
-            username: emailParts[0] + '_facebook',
-            firstName: profile.name.givenName,
-            lastName: profile.name.familyName,
-            email: email,
-            facebook: {
-              id: profile.id,
-              token: token
-            }
-          };
-          return userModel.createUser(newFacebookUser);
-        }
-      },
-      function (err) {
-        if (err) {
-          return done(err);
-        }
-      }
-    )
-    .then(
-      function (user) {
-        return done(null, user);
-      },
-      function (err) {
-        if (err) {
-          return done(err);
-        }
-      }
-    );
-}
+// function facebookStrategy(token, refreshToken, profile, done) {
+//   userModel
+//     .findUserByFacebookId(profile.id)
+//     .then(
+//       function (user) {
+//         if (user) {
+//           return done(null, user);
+//         } else {
+//           var email = profile.emails[0].value;
+//           var emailParts = email.split("@");
+//           var newFacebookUser = {
+//             username: emailParts[0] + '_facebook',
+//             firstName: profile.name.givenName,
+//             lastName: profile.name.familyName,
+//             email: email,
+//             facebook: {
+//               id: profile.id,
+//               token: token
+//             }
+//           };
+//           return userModel.createUser(newFacebookUser);
+//         }
+//       },
+//       function (err) {
+//         if (err) {
+//           return done(err);
+//         }
+//       }
+//     )
+//     .then(
+//       function (user) {
+//         return done(null, user);
+//       },
+//       function (err) {
+//         if (err) {
+//           return done(err);
+//         }
+//       }
+//     );
+// }

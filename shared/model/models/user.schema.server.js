@@ -17,7 +17,7 @@ var userObject = {
   },
   age: {
     type: Number,
-    default:69
+    default: 69
   },
   currentCity: {
     type: String,

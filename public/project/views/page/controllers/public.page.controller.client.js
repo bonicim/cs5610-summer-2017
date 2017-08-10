@@ -1,9 +1,11 @@
 (function() {
   angular
     .module("Yobai")
+    .service("OmdbService", omdbService)
     .controller("PublicPageController", PublicPageController);
 
-  function PublicPageController($routeParams, $location, $sce, WidgetService, UserService, $window) {
+  function PublicPageController($routeParams, $location, $sce,
+                                WidgetService, UserService, $window, OmdbService) {
     var vm = this;
     vm.uid = $routeParams.uid;
     vm.user = undefined;
@@ -21,9 +23,7 @@
     vm.photoUrl = undefined;
     vm.maleWidgets = {};
     vm.femaleWidgets = undefined;
-    // vm.aboutMe = undefined;
-    // vm.secondPhotoUrl = undefined;
-    // vm.youTubeUrl = undefined;
+    vm.movie = undefined;
 
     init();
     function init() {
@@ -78,33 +78,82 @@
               // display it dynamicall
               // pics are not saved in mongo
           }
-        });
+        })
+        .then(function () {
+          // make a call to get the favorite movie
+          console.log("fav movie is: ", vm.user.favoriteMovie);
+          UserService.getOmdbKey()
+            .then(function (key) {
+              OmdbService.searchMovieTitle(vm.user.favoriteMovie, key)
+                .then(function (movie) {
+                  vm.movie = movie;
+                })
+                .then(function () {
+                  OmdbService.getMoviePoster(vm.movie.imdbID, key)
+                    .then(function (poster) {
+                      $window.poster.src = poster;
+                    })
+
+                });
+            });
+        })
     }
 
-      vm.trustHtml = trustHtml;
-      vm.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
-      vm.goToProfile = goToProfile;
-      vm.goToEditWidget = goToEditWidget;
+    vm.trustHtml = trustHtml;
+    vm.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
+    vm.goToProfile = goToProfile;
+    vm.goToEditWidget = goToEditWidget;
 
-      function trustHtml(html) {
-        // scrub html
-        return $sce.trustAsHtml(html);
-      }
+    function trustHtml(html) {
+                           // scrub html
+                           return $sce.trustAsHtml(html);
+                           }
 
-      function getYouTubeEmbedUrl(url) {
-        var embedUrl = "https://www.youtube.com/embed/";
-        var urlLinkParts = url.split('/');
-        embedUrl += urlLinkParts[urlLinkParts.length - 1];
-        return $sce.trustAsResourceUrl(embedUrl);
-      }
+    function getYouTubeEmbedUrl(url) {
+                                   var embedUrl = "https://www.youtube.com/embed/";
+                                   var urlLinkParts = url.split('/');
+                                   embedUrl += urlLinkParts[urlLinkParts.length - 1];
+                                   return $sce.trustAsResourceUrl(embedUrl);
+                                   }
 
-      function goToProfile() {
-        $location.url("/profile")
-      }
+    function goToProfile() {
+      $location.url("/profile")
+    }
 
-      function goToEditWidget() {
+    function goToEditWidget() {
 
-      }
+    }
+
+  }
+
+  function omdbService($http) {
+    var api = {
+      "searchMovieTitle": searchMovieTitle,
+      "getMoviePoster": getMoviePoster
+    };
+    return api;
+
+    function searchMovieTitle(title, key) {
+      // todo: put key in env variable
+      var url = "http://www.omdbapi.com/?t="+title+"&apikey="+key+"";
+      console.log("key", key);
+      console.log("URL", url);
+      return $http.get(url)
+        .then(function (response) {
+          return response.data;
+        })
+
+    }
+
+    function getMoviePoster(imdbId, key) {
+      // todo: put key in env variable
+          var url = "http://img.omdbapi.com/?i="+imdbId+"&h=600&apikey="+key+"";
+          return $http.get(url)
+            .then(function (response) {
+              return response.data;
+            })
+
+    }
 
   }
 
