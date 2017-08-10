@@ -16,6 +16,7 @@ userModel.addWidgetToUser = addWidgetToUser;
 userModel.addWebsiteToUser = addWebsiteToUser;
 userModel.deleteWebsiteInUser = deleteWebsiteInUser;
 userModel.findUserByGoogleId = findUserByGoogleId;
+userModel.findUserByFacebookId = findUserByFacebookId;
 
 // allows api's to be exported to some service layer
 module.exports = userModel;
@@ -138,4 +139,8 @@ function deleteUser(userId) {
 
 function findUserByGoogleId(id) {
   return userModel.findOne({'google.id': id});
+}
+
+function findUserByFacebookId(id) {
+  return userModel.findOne({'facebook.id': id});
 }

@@ -15,6 +15,18 @@ var userObject = {
     type: String,
     default: ""
   },
+  age: {
+    type: Number,
+    default:69
+  },
+  currentCity: {
+    type: String,
+    default: ""
+  },
+  favoriteMovie: {
+    type: String,
+    default: ""
+  },
   email: {
     type: String,
     default: ""
@@ -73,6 +85,16 @@ var userObject = {
     type: Date,
     default: Date.now},
   google: {
+    id: {
+      type: String,
+      default: ""
+    },
+    token: {
+      type: String,
+      default: ""
+    }
+  },
+  facebook: {
     id: {
       type: String,
       default: ""

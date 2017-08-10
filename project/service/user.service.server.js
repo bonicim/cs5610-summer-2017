@@ -26,6 +26,12 @@ app.get('/yauth/google/callback', passport.authenticate('google', {
     failureRedirect: '/public/project/index.html#/login'
   }));
 
+app.get('/yauth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+app.get('/yauth/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/public/project/index.html#/login',
+    failureRedirect: '/public/project/index.html#'
+  }));
 
 function register(req, res) {
   var user = req.body;
