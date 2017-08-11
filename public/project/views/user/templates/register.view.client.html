@@ -4,8 +4,12 @@
     <input ng-model="model.username" type="text" class="form-control" placeholder="username"/>
     <input ng-model="model.password" type="password" class="form-control" placeholder="password"/>
     <input ng-model="model.vfyPassword" type="password" class="form-control" placeholder="verify password"/>
-    <label for="isSuitor">Male?</label>
-    <input ng-model="model.suitorFlag" id="isSuitor" type="checkbox" class="form-control mc-checkbox"/>
+
+
+    <p>male?</p>
+    <label for="suitor" stye="solid:black">Male?</label>
+    <input ng-model="model.suitorFlag" id="suitor" type="checkbox" class="form-control mc-checkbox"/>
+
     <a ng-click="model.register(model.username, model.password, model.vfyPassword, model.suitorFlag)"
        class="btn btn-primary btn-block">
       Register

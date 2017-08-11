@@ -11,29 +11,28 @@
   <title>Yobai</title>
 
   <!-- JQuery must come before angular script -->
-  <!--<script src="lib/jquery/jquery.min.js"></script>-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <!--<script src="lib/jquery/jquery.min.js"></script>-->
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
 
   <!-- Bootstrap Core JavaScript -->
   <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
-  <!-- Theme JavaScript -->
-  <script src="js/new-age.min.js"></script>
+  <!--&lt;!&ndash; Theme JavaScript &ndash;&gt;-->
+  <!--<script src="js/new-age.min.js"></script>-->
+  <!--&lt;!&ndash; Plugin JavaScript &ndash;&gt;-->
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>-->
 
-  <!-- Plugin JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+  <!--&lt;!&ndash; Custom Fonts &ndash;&gt;-->
+  <!--<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">-->
+  <!--<link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">-->
+  <!--<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">-->
 
   <!-- Bootstrap Core CSS -->
   <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/projectCSS.css"/>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
   <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.7/css/bootstrap.min.css" rel="stylesheet"/>-->
-
-  <!-- Custom Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
   <!-- Font Awesome CDN -->
   <script src="https://use.fontawesome.com/e90cb9dc03.js"></script>
@@ -45,14 +44,17 @@
 
   <!-- Theme CSS -->
   <link href="css/new-age.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/animate.css">
+  <link href="css/prettyPhoto.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/projectCSS.css"/>
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
+  <!--&lt;!&ndash; HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries &ndash;&gt;-->
+  <!--&lt;!&ndash; WARNING: Respond.js doesn't work if you view the page via file:// &ndash;&gt;-->
+  <!--&lt;!&ndash;[if lt IE 9]>-->
+  <!--<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
+  <!--<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>-->
+  <!--<![endif]&ndash;&gt;-->
 
   <!-- Adding Angular and relevant JS files-->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
@@ -62,64 +64,26 @@
 
   <!-- controllers and service clients -->
   <script src="views/landing/controllers/landing.controller.client.js"></script>
-
   <script src="views/user/controllers/login.controller.client.js"></script>
   <script src="views/user/controllers/profile.controller.client.js"></script>
   <script src="views/user/controllers/register.controller.client.js"></script>
   <script src="services/user.service.client.js"></script>
-
   <script src="views/page/controllers/private.page.controller.client.js"></script>
   <script src="views/page/controllers/public.page.controller.client.js"></script>
   <script src="views/page/controllers/widget-edit.controller.client.js"></script>
   <script src="services/widget.service.client.js"></script>
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuuV8UOxA81OwyCMerxjPljkyaQ6LFs1g">
-  </script>
 </head>
 
 <body id="page-top">
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1859161851067470',
-      xfbml      : true,
-      version    : 'v2.10'
-    });
-    FB.AppEvents.logPageView();
-  };
-
-  (function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-</script>
-<div
-  class="fb-like"
-  data-share="true"
-  data-width="450"
-  data-show-faces="true">
-</div>
   <div ng-view></div>
-
-  <!--<div id='map'></div>-->
-
-    <!--<script>-->
-      <!--var map;-->
-      <!--function initMap() {-->
-        <!--map = new google.maps.Map(document.getElementById('map'), {-->
-          <!--center: {lat: -34.397, lng: 150.644},-->
-          <!--zoom: 8-->
-        <!--});-->
-      <!--}-->
-    <!--</script>-->
-    <!--<script-->
-      <!--src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuuV8UOxA81OwyCMerxjPljkyaQ6LFs1g&callback=initMap" async-->
-      <!--defer>-->
-    <!--</script>-->
-
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <!--<script src="js/jquery-2.1.1.min.js"></script>-->
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <!--<script src="js/bootstrap.min.js"></script>-->
+  <script src="js/jquery.prettyPhoto.js"></script>
+  <script src="js/jquery.isotope.min.js"></script>
+  <script src="js/wow.min.js"></script>
+  <script src="js/functions.js"></script>
 </body>
 
 </html>

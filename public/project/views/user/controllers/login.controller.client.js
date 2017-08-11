@@ -14,7 +14,7 @@
       UserService
         .login(username, password)
         .then(function (user) {
-           goToPrivatePage(user)
+           goToProfile();
           },
           renderError);
     }
@@ -30,6 +30,10 @@
     function renderError(error) {
       console.log("User not found; the returned object is the following: ", error);
       alert("User not found.");
+    }
+
+    function goToProfile() {
+      $location.url("/profile");
     }
   }
 
