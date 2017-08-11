@@ -9,44 +9,65 @@
   </div>
 </nav>
 
-<div class="container-fluid">
-  <form class="mc-container-under-navbar">
-    <div ng-show="model.feedbackError" class="alert alert-danger">
-      {{model.feedbackError}}
-    </div>
-    <div ng-show="model.feedbackSuccess" class="alert alert-info">
-      {{model.feedbackSuccess}}
-    </div>
-    <label for="username">Username</label>
-    <input ng-model="model.user.username" id="username" class="form-control" type="text" placeholder="efitzgerald"/>
+<div id="prof">
+  <div class="container-fluid">
+    <form class="mc-container-under-navbar">
+      <div ng-show="model.feedbackError" class="alert alert-danger">
+        {{model.feedbackError}}
+      </div>
+      <div ng-show="model.feedbackSuccess" class="alert alert-info">
+        {{model.feedbackSuccess}}
+      </div>
+      <label for="username">Username</label>
+      <input ng-model="model.user.username" id="username" class="form-control" type="text" placeholder="efitzgerald"/>
 
-    <label for="email">Email</label>
-    <input ng-model="model.user.email" id="email" class="form-control" type="email"
-           placeholder="missing-email@missing-email.com"/>
+      <label for="email">Email</label>
+      <input ng-model="model.user.email" id="email" class="form-control" type="email"
+             placeholder="missing-email@missing-email.com"/>
 
-    <label for="first-name">First Name</label>
-    <input ng-model="model.user.firstName" id="first-name" class="form-control" type="text" placeholder="Ella"/>
+      <label for="first-name">First Name</label>
+      <input ng-model="model.user.firstName" id="first-name" class="form-control" type="text" placeholder="Ella"/>
 
-    <label for="last-name">Last Name</label>
-    <input ng-model="model.user.lastName" id="last-name" class="form-control" type="text" placeholder="Fitzgerald"/>
+      <label for="last-name">Last Name</label>
+      <input ng-model="model.user.lastName" id="last-name" class="form-control" type="text" placeholder="Fitzgerald"/>
 
-    <label for="movie">Favorite Movie</label>
-    <input ng-model="model.user.favoriteMovie" id="movie" class="form-control" type="text"
-           placeholder="Hope Floats"/>
+      <label for="age">Age</label>
+      <input ng-model="model.user.age" id="age" class="form-control" type="number" placeholder="42"/>
 
-    <a ng-click="model.updateUser(model.user)" class="btn btn-success btn-block">
-      Update
-    </a>
-    <a ng-click="model.deleteUser(model.user)" class="btn btn-danger btn-block">
-      Unregister
-    </a>
-    <a ng-click="model.goToPrivatePage()" class="btn btn-primary btn-block">
-      Private Page
-    </a>
-    <a ng-click="model.logout()" class="btn btn-danger btn-block">
-      Logout
-    </a>
-  </form>
+      <label for="city">Current City</label>
+      <input ng-model="model.user.currentCity" id="city" class="form-control" type="text" placeholder="Austin"/>
+
+      <label for="line">Line</label>
+      <input ng-model="model.user.line" id="line" class="form-control" type="text" placeholder="myLine"/>
+
+      <label for="viber">Viber</label>
+      <input ng-model="model.user.viber" id="viber" class="form-control" type="text" placeholder="myviber"/>
+
+
+      <label for="movie">Favorite Movie</label>
+      <input ng-model="model.user.favoriteMovie" id="movie" class="form-control" type="text"
+             placeholder="Hope Floats"/>
+
+      <div ng-switch="model.user.isSuitor.toString()">
+        <div ng-switch-when="true">
+          <ng-include src="'views/user/templates/sub_templates/profile.view.client.male.html'"></ng-include>
+        </div>
+      </div>
+
+      <a ng-click="model.updateUser(model.user)" class="btn btn-success btn-block">
+        Update
+      </a>
+      <a ng-click="model.deleteUser(model.user)" class="btn btn-danger btn-block">
+        Unregister
+      </a>
+      <a ng-click="model.goToPrivatePage()" class="btn btn-primary btn-block">
+        Private Page
+      </a>
+      <a ng-click="model.logout()" class="btn btn-danger btn-block">
+        Logout
+      </a>
+    </form>
+  </div>
 </div>
 
 <nav class="navbar navbar-fixed-bottom mc-navbar-custom1">
@@ -56,3 +77,5 @@
     </a>
   </div>
 </nav>
+
+

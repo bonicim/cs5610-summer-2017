@@ -60,7 +60,7 @@
       $location.url("/user/private");}
 
     function goToProfile() {
-      $location.url("/user/" + vm.uid);}
+      $location.url("/login");}
   }
 
     function renderError(error) {
