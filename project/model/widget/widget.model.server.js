@@ -12,9 +12,15 @@ widgetModel.updateWidget = updateWidget;
 widgetModel.deleteWidget = deleteWidget;
 widgetModel.deleteWidgetsByUserId = deleteWidgetsByUserId;
 widgetModel.findAllWidgetsForConditions = findAllWidgetsForConditions;
+widgetModel.updateYouTubeWidgetByUser = updateYouTubeWidgetByUser;
+
 
 // allows api's to be exported to some service layer
 module.exports = widgetModel;
+
+function updateYouTubeWidgetByUser(userId, widget) {
+  return widgetModel.findOneAndUpdate({_user:userId,widgetType:"YOUTUBE"},{$set: widget});
+}
 
 function createWidget(userId, widget) {
   widget._user = userId;

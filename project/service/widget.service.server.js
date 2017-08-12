@@ -11,9 +11,20 @@ app.delete("/yapi/widget/:widgetId", deleteWidget);
 app.post("/yapi/upload", upload.single('myFile'), uploadImage);
 
 app.post("/yapi/widget/widgetId/cond", findAllWidgetsForUserIdAndConditions);
+app.put("/yapi/widget/youtube/:uid", updateYouTubeWidgetByUser);
 
-
-// Implementations of event handlers
+function updateYouTubeWidgetByUser(req, res) {
+  var uid = req.params.uid;
+  var widget = req.body.widget;
+  widgetModel
+    .updateYouTubeWidgetByUser(uid, widget)
+    .then(function (widget) {
+      callback(widget, res);
+    })
+    .catch(function (err) {
+      handleError(err, res);
+    })
+}
 
 function createWidget(req, res) {
   var userId = req.params.userId;

@@ -35,6 +35,25 @@ app.get('/yauth/facebook/callback',
 
 app.get("/yenv/omdb", getOmdb);
 
+app.post('/yapi/addDate', addDate);
+
+function addDate(req, res) {
+  var data = req.body;
+  var suitorId = data.suitorId;
+  var destId = data.destId;
+  yuserModel
+    .addDateToDateList(suitorId, destId)
+    .then(function (user) {
+      if (user) {
+        res.json(user);
+      }
+    })
+    .catch(function (err) {
+      console.log("Failed to add user", err);
+      return err;
+    })
+}
+
 function register(req, res) {
   var user = req.body;
   // encrypt the password

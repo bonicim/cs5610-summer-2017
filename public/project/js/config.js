@@ -44,14 +44,14 @@
         }
       })
       // Public Page
-      .when("/user/public/:uid", {
+      .when("/user/public/:uid/:myuid", {
         templateUrl: "views/page/templates/public.page.view.client.html",
         controller: "PublicPageController",
         controllerAs: "model"
       })
-      // Edit Widget
-      .when("/user/:uid/public/:wid/:wgid", {
-        templateUrl: "views/page/templates/widget-edit.view.client.html",
+      // Edit Youtube
+      .when("/user/:uid/youtube", {
+        templateUrl: "views/page/templates/publicPages/widget-youtube-edit.view.client.html",
         controller: "EditWidgetController",
         controllerAs: "model"
       })

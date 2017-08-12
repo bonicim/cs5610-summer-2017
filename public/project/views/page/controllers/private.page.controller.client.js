@@ -24,10 +24,10 @@
     vm.eligibleMates = []; // an array of only males
 
     vm.goToPublicPage = goToPublicPage;
-    // vm.goToEditWidget = goToEditWidget;
+    vm.goToEditYouTubeWidget = goToEditYouTubeWidget;
     // vm.goToSuitorPublicPage = goToSuitorPublicPage;
     // vm.goToMatchPublicPage = goToMatchPublicPage;
-    // vm.goToProfile = goToProfile;
+    vm.goToProfile = goToProfile;
 
     init();
 
@@ -100,12 +100,12 @@
 
     }
 
-    function goToPublicPage() {
-      $location.url("/user/public/" + vm.user._id);
+    function goToPublicPage(userId, myId) {
+      $location.url("/user/public/" + userId + "/" + myId);
     }
 
-    function goToEditWidget() {
-
+    function goToEditYouTubeWidget(uid) {
+      $location.url("/user/" + uid + "/youtube")
     }
 
     function goToSuitorPublicPage(suitorId) {

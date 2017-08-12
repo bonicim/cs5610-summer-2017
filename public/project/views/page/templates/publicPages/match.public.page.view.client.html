@@ -1,1 +1,12 @@
-<p> female widgetfdafdsafdsaf {{model.femaleWidgets}}</p>
+<!--<div>-->
+  <!--<h3>More Pics</h3>-->
+  <!--<img src="{{model.femaleWidgets[1].url}}"/>-->
+<!--</div>-->
+
+<h3>View my Video</h3>
+<div class="embed-responsive embed-responsive-16by9" ng-if="model.femaleWidget[0].url">
+  <iframe src={{model.getYouTubeEmbedUrl(model.femaleWidgets[0].url)}} class="mc-youtube-widget mc-youtube-widget-iframe"
+          width="100%" height="400" scrolling="no" frameborder="0"
+          allowTransparency="true" allowFullScreen="true"></iframe>
+</div>
+

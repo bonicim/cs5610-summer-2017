@@ -1,2 +1,32 @@
-<p>matesfaslkhfjghrewjr {{model.mates}}</p>
-<p>eligible {{model.eligibleMates}}</p>
+<div>
+  <h1>My Dates</h1>
+  <div ng-repeat="date in model.mates">
+    <ul>
+      <li>
+        <a ng-click="model.goToPublicPage(date._id, model.user._id)">
+          {{date.firstName}}, age {{date.age}}, favorite movie {{date.favoriteMovie}}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <h1>Eligible Bachelors</h1>
+  <div ng-repeat="bachelor in model.eligibleMates">
+    <ul>
+      <li>
+        <a ng-click="model.goToPublicPage(bachelor._id, model.user._id)">
+          {{bachelor.firstName}}, age {{bachelor.age}}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+  <div>
+    <a ng-click="model.goToEditYouTubeWidget(model.user._id)"
+       class="btn btn-primary btn-block">
+      Add YouTube to My Public Page
+    </a>
+  </div>
+
+</div>

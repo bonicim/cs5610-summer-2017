@@ -8,6 +8,7 @@
                                 WidgetService, UserService, $window, OmdbService) {
     var vm = this;
     vm.uid = $routeParams.uid;
+    vm.myuid = $routeParams.myuid;
     vm.user = undefined;
     vm.firstName = undefined;
     vm.lastName = undefined;
@@ -102,26 +103,43 @@
     vm.trustHtml = trustHtml;
     vm.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
     vm.goToProfile = goToProfile;
-    vm.goToEditWidget = goToEditWidget;
+    vm.goToEditWidget = goToEditYouTubeWidget;
+    vm.goToPrivatePage = goToPrivatePage;
+    vm.addDate = addDate;
+
+    function addDate(uid, myuid) {
+      UserService.addDate(uid, myuid)
+        .then(function(user) {
+          console.log("User added date: ", user);
+          goToPrivatePage();
+        })
+        .catch(function (err) {
+          console.log("Didn't add user to date list", err);
+        })
+    }
+
+    function goToPrivatePage() {
+      $location.url("/user/private");
+    }
 
     function trustHtml(html) {
-                           // scrub html
-                           return $sce.trustAsHtml(html);
-                           }
+      // scrub html
+      return $sce.trustAsHtml(html);
+    }
 
     function getYouTubeEmbedUrl(url) {
-                                   var embedUrl = "https://www.youtube.com/embed/";
-                                   var urlLinkParts = url.split('/');
-                                   embedUrl += urlLinkParts[urlLinkParts.length - 1];
-                                   return $sce.trustAsResourceUrl(embedUrl);
-                                   }
+       var embedUrl = "https://www.youtube.com/embed/";
+       var urlLinkParts = url.split('/');
+       embedUrl += urlLinkParts[urlLinkParts.length - 1];
+       return $sce.trustAsResourceUrl(embedUrl);
+    }
 
     function goToProfile() {
       $location.url("/profile")
     }
 
-    function goToEditWidget() {
-
+    function goToEditYouTubeWidget(uid) {
+      $location.url("/user/" + uid + "/youtube")
     }
 
   }

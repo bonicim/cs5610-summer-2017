@@ -1,3 +1,11 @@
-  <p> MALE WIDGETS {{model.maleWidgets}}</p>
+<div>
+  <h3>My ideal date</h3>
+  <p>{{model.maleWidgets.idealDate.text}}</p>
+</div>
 
-
+<div>
+  <a ng-click="model.addDate(model.uid, model.myuid)"
+     class="btn btn-primary btn-block">
+    Add to my Dates
+  </a>
+</div>

@@ -8,7 +8,11 @@
 
     vm.goToLogin = goToLogin;
     vm.goToRegister = goToRegister;
+    vm.goToLanding = goToLanding;
 
+    function goToLanding() {
+      $location.url("/");
+    }
     function goToLogin() {
       $location.url("/login");
     }

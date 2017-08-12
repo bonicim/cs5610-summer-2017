@@ -1,1 +1,13 @@
-<p>matchesfdafds {{model.matches}}</p>
+<div>
+  <h1>My Matches</h1>
+  <div ng-repeat="match in model.matches">
+    <ul>
+      <li>
+        <a ng-click="model.goToPublicPage(match._id, model.user._id)">
+          {{match.firstName}}, age {{match.age}}, favorite movie {{match.favoriteMovie}}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</div>

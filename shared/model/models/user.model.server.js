@@ -17,9 +17,31 @@ userModel.addWebsiteToUser = addWebsiteToUser;
 userModel.deleteWebsiteInUser = deleteWebsiteInUser;
 userModel.findUserByGoogleId = findUserByGoogleId;
 userModel.findUserByFacebookId = findUserByFacebookId;
+userModel.addDateToDateList = addDateToDateList;
 
 // allows api's to be exported to some service layer
 module.exports = userModel;
+
+function addDateToDateList(suitorId, destId) {
+  return userModel.findUserById({_id: destId})
+    .then(function (user) {
+      if (user) {
+        user.page.private.mates.push(suitorId);
+      }
+      user.save();
+      return userModel.findUserById({_id: suitorId})
+        .then(function (user) {
+          if (user) {
+            user.page.private.matches.push(destId)
+          }
+          return user.save();
+        })
+    })
+    .catch(function (err) {
+      console.log("Failed to add date:", err);
+      return err;
+    });
+}
 
 function createUser(user) {
   return userModel.create(user)

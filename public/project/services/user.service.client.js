@@ -14,9 +14,19 @@
       "checkLoggedIn": checkLoggedIn,
       "findUserById": findUserById,
       "findEligible": findEligible,
-      "getOmdbKey": getOmdbKey
+      "getOmdbKey": getOmdbKey,
+      "addDate": addDate
     };
     return api;
+
+    function addDate(suitorId, destId) {
+      var url = "/yapi/addDate";
+      var data = {suitorId: suitorId, destId: destId};
+      return $http.post(url, data)
+        .then(function (response) {
+          return response.data;
+        })
+    }
 
     function login(username, password) {
       var url = "/yapi/login";
