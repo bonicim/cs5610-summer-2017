@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A demo package.",
   "main": "server.js",
+  "engines": {
+    "node": "7.10.1"
+  },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
