@@ -11,13 +11,14 @@ app.delete("/yapi/widget/:widgetId", deleteWidget);
 app.post("/yapi/upload", upload.single('myFile'), uploadImage);
 
 app.post("/yapi/widget/widgetId/cond", findAllWidgetsForUserIdAndConditions);
-app.put("/yapi/widget/youtube/:uid", updateYouTubeWidgetByUser);
+app.put("/yapi/widget/profile/:uid", updateWidgetByUserByType);
 
-function updateYouTubeWidgetByUser(req, res) {
+function updateWidgetByUserByType(req, res) {
   var uid = req.params.uid;
   var widget = req.body.widget;
+  var type = req.body.type;
   widgetModel
-    .updateYouTubeWidgetByUser(uid, widget)
+    .updateWidgetByUserByType(uid, widget, type)
     .then(function (widget) {
       callback(widget, res);
     })

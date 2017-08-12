@@ -8,13 +8,14 @@
 
       "findWidgetById": findWidgetById,
       "findWidgetsByIdAndPageLocation": findWidgetsByIdAndPageLocation,
-      "updateYouTubeWidgetByUser": updateYouTubeWidgetByUser
+      "updateWidgetByUserByType": updateWidgetByUserByType
     };
     return api;
 
-    function updateYouTubeWidgetByUser(widget, uid) {
-      var url = "/yapi/widget/youtube/" + uid;
-      var data = {widget:widget};
+    function updateWidgetByUserByType(widget, uid, type) {
+      var url = "/yapi/widget/profile/" + uid;
+      var data = {widget: widget, type: type};
+      console.log("TYPE:", type);
       return $http.put(url, data)
         .then(
           function (response) {

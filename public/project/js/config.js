@@ -55,6 +55,19 @@
         controller: "EditWidgetController",
         controllerAs: "model"
       })
+      // Edit photo
+      .when("/user/:uid/photo", {
+        templateUrl: "views/page/templates/publicPages/widget-photo-edit.view.client.html",
+        controller: "EditWidgetController",
+        controllerAs: "model"
+      })
+      // Edit ideal date
+      .when("/user/:uid/date", {
+        templateUrl: "views/page/templates/publicPages/widget-date-edit.view.client.html",
+        controller: "EditWidgetController",
+        controllerAs: "model"
+      })
+
       // Test
       .when("/test", {
         templateUrl: "views/test/templates/test.page.html",

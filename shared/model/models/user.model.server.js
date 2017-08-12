@@ -49,7 +49,7 @@ function createUser(user) {
       var userId = createdUser._id;
       var profileImageWidget = {};
       profileImageWidget.pageLocation = "COMMON";
-      profileImageWidget.widgetType = "IMAGE";
+      profileImageWidget.widgetType = "PROFPHOTO";
       profileImageWidget.name = "Profile photo";
       profileImageWidget.width = 42;
       if (createdUser.isSuitor) {

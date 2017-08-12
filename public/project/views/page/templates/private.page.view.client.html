@@ -52,7 +52,15 @@
       <!--<p>In neque lectus, lobortis a varius a, hendrerit eget dolor. Fusce scelerisque, sem ut viverra sollicitudin, est turpis blandit lacus,-->
         <!--in pretium lectus sapien at est.-->
         <!--Integer pretium ipsum sit amet dui feugiat vitae dapibus odio eleifend.</p>-->
+
+      <div>
+        <a ng-click="model.goToEditPhotoWidget(model.user._id)"
+           class="btn btn-primary">
+          Change Photo
+        </a>
+      </div>
     </div>
+
     <div class="col-md-5 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
       <div class="skill" ng-switch="model.isSuitor.toString()">
         <div>

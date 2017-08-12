@@ -25,6 +25,9 @@
 
     vm.goToPublicPage = goToPublicPage;
     vm.goToEditYouTubeWidget = goToEditYouTubeWidget;
+    vm.goToEditPhotoWidget = goToEditPhotoWidget;
+    vm.goToEditIdealDateWidget = goToEditIdealDateWidget;
+
     // vm.goToSuitorPublicPage = goToSuitorPublicPage;
     // vm.goToMatchPublicPage = goToMatchPublicPage;
     vm.goToProfile = goToProfile;
@@ -102,6 +105,14 @@
 
     function goToPublicPage(userId, myId) {
       $location.url("/user/public/" + userId + "/" + myId);
+    }
+
+    function goToEditPhotoWidget(uid) {
+      $location.url("/user/" + uid + "/photo")
+    }
+
+    function goToEditIdealDateWidget(uid) {
+      $location.url("/user/" + uid + "/date")
     }
 
     function goToEditYouTubeWidget(uid) {
