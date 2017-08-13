@@ -1,14 +1,14 @@
 var app = require('../../express');
 var widgetModel = require('../model/widget/widget.model.server');
-var multer = require('multer');
-var upload = multer({ dest: __dirname + '/../../../public/project/uploads'});
+// var multer = require('multer');
+// var upload = multer({ dest: __dirname + '/../../../public/project/uploads'});
 
 app.post("/yapi/user/:userId/widget", createWidget);
 app.get("/yapi/user/:userId/widget", findAllWidgetsForUser);
 app.get("/yapi/widget/:widgetId", findWidgetById);
 app.put("/yapi/widget/:widgetId", updateWidget);
 app.delete("/yapi/widget/:widgetId", deleteWidget);
-app.post("/yapi/upload", upload.single('myFile'), uploadImage);
+// app.post("/yapi/upload", upload.single('myFile'), uploadImage);
 
 app.post("/yapi/widget/widgetId/cond", findAllWidgetsForUserIdAndConditions);
 app.put("/yapi/widget/profile/:uid", updateWidgetByUserByType);
@@ -107,64 +107,64 @@ function deleteWidget(req, res) {
     );
 }
 
-//TODO: need to fix when doing front end
-function uploadImage(req, res) {
-  var widgetId      = req.body.widgetId;
-  var width         = req.body.width;
-  var myFile        = req.file;
-  var userId        = req.body.userId;
-  var websiteId     = req.body.websiteId;
-  var pageId        = req.body.pageId;
-
-  var uploadDetails = {
-    originalname: myFile.originalname, // file name on user's computer
-    filename:       myFile.filename,     // new file name in upload folder
-    path:           myFile.path,         // full path of uploaded file
-    destination:    myFile.destination,  // folder where file is saved to
-    size:           myFile.size,
-    mimetype:       myFile.mimetype
-  };
-
-  // updates the url for the given widget
-  widgetModel
-    .findWidgetById(widgetId)
-    .then(
-      // the returned object is not a JSON.
-      function (widget) {
-        if (widget) {
-          var callbackUrl =
-            "/public/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
-          updateUrlWidget(widget, res, uploadDetails.filename, callbackUrl);
-        }
-        else {
-          res.sendStatus(400).send("Bad input. Widget could not be found.");
-        }
-      }
-    )
-    .catch(function (err) {
-      handleError(err, res);
-    });
-}
-
-function updateUrlWidget(widget, res, filename, callbackUrl) {
-  widget[0].url = '/public/assignment/uploads/' + filename;
-  widgetModel
-    .updateWidget(widget[0].id, widget[0])
-    .then(
-      function (newWidget) {
-        //callback(newWidget, res);
-        if (newWidget) {
-          console.log("New widget is: " + JSON.stringify(newWidget));
-          res.redirect(callbackUrl);
-        } else {
-          res.sendStatus(400).send("Bad input. Widget could not be found and updated.");
-        }
-      }
-    )
-    .catch(function (err) {
-      handleError(err, res);
-    })
-}
+// //TODO: need to fix when doing front end
+// function uploadimage(req, res) {
+//   var widgetid      = req.body.widgetid;
+//   var width         = req.body.width;
+//   var myfile        = req.file;
+//   var userid        = req.body.userid;
+//   var websiteid     = req.body.websiteid;
+//   var pageid        = req.body.pageid;
+//
+//   var uploaddetails = {
+//     originalname: myfile.originalname, // file name on user's computer
+//     filename:       myfile.filename,     // new file name in upload folder
+//     path:           myfile.path,         // full path of uploaded file
+//     destination:    myfile.destination,  // folder where file is saved to
+//     size:           myfile.size,
+//     mimetype:       myfile.mimetype
+//   };
+//
+//   // updates the url for the given widget
+//   widgetmodel
+//     .findwidgetbyid(widgetid)
+//     .then(
+//       // the returned object is not a json.
+//       function (widget) {
+//         if (widget) {
+//           var callbackurl =
+//             "/public/assignment/#/user/" + userid + "/website/" + websiteid + "/page/" + pageid + "/widget/" + widgetid;
+//           updateurlwidget(widget, res, uploaddetails.filename, callbackurl);
+//         }
+//         else {
+//           res.sendstatus(400).send("bad input. widget could not be found.");
+//         }
+//       }
+//     )
+//     .catch(function (err) {
+//       handleerror(err, res);
+//     });
+// }
+//
+// function updateUrlWidget(widget, res, filename, callbackUrl) {
+//   widget[0].url = '/public/assignment/uploads/' + filename;
+//   widgetModel
+//     .updateWidget(widget[0].id, widget[0])
+//     .then(
+//       function (newWidget) {
+//         //callback(newWidget, res);
+//         if (newWidget) {
+//           console.log("New widget is: " + JSON.stringify(newWidget));
+//           res.redirect(callbackUrl);
+//         } else {
+//           res.sendStatus(400).send("Bad input. Widget could not be found and updated.");
+//         }
+//       }
+//     )
+//     .catch(function (err) {
+//       handleError(err, res);
+//     })
+// }
 
 function findAllWidgetsForUserIdAndConditions(req, res) {
   var cond = req.body;
