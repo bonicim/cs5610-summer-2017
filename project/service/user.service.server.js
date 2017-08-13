@@ -19,19 +19,19 @@ app.post('/yapi/login', passport.authenticate('local'), login); //passport will 
 app.post('/yapi/logout', logout);
 
 // outgoing to google, passport redirect to google
-app.get('/yauth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-// endpoint created for google callback, passport handles callback
-app.get('/yauth/google/callback', passport.authenticate('google', {
-    successRedirect: '/public/project/index.html#/profile',
-    failureRedirect: '/public/project/index.html#/login'
-  }));
-
-app.get('/yauth/facebook', passport.authenticate('facebook', {scope: 'email'}));
-app.get('/yauth/facebook/callback',
-  passport.authenticate('facebook', {
-    successRedirect: '/public/project/index.html#/login',
-    failureRedirect: '/public/project/index.html#'
-  }));
+// app.get('/yauth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+// // endpoint created for google callback, passport handles callback
+// app.get('/yauth/google/callback', passport.authenticate('google', {
+//     successRedirect: '/public/project/index.html#/profile',
+//     failureRedirect: '/public/project/index.html#/login'
+//   }));
+//
+// app.get('/yauth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+// app.get('/yauth/facebook/callback',
+//   passport.authenticate('facebook', {
+//     successRedirect: '/public/project/index.html#/login',
+//     failureRedirect: '/public/project/index.html#'
+//   }));
 
 app.get("/yenv/omdb", getOmdb);
 
