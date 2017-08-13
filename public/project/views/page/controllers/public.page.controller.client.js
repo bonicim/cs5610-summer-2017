@@ -139,7 +139,7 @@
 
   }
 
-  function omdbService($http) {
+  function omdbService($https) {
     var api = {
       "searchMovieTitle": searchMovieTitle,
       "getMoviePoster": getMoviePoster
@@ -152,6 +152,7 @@
       console.log("calling 3rd party apiURL", url);
       return $http.get(url)
         .then(function (response) {
+          console.log("the movie object is:", response.data);
           return response.data;
         });
     }
