@@ -3,7 +3,7 @@
   <p>{{model.maleWidgets.idealDate.text}}</p>
 </div>
 
-<div ng-if="model.isSuitor">
+<div ng-if="model.myuid !== model.uid">
   <a ng-click="model.addDate(model.uid, model.myuid)"
      class="btn btn-primary btn-block">
     Add to my Dates
