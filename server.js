@@ -30,7 +30,7 @@ app.use(passport.session()); // Step 4:
 require('./shared/app');
 
 // assignment services
-require('./assignment/app');
+// require('./assignment/app');
 
 // project app services
 require('./project/app');
