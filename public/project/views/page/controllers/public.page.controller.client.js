@@ -139,7 +139,7 @@
 
   }
 
-  function omdbService($https) {
+  function omdbService($http) {
     var api = {
       "searchMovieTitle": searchMovieTitle,
       "getMoviePoster": getMoviePoster
