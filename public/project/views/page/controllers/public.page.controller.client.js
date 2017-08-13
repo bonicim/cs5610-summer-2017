@@ -146,7 +146,6 @@
     return api;
 
     function searchMovieTitle(title, key) {
-      // todo: put key in env variable
       var url = "http://www.omdbapi.com/?t="+title+"&apikey="+key+"";
       console.log("key", key);
       console.log("URL", url);
@@ -154,17 +153,14 @@
         .then(function (response) {
           return response.data;
         })
-
     }
 
     function getMoviePoster(imdbId, key) {
-      // todo: put key in env variable
           var url = "http://img.omdbapi.com/?i="+imdbId+"&h=600&apikey="+key+"";
           return $http.get(url)
             .then(function (response) {
               return response.data;
             })
-
     }
 
   }
