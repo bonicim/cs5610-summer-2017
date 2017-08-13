@@ -1,0 +1,12 @@
+Database : MongoDb through mLab; mongoose
+
+Front-end: Bootstrap theme from Business Bootstrap Themes by Boostrapmade, font-awesome
+
+Front-end routing: Angular-route
+
+Third party API: http://www.omdbapi.com/?apikey=[yourkey]&
+
+
+
+
+
