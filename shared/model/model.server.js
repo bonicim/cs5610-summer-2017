@@ -12,8 +12,8 @@ mongoose.Promise = require('q').Promise;
 var connectionString = undefined;
 var connectionResponse = undefined;
 
-if (process.env.MONGODB_URI) {
-  connectionString = process.env.MONGODB_URI;
+if (process.env.MONGOLAB_YELLOW_URI) {
+  connectionString = process.env.MONGOLAB_YELLOW_URI;
   connectionResponse = "Connected to REMOTE mongodb: ";
 }
 else {
