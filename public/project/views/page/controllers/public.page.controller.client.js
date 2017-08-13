@@ -85,6 +85,7 @@
           console.log("fav movie is: ", vm.user.favoriteMovie);
           UserService.getOmdbKey()
             .then(function (key) {
+              console.log("The key is:", key);
               OmdbService.searchMovieTitle(vm.user.favoriteMovie, key)
                 .then(function (movie) {
                   vm.movie = movie;
@@ -147,12 +148,12 @@
 
     function searchMovieTitle(title, key) {
       var url = "http://www.omdbapi.com/?t="+title+"&apikey="+key+"";
-      console.log("key", key);
-      console.log("URL", url);
+      console.log(" inside 3rd party api: KEY:", key);
+      console.log("calling 3rd party apiURL", url);
       return $http.get(url)
         .then(function (response) {
           return response.data;
-        })
+        });
     }
 
     function getMoviePoster(imdbId, key) {
@@ -160,7 +161,7 @@
           return $http.get(url)
             .then(function (response) {
               return response.data;
-            })
+            });
     }
 
   }
