@@ -22,7 +22,7 @@ var LocalStrategy = require('passport-local').Strategy;
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
 passport.use(new LocalStrategy(localStrategy)); // passport will authenticate based on strategy defined by 'localStrategy' function
-passport.use(new GoogleStrategy(googleConfig, googleStrategy));
+// passport.use(new GoogleStrategy(googleConfig, googleStrategy));
 // passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
 module.exports = passport;
