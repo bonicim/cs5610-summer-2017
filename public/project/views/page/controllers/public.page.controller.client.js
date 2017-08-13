@@ -88,14 +88,8 @@
               OmdbService.searchMovieTitle(vm.user.favoriteMovie, key)
                 .then(function (movie) {
                   vm.movie = movie;
+                  console.log("The movie is: ", movie);
                 })
-                .then(function () {
-                  OmdbService.getMoviePoster(vm.movie.imdbID, key)
-                    .then(function (poster) {
-                      $window.poster.src = poster;
-                    })
-
-                });
             });
         })
     }

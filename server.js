@@ -32,7 +32,5 @@ require('./shared/app');
 // assignment services
 // require('./assignment/app');
 
-
-
 // project app services
 require('./project/app');
