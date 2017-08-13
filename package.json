@@ -4,7 +4,8 @@
   "description": "A demo package.",
   "main": "server.js",
   "engines": {
-    "node": "7.10.1"
+    "node": "7.10.1",
+    "npm": "4.2.0"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
